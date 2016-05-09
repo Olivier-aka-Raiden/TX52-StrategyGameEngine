@@ -8,11 +8,10 @@ import org.jbox2d.dynamics.Body;
 
 public class EnvironmentObject {
 	
-	protected Point2f position;
 	protected Rectangle2f box;
 	protected UUID id;
-	protected Body body; //utile ?
-	// pas besoin du type objectType. On utilisera l'héritage 
+	protected Body body;
+	protected TreeNode node;
 	
 	/**
 	 * creation of the object with his position (x,y)
@@ -23,8 +22,8 @@ public class EnvironmentObject {
 	public EnvironmentObject(float x, float y, UUID id) { 
 		this.id = id;
 		if(id==null)id=UUID.randomUUID();
-		this.position = new Point2f(x, y);
-		this.box = new Rectangle2f(position,position);
+		Point2f position = new Point2f(x, y);
+		this.box = new Rectangle2f(position,position); //a modifier
 	}
 	
 	/**
@@ -39,7 +38,6 @@ public class EnvironmentObject {
 		if(id==null)id=UUID.randomUUID();
 		box = new Rectangle2f(x,y,width,height);
 		box.setFromCenter(x,y,x+width/2,y+height/2);
-		position = new Point2f(box.getCenterX(),box.getCenterY());
 	}
 	
 	public Rectangle2f getBox() {
@@ -49,16 +47,14 @@ public class EnvironmentObject {
 		this.box = box;
 	}
 	public Point2f getPosition() {
+		Point2f position = new Point2f(body.m_xf.p.x,body.m_xf.p.y);
 		return position;
-	}
-	public void setPosition(Point2f position) {
-		this.position = position;
 	}
 	
 	@Override	
 	public String toString(){
 		
-		return "UUID : " + id + "   Position : (" + position.getX() + "," + position.getY() + ")";
+		return "UUID : " + id + "   Position : (" + getPosition().getX() + "," + getPosition().getY() + ")";
 		
 	}
 	

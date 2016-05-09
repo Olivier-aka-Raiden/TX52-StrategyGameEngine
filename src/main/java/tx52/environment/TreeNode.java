@@ -10,6 +10,7 @@ public class TreeNode {
 	private Rectangle2f box;
 	private ArrayList<EnvironmentObject> objects;
 	private TreeNode[] children = null;
+	private TreeNode parent = null;
 	
 
 	TreeNode(Rectangle2f box) {  //Création d'une branche de l'arbre en lui indiquant sa portée (via un rectangle2f)
@@ -24,11 +25,13 @@ public class TreeNode {
 	public void add(EnvironmentObject o) {
 		if(objects.size()<15 && getChildren()== null){  //15 is an arbitrary max number of object
 			objects.add(o);
+			o.node=this;
 		}else{
 			if(getChildren()==null){
 				setChildren(new TreeNode[4]); //4 is an arbitrary number of child
 				for(int i=0;i<4;i++){
 					getChildren()[i]=new TreeNode(createChildBox(i));
+					getChildren()[i].parent = this;
 				}
 			}
 			
@@ -60,16 +63,18 @@ public class TreeNode {
 		int index=0;
 		int n=0;
 		
-		for(int i=0;i<4;i++){  //TODO define 4 as a parameter
-			if(getChildren()[i].getBox().intersects(e.getBox())){ //TODO bonne utilisation de la fonction intersects 
+		for(int i=0;i<4;i++){  //4 is a parameter
+			if(getChildren()[i].getBox().intersects(e.getBox())){
 				n++;
 				index=i;
 			}
 		}
 		if(n==1){
-			getChildren()[index].add(e);;
+			getChildren()[index].add(e);
+			e.node=getChildren()[index];
 		}else{
 			objects.add(e);
+			e.node=this;
 		}
 		//TODO need a way to determine where is an object when it's in 2 part of the tree
 		/*for(EnvironmentObject o : objects){

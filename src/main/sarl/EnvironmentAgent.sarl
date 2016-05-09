@@ -31,7 +31,7 @@ agent EnvironmentAgent { //TODO récupérer le code d'IA54 et l'adapter
 		var objects = <EnvironmentObject>newArrayList(new StaticObject(2,2,1,1,null,environment.getjBoxWorld))
 		objects.add(new StaticObject(10,10,5,5,null,environment.getjBoxWorld))
 		for(var f=20;f<90;f+=5){
-			objects.add(new DynamicObject(f,f,2,2,null,environment.getjBoxWorld))// null in UUID field indicate that the body isn't created by his agent
+			objects.add(new DynamicObject(f,f,2,null,environment.getjBoxWorld))// null in UUID field indicate that the body isn't created by his agent
 		}
 		environment.addObjectToWorld(objects)
 		
