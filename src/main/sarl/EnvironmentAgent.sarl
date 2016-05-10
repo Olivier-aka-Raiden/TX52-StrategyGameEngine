@@ -7,6 +7,7 @@ import tx52.environment.Environment
 import tx52.environment.EnvironmentListener
 import tx52.environment.EnvironmentObject
 import tx52.environment.StaticObject
+import tx52.gui.Window
 
 /**
  * @author Olivier
@@ -17,6 +18,7 @@ agent EnvironmentAgent { //TODO récupérer le code d'IA54 et l'adapter
 	uses Logging
 	uses DefaultContextInteractions
 	var environment : Environment
+	var window : Window
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
 //	val actions = <environmentChangeQuery>newLinkedList
@@ -26,6 +28,9 @@ agent EnvironmentAgent { //TODO récupérer le code d'IA54 et l'adapter
 		
 		//we create the environment
 		environment = new Environment()
+		
+		//we create the window
+		window = new Window(environment);
 		
 		//we create the objects
 		var objects = <EnvironmentObject>newArrayList(new StaticObject(2,2,1,1,null,environment.getjBoxWorld))

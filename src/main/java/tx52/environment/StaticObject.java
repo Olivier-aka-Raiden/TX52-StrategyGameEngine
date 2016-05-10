@@ -34,7 +34,7 @@ public class StaticObject extends EnvironmentObject {
 		fd.friction = 0.3f;        
 		fd.restitution = 0.5f;
 		
-		Body body =  w.createBody(bd);
+		body =  w.createBody(bd);
 		body.createFixture(fd);
 	}
 

@@ -17,7 +17,7 @@ public class Background extends JPanel
 	{
 		try
 		{
-			Image img = ImageIO.read(new File("D:\\SARL\\workspace\\TX52-StrategyGameEngine\\src\\images\\terrain.png"));
+			Image img = ImageIO.read(new File("src\\images\\terrain.png"));
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 		}
 		catch (IOException e)
