@@ -18,19 +18,16 @@ agent EnvironmentAgent { //TODO récupérer le code d'IA54 et l'adapter
 	uses Logging
 	uses DefaultContextInteractions
 	var environment : Environment
-	var window : Window
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
+	var GUI : Window
 //	val actions = <environmentChangeQuery>newLinkedList
 	
 	on Initialize{
-		println("\nTest")
 		
 		//we create the environment
 		environment = new Environment()
-		
-		//we create the window
-		window = new Window(environment);
+		GUI = new Window(environment)
 		
 		//we create the objects
 		var objects = <EnvironmentObject>newArrayList(new StaticObject(2,2,1,1,null,environment.getjBoxWorld))

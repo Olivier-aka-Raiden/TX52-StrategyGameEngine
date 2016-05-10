@@ -1,0 +1,22 @@
+import io.sarl.core.DefaultContextInteractions
+import io.sarl.core.Lifecycle
+import io.sarl.core.Initialize
+
+/**
+ * 
+ */
+
+/**
+ * @author Dudul
+ *
+ */
+agent Boot {
+	
+	uses DefaultContextInteractions, Lifecycle
+	
+	on Initialize{
+		spawn(typeof(EnvironmentAgent))
+		killMe
+	}
+	
+}
