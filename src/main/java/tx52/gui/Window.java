@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JScrollPane;
 
 import tx52.environment.Environment;
 
@@ -20,9 +21,15 @@ public class Window extends JFrame implements  Runnable {
 	Background bg;//background de la map
 	public Window(Environment environment){//World TBD
 		// Creation of the JPanel and his
+		
+		// background image
+		bg = new Background();
+		bg.setSize(new Dimension(1033,867));
 		//JLayeredPane : permet de représenter nos objets sur différentes couches
 		JLayeredPane jlp = new JLayeredPane();
 		jlp.setOpaque(false);
+		jlp.setPreferredSize(new Dimension(bg.getWidth(),bg.getHeight()));
+		
 
 		// Create the HUB
 		displayer = new Hub(environment);
@@ -30,9 +37,9 @@ public class Window extends JFrame implements  Runnable {
 		//Create the log area
 		log = new EventLog (environment);
 
-		// Create background image
-		bg = new Background();
-		bg.setSize(new Dimension(800,600));
+		
+		
+		
 		// Create objects image
 		/*for (objectList obj : EnvMap)
 		{
@@ -42,15 +49,18 @@ public class Window extends JFrame implements  Runnable {
 
 		// Add the images to the JLayeredPane with a different deep level
 		jlp.add(bg, new Integer(1));//plus integer est grand grand, plus c'est avancé
-
+		
+		//JscrollPane
+		JScrollPane scrollPane = new JScrollPane(jlp);
+		scrollPane.setSize(new Dimension(800,600));
 		this.setTitle("RTS Game Engine");
-		this.setSize(new Dimension(bg.getWidth()+displayer.getWidth(),bg.getHeight()+log.getHeight()));
+		this.setSize(new Dimension(scrollPane.getWidth()+displayer.getWidth(),scrollPane.getHeight()+log.getHeight()));
 		this.setResizable(false);
 		this.setLocationRelativeTo(null); // JFrame in the center of the window
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Add the JLayeredPane to the frame
-		this.add(jlp, BorderLayout.CENTER);
+		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(displayer, BorderLayout.EAST);
 		this.add(log, BorderLayout.SOUTH);
 		this.setVisible(true);
