@@ -37,7 +37,7 @@ public class EnvMap {
 	 * Initialisation
 	 * @param objects
 	 */
-	EnvMap(Collection<EnvironmentObject> objects){
+	public EnvMap(Collection<EnvironmentObject> objects){
 		objectList = new RTree(objects,new Rectangle2f(0,0,width,height));
 	}
 

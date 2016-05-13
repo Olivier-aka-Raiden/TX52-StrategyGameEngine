@@ -1,23 +1,19 @@
-import tx52.environment.EnvironmentObject
 import java.util.List
 import java.util.UUID
 import org.arakhne.afc.math.continous.object2d.Point2f
 import org.arakhne.afc.math.continous.object2d.Vector2f
-
-/**
- * 
- */
+import tx52.environment.EnvironmentObject
 
 /**
  * @author Olivier
  *
  */
 event Perception {
-	val time : int
+	val time : float
 	val objects : List<EnvironmentObject>
 	val pos : Point2f
 	val bodyId : UUID
-	new (time : int, bodyID : UUID, objects : List<EnvironmentObject>, pos : Point2f){
+	new (time : float, bodyID : UUID, objects : List<EnvironmentObject>, pos : Point2f){
 		this.time = time
 		this.bodyId = bodyID
 		this.objects = objects

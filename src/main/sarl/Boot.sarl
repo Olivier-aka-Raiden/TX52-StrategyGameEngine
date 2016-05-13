@@ -1,10 +1,6 @@
 import io.sarl.core.DefaultContextInteractions
-import io.sarl.core.Lifecycle
 import io.sarl.core.Initialize
-
-/**
- * 
- */
+import io.sarl.core.Lifecycle
 
 /**
  * @author Dudul

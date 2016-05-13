@@ -14,8 +14,10 @@ public class RTree {
 	 */
 	RTree(Collection<EnvironmentObject> objects,Rectangle2f box){
 		setRoot(new TreeNode(new Rectangle2f(box)));
-		for( EnvironmentObject o : objects){
-			getRoot().add(o);
+		if(objects!=null){
+			for( EnvironmentObject o : objects){
+				getRoot().add(o);
+			}
 		}
 	}
 
