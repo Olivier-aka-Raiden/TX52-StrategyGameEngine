@@ -31,7 +31,7 @@ public class DynamicObject extends EnvironmentObject{
 	 * @param agentId
 	 * @param w
 	 */
-	public DynamicObject(float x, float y,float width,float height,UUID agentId,World w){
+	public DynamicObject(float x, float y,float width,float height,UUID agentId,World w,EnvMap map){
 		super(x,y,width,height,agentId);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x, y);
@@ -81,7 +81,7 @@ public class DynamicObject extends EnvironmentObject{
 	 * @param agentId
 	 * @param w
 	 */
-	public DynamicObject(float x, float y,float radius,UUID agentId,World w){
+	public DynamicObject(float x, float y,float radius,UUID agentId,World w,EnvMap map){
 		super(x,y,agentId);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x, y);

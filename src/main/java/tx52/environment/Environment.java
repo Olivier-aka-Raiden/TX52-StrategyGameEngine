@@ -2,6 +2,7 @@ package tx52.environment;
 
 import java.util.Collection;
 
+import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -30,13 +31,12 @@ public class Environment {
 	 * @param objects
 	 */
 	public void addObjectToWorld(Collection<EnvironmentObject> objects) {
-		if(this.world!=null){	
+		if(this.world.getObjectList()!=null){
 			this.world.addObjects(objects);
 		}else{
-			this.world = new EnvMap(objects);
+			this.world.setObjectList(new RTree(objects,new Rectangle2f(0,0,1,1)));
 		}
 	}
-
 	public World getjBoxWorld() {
 		return jBoxWorld;
 	}
@@ -58,7 +58,7 @@ public class Environment {
 	 */
 	public void printMap(){
 		
-		System.out.printf("Map size : Width=%f Height=%f\n\n",EnvMap.width,EnvMap.height);
+		System.out.printf("Map size : Width=%f Height=%f\n\n",world.getWidth(),world.getHeight());
 		System.out.println("Status of the RTree :");
 		System.out.println("--Root--");
 		

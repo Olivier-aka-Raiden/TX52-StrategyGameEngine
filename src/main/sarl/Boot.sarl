@@ -15,7 +15,7 @@ agent Boot {
 	uses DefaultContextInteractions, Lifecycle
 	
 	on Initialize{
-		spawn(typeof(EnvironmentAgent))
+		//spawn(typeof(EnvironmentAgent))
 		killMe
 	}
 	

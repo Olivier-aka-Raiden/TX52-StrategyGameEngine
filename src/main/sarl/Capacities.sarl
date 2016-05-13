@@ -7,6 +7,8 @@ import tx52.environment.AgentBody
 import tx52.environment.EnvMap
 import tx52.environment.EnvironmentObject
 import tx52.environment.RTree
+import tx52.environment.Environment
+import tx52.gui.Window
 
 /**
  * 
@@ -40,6 +42,13 @@ capacity MapManager {
 	/** Replies a specific body */
 	def getAgentBody(id : UUID) : AgentBody
 	
+	/** Create basic Unit */
+	def createUnit(perceptionDistance : float) : AgentBody
+	
+	def RunJbox
+	
+	def updateWindow
+	
 }
 
 capacity EndOfTurn {
@@ -53,7 +62,8 @@ skill DefaultMapManagerSkill implements MapManager {
 	val height : float
 	
 	/** EnvMap or environment?? */ 
-	var map : EnvMap
+	var environment : Environment
+	var GUI : Window
 	
 	new (width : float, height : float) {
 			this.width = width
@@ -62,7 +72,9 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	override install {
 		/**where is the constructor of the map according to its size? */
-		/**this.Map = new EnvMap(this.width,this.height)*/
+		this.environment = new Environment();
+		this.environment.world = new EnvMap(this.width,this.height)
+		GUI = new Window(this.environment)
 	}
 	
 	override getBodyCount : int {
@@ -101,11 +113,11 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	override getPerceptions : Map<AgentBody, List<EnvironmentObject>> {
 		var perceptions = new TreeMap
-		for (body : this.map.agentBodies) {
+		for (body : this.environment.world.agentBodies) {
 			var percepts = newArrayList
 			var d = body.perceptionDistance
 			var p = body.position
-			var obj = this.map.getObjectAt(p.getX(),p.getY(),d)
+			var obj = this.environment.world.getObjectAt(p.getX(),p.getY(),d)
 			if (obj != null){
 				percepts += obj
 			}
@@ -123,13 +135,29 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override getAllObjects : RTree {
-		this.map.getObjectList()
+		this.environment.world.getObjectList()
 		
 	}
 	
 	override getAgentBody(id : UUID) : AgentBody {
 		// TODO Auto-generated action.
-		this.map.getAgentBody(id)
+		this.environment.world.getAgentBody(id)
+	}
+	
+	override createUnit(perceptionDistance : float) : AgentBody {
+		// TODO Auto-generated action.
+		this.environment.world.createBody(typeof(AgentBody),null,this.environment.getjBoxWorld(),perceptionDistance)
+	
+	}
+	
+	override RunJbox {
+		// TODO Auto-generated action.
+		this.environment.runJBox()
+	}
+	
+	override updateWindow {
+		// TODO Auto-generated action.
+		this.GUI.updateWindow()
 	}
 	
 }

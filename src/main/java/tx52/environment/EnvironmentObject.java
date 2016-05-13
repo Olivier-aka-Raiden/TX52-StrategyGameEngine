@@ -12,6 +12,7 @@ public class EnvironmentObject {
 	protected UUID id;
 	protected Body body;
 	protected TreeNode node;
+	protected Point2f position;
 	
 	/**
 	 * creation of the object with his position (x,y)
@@ -22,7 +23,7 @@ public class EnvironmentObject {
 	public EnvironmentObject(float x, float y, UUID id) { 
 		this.id = id;
 		if(id==null)id=UUID.randomUUID();
-		Point2f position = new Point2f(x, y);
+		position = new Point2f(x, y);
 		this.box = new Rectangle2f(position,position); //a modifier
 	}
 	
@@ -50,6 +51,14 @@ public class EnvironmentObject {
 		Point2f position = new Point2f(body.m_xf.p.x,body.m_xf.p.y);
 		return position;
 	}
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
 	
 	@Override	
 	public String toString(){
