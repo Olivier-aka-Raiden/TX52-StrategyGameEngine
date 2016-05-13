@@ -16,7 +16,7 @@ public class StaticObject extends EnvironmentObject {
 		super(x,y,id);
 	}
 
-	public StaticObject(float x, float y,float width,float height,UUID id,World w){
+	public StaticObject(float x, float y,float width,float height,UUID id,World w,EnvMap map){
 		super(x,y,width,height,id);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x,y);  

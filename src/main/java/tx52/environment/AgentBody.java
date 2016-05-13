@@ -6,18 +6,19 @@ import java.util.UUID;
 import org.arakhne.afc.math.continous.object2d.Circle2f;
 import org.jbox2d.dynamics.World;
 
-public abstract class AgentBody extends DynamicObject{
+// A mettre abstract une fois différentes unités créées et passer ces unités en constructeur de createBody()
+public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	
 	private final UUID agentId;
 	private final float perceptionDistance;
 	
-	AgentBody (float x, float y,float width,float height,UUID agentId,World w, float perceptionDistance) {
-		super (x,y,width,height,agentId,w);
+	public AgentBody (float x, float y,float radius,UUID agentId,World w,EnvMap map, float perceptionDistance) {
+		super (x,y,radius,agentId,w,map);
 		this.perceptionDistance = perceptionDistance;
 		this.agentId = agentId;
 	}
 
-	public UUID getAgentId() {
+		public UUID getAgentId() {
 		return agentId;
 	}
 
@@ -50,6 +51,17 @@ public abstract class AgentBody extends DynamicObject{
 		
 		
 		return percept;
+}
 		
+
+	@Override
+	public int compareTo(AgentBody o) {
+		if (o == this) {
+			return 0; 
+		}
+		if (o == null) {
+			return Integer.MAX_VALUE;
+		}
+		return getAgentId().compareTo(o.getAgentId());
 	}
 }

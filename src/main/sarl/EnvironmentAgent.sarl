@@ -1,14 +1,13 @@
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
+import io.sarl.core.Logging
 import io.sarl.util.Scopes
+
 import tx52.environment.DynamicObject
 import tx52.environment.Environment
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.EnvironmentListener
-import tx52.environment.EnvironmentObject
-import tx52.environment.StaticObject
-import tx52.gui.Window
 
 /**
  * @author Olivier
@@ -19,40 +18,21 @@ agent EnvironmentAgent {
 	uses DefaultContextInteractions, Lifecycle
 	uses MapManager, EndOfTurn
 	
-	var environment : Environment
+	uses Logging
+	uses DefaultContextInteractions,MapManager
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
-	var GUI : Window
-	val actions = <EnvironmentChangeQuery>newLinkedList
-//	var player : Player
-//	var controller : Controller	
+//	val actions = <environmentChangeQuery>newLinkedList
 	
 	on Initialize{
 		
-		/** parametres
-		 * 	var width = occurrence.parameters.get(0) as Integer
-		 *  var height = occurrence.parameters.get(1) as Integer
-		 */
-		
-		
-		
-		//set skills
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(100,100))
-		setSkill(typeof(EndOfTurn), new DefaultEndOfTurnSkill())
-		
-		
-		//we create the environment
-		environment = new Environment()
-		GUI = new Window(environment)
-		
+		//we create the environment *in the skill*
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200, 300))
+
 		//we create the objects
-		var objects = <EnvironmentObject>newArrayList(new StaticObject(2,2,1,1,null,environment.getjBoxWorld))
-		objects.add(new StaticObject(10,10,5,5,null,environment.getjBoxWorld))
-		for(var f=20;f<90;f+=5){
-			objects.add(new DynamicObject(f,f,2,null,environment.getjBoxWorld))// null in UUID field indicate that the body isn't created by his agent
+		for (var i=0;i<20;i++) {
+			var u = createUnit(3)
 		}
-		environment.addObjectToWorld(objects)
-		
 		/*we create the agent and they will create their body ?
 		* I'm not sure about this because an agent cannot access the world. In this case they should ask for the creation of they body
 		* maybe it's easier to create the body and the agent separately and then, link them.
@@ -60,9 +40,8 @@ agent EnvironmentAgent {
 		
 		fireEnvironmentChange
 		
-		environment.printMap()
+		
 		emit(new RunBeginingOfStep)
-		environment.printMap()
 	}
 	/**
 	 * make a copy of the environment and send it to the GUI + wake up all listeners
@@ -84,7 +63,7 @@ agent EnvironmentAgent {
 	def getEnvironmentObjects() { //only for fireEnvironmentChanged ?
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
-	
+/* 
 	on Influence [occurrence.time >= time] {
 		synchronized(this) {
 			this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector)
@@ -94,19 +73,19 @@ agent EnvironmentAgent {
 			}
 		}
 	}
-
+*/
 	/** 
 	* initialize the turn (update world state, give perceptions to AI, fire all the agents, *increase time) *or in endOfStep 
 	*/
 	on RunBeginingOfStep {
-
-		synchronized(this) {
-			
-			this.actions.clear
-//			 recupere les perceptions
-			for (e : getPerceptions().entrySet) {
-				sendPerception(this.time, e.key.agentId, e.value, e.key.position)
-			}
+		
+		//TODO write RunBeginingOfStep
+		
+		//test
+		RunJbox; //1 step of simulation
+		updateWindow;
+		
+		synchronized(this){
 			
 					//test
 		//environment.runJBox() //1 step of simulation
