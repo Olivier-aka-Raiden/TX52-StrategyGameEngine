@@ -7,4 +7,11 @@ public final class Perceivable {
 	public Perceivable(EnvironmentObject o) {
 		this.obj = o;
 	}
+	
+	@Override	
+	public String toString(){
+		
+		return obj.toString();
+		
+	} 
 }

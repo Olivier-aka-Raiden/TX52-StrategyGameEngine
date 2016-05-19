@@ -1,6 +1,7 @@
 package tx52.environment;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -45,17 +46,28 @@ public class EnvMap {
 	public EnvMap(float width,float height){
 		this.width = width;
 		this.height = height;
+		this.objectList = new RTree(null,new Rectangle2f(0,0,width,height)); 
 
 	}
 
 	/**
-	 * Add an object
+	 * Add a collection of object
 	 * @param objects
 	 */
 	public void addObjects(Collection<EnvironmentObject> objects) {
 		for( EnvironmentObject o : objects){
 			objectList.getRoot().add(o);
 		}
+	}
+	
+	/**
+	 * add a single object
+	 * @param object
+	 */
+	public void addObjects(EnvironmentObject object) {
+		
+			objectList.getRoot().add(object);
+		
 	}
 	
 	/** Replies the number of bodies in the map
@@ -109,21 +121,22 @@ public class EnvMap {
 		Constructor<T> cons = bodyType.getDeclaredConstructor(float.class, float.class, float.class, UUID.class,World.class,EnvMap.class, float.class);
 		T body = cons.newInstance(x, y, 2, id,w, this, perceptionDistance);
 		this.bodies.put(id, body);
+		addObjects(body);
 
 		return body;
 	}
 
 	private boolean canMoveInside(int x, int y) {
-		// TODO Auto-generated method stub
-		return (x>=10 && y>=10 && x<width-10 && y<height-10);
+		
+		return (x>=10 && y>=10 && x<width-30 && y<height-50);
 	}
 
 	public float getHeight() {
-		// TODO Auto-generated method stub
+		
 		return this.height;
 	}
 	public float getWidth() {
-		// TODO Auto-generated method stub
+		
 		return this.width;
 	}
 

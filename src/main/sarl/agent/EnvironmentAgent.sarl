@@ -1,12 +1,9 @@
+package ^agent
+
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
 import io.sarl.core.Logging
-import io.sarl.util.Scopes
-
-import tx52.environment.DynamicObject
-import tx52.environment.Environment
-import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.EnvironmentListener
 
 /**
@@ -16,10 +13,8 @@ import tx52.environment.EnvironmentListener
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
-	uses MapManager, EndOfTurn
+	uses MapManager, EndOfTurn, Logging
 	
-	uses Logging
-	uses DefaultContextInteractions,MapManager
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
 //	val actions = <environmentChangeQuery>newLinkedList
@@ -27,11 +22,11 @@ agent EnvironmentAgent {
 	on Initialize{
 		
 		//we create the environment *in the skill*
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200, 300))
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,300))
 
 		//we create the objects
-		for (var i=0;i<20;i++) {
-			var u = createUnit(3)
+		for (var i=0;i<60;i++) {
+			var u = createUnit(10)
 		}
 		/*we create the agent and they will create their body ?
 		* I'm not sure about this because an agent cannot access the world. In this case they should ask for the creation of they body
@@ -57,12 +52,6 @@ agent EnvironmentAgent {
 		}*/
 	}
 	
-	/**
-	 * 
-	 */
-	def getEnvironmentObjects() { //only for fireEnvironmentChanged ?
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
 /* 
 	on Influence [occurrence.time >= time] {
 		synchronized(this) {
@@ -80,18 +69,15 @@ agent EnvironmentAgent {
 	on RunBeginingOfStep {
 		
 		//TODO write RunBeginingOfStep
-		
-		//test
-		RunJbox; //1 step of simulation
-		updateWindow;
-		
+
 		synchronized(this){
-			
-					//test
-		//environment.runJBox() //1 step of simulation
+				RunJbox //1 step of simulation
+				updateWindow
+				printTree
+				sendPerceptions(this.time)
+				
+
 		}
-
-
 	}
 	
 	/**
@@ -99,11 +85,13 @@ agent EnvironmentAgent {
 	 * update world state, update the position of all objects, move to next step
 	*/	
 	on RunEndOfStep {
-		//TODO write RunBeginingOfStep
+		
 		synchronized(this) {
 			
 		}
 	}
+	
+	
 	def fireGameOver {
 		for (listener : this.listeners) {
 			listener.gameOver()

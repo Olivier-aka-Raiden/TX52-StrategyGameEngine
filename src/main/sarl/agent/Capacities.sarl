@@ -1,6 +1,7 @@
+package ^agent
+
 import java.util.List
 import java.util.Map
-import java.util.TreeMap
 import java.util.UUID
 import org.arakhne.afc.math.continous.object2d.Point2f
 import tx52.environment.AgentBody
@@ -9,12 +10,15 @@ import tx52.environment.EnvironmentObject
 import tx52.environment.RTree
 import tx52.environment.Environment
 import tx52.gui.Window
-
+import tx52.environment.Perceivable
+import java.util.ArrayList
+import io.sarl.core.DefaultContextInteractions
 
 /**
  * @author Olivier
  *
  */
+ 
  /** Capacity to manage the map */
 capacity MapManager {
 	/** Replies the number of bodies in the map */
@@ -25,7 +29,7 @@ capacity MapManager {
 	def resolveInfluences (influences : List<Influence>) : boolean
 	
 	/** replies the perceptions */
-	def getPerceptions : Map<AgentBody, List<EnvironmentObject>>
+	def sendPerceptions (time : float)
 	
 	/** replies the width of the map. */
 	def getMapWidth : float
@@ -46,23 +50,28 @@ capacity MapManager {
 	
 	def updateWindow
 	
+	def printTree
+
+	
 }
 
 
 capacity EndOfTurn {
-	def sendPerception(time : float, bodyID : UUID, objects : List<EnvironmentObject>,position : Point2f)
+	def sendPerception(time : float, bodyID : UUID, objects : ArrayList<Perceivable>,position : Point2f)
 	
 }
 
 
 skill DefaultMapManagerSkill implements MapManager {
 	
+	uses DefaultContextInteractions
+	
 	val width : float
 	val height : float
 	
-	/** EnvMap or environment?? */ 
 	var environment : Environment
 	var GUI : Window
+	//var agentList : Map<UUID,agent>
 	
 	new (width : float, height : float) {
 			this.width = width
@@ -71,8 +80,7 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	override install {
 		/**where is the constructor of the map according to its size? */
-		this.environment = new Environment();
-		this.environment.world = new EnvMap(this.width,this.height)
+		this.environment = new Environment(this.width,this.height)
 		GUI = new Window(this.environment)
 	}
 	
@@ -102,7 +110,7 @@ skill DefaultMapManagerSkill implements MapManager {
 			}
 			
 		}
-		/**A partir de là je comprends pas */
+		/**A partir de là je ne comprends pas */
 		/** var resolvedMotions = new TreeMap
 		for (change : expectedMotions.entrySet) {
 			
@@ -113,19 +121,26 @@ skill DefaultMapManagerSkill implements MapManager {
 	/**
 	 * calcul de toutes les perceptions -> utile seulement pour le général
 	 */
-	override getPerceptions : Map<AgentBody, List<EnvironmentObject>> {
-		var perceptions = new TreeMap
+ 	override sendPerceptions(time : float) {
+		
 		for (body : this.environment.world.agentBodies) {
-			var percepts = newArrayList
-			var d = body.perceptionDistance
-			var p = body.position
-			var obj = this.environment.world.getObjectAt(p.getX(),p.getY(),d)
-			if (obj != null){
-				percepts += obj
+			
+			
+			var percevaibles = newArrayList
+			percevaibles = body.computePerception
+			var pos = body.position
+			
+			var perceptionEvent = new Perception(time,body.getAgentId,percevaibles,pos)
+			System.out.printf("\nPerception de l'UUID : "+body.getAgentId()+"\ntime: "+time+" position: " +pos);
+			System.out.printf("\nPercevaibles :\n");
+			for(per : percevaibles){
+				System.out.printf("object : "+per+"\n")
 			}
-			perceptions.put(body, percepts)
+			
+			//emit(perceptionEvent/* ,agentList.get  body.getAgentId*/)
+
 		}
-		return perceptions
+		
 	}
 	
 	override getMapWidth : float {
@@ -162,21 +177,23 @@ skill DefaultMapManagerSkill implements MapManager {
 		this.GUI.updateWindow()
 	}
 	
+	override printTree {
+		this.environment.printMap()
+	}
+	
 }
 
 /** Skill for being the front-end of a maze.
  * 
- * @author $Author: sgalland$
- * @version $FullVersion$
- * @mavengroupid $GroupId$
- * @mavenartifactid $ArtifactId$
  */
 skill DefaultEndOfTurnSkill implements EndOfTurn{
 	
+	uses DefaultContextInteractions
 	
-	override sendPerception(time : float, bodyID : UUID, objects : List<EnvironmentObject>, position : Point2f) {
+	
+	override sendPerception(time : float, bodyID : UUID, objects : ArrayList<Perceivable>, position : Point2f) {
 		var p = new Perception(time, bodyID, objects, position)
-		//how to notify perception 
+		
 	}
 	
 }

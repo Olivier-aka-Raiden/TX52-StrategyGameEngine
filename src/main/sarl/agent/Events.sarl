@@ -1,8 +1,12 @@
+package ^agent
+
 import java.util.List
 import java.util.UUID
 import org.arakhne.afc.math.continous.object2d.Point2f
 import org.arakhne.afc.math.continous.object2d.Vector2f
 import tx52.environment.EnvironmentObject
+import tx52.environment.Perceivable
+import java.util.ArrayList
 
 /**
  * @author Olivier
@@ -10,10 +14,10 @@ import tx52.environment.EnvironmentObject
  */
 event Perception {
 	val time : float
-	val objects : List<EnvironmentObject>
+	val objects : ArrayList<Perceivable>
 	val pos : Point2f
 	val bodyId : UUID
-	new (time : float, bodyID : UUID, objects : List<EnvironmentObject>, pos : Point2f){
+	new (time : float, bodyID : UUID, objects : ArrayList<Perceivable>, pos : Point2f){
 		this.time = time
 		this.bodyId = bodyID
 		this.objects = objects

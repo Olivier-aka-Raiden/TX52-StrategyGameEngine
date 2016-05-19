@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.arakhne.afc.math.continous.object2d.Circle2f;
+import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.dynamics.World;
+import io.sarl.lang.core.Address;
+import io.sarl.lang.core.Agent;
+import io.sarl.lang.core.Scope;
 
 // A mettre abstract une fois différentes unités créées et passer ces unités en constructeur de createBody()
 public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
@@ -29,29 +33,64 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	/**
 	 * only for agent body
 	 * should we return the body of the agent in perception ?
-	 * @return 
+	 * @return ArrayList<Perceivable>
 	 */
 	public ArrayList<Perceivable> computePerception(){
 		
-		TreeNode currentNode = this.node;
+		TreeNode topNode = this.node;
 		Circle2f range = new Circle2f(getPosition(),perceptionDistance);
+		Rectangle2f r = new Rectangle2f();
+		r.setFromCorners(range.getX()-range.getRadius(),range.getY()-range.getRadius(),range.getX()+range.getRadius(),range.getY()+range.getRadius());
+		
+		//determine the biggest node that is in range
+		while(!topNode.getBox().contains(r)){
+			topNode = topNode.getParent();
+			assert(topNode!=null); //test
+		}
+		
 		ArrayList<Perceivable> percept = new ArrayList<Perceivable>();
 		
-		//current node
-		for(EnvironmentObject o:currentNode.getObjects()){
+		DepthFirstIterator it = new DepthFirstIterator(topNode);
+		while(it.hasNext()){
+			TreeNode currentNode = it.next();
+			if(currentNode.getBox().intersects(range)){
+				for(EnvironmentObject o:currentNode.getObjects()){
+					if(o.box.intersects(range)){
+						percept.add(new Perceivable(o));
+					}
+				}
+			}
+			
+		}
+		
+		//ArrayList<Perceivable> percept = computePerception1N(topNode,range); //Recursive method
+				
+		return percept;
+	}
+	
+	/**
+	 * usable for recursivity  -> we may use the depthFirstIterator
+	 * @return ArrayList<Perceivable>
+	 */
+	public ArrayList<Perceivable> computePerception1N(TreeNode topNode,Circle2f range){
+		
+		ArrayList<Perceivable> perception = new ArrayList<Perceivable>();
+		
+		for(EnvironmentObject o:topNode.getObjects()){
 			if(o.box.intersects(range)){
-				percept.add(new Perceivable(o));
+				perception.add(new Perceivable(o));
 			}
 		}
-		//other node
-		if(this.getPosition().distance(currentNode.getBox().getClosestPointTo(getPosition()))<=range.getRadius()){
-			//how can we limit the search ?
+		if(topNode.getChildren()!=null){
+			for(TreeNode node:topNode.getChildren()){
+				if(node.getBox().intersects(range))
+				perception.addAll(computePerception1N(node, range));
+			}
 		}
-
 		
+		return perception;
 		
-		return percept;
-}
+	}
 		
 
 	@Override

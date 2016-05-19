@@ -23,7 +23,7 @@ public class TreeNode {
 	 * @param o
 	 */
 	public void add(EnvironmentObject o) {
-		if(objects.size()<15 && getChildren()== null){  //15 is an arbitrary max number of object
+		if(objects.size()<10 && getChildren()== null){  //15 is an arbitrary max number of object
 			objects.add(o);
 			o.node=this;
 		}else{
@@ -131,33 +131,21 @@ public class TreeNode {
 		this.children = children;
 	}
 
-	/**
-	 * deprecated : use DepthFirstIterator instead -> better performance
-	 * @param t
-	 */
-	@Deprecated
-	public void/*?*/ depthFirst(RTree t){
-
-		Stack<TreeNode> stack = new Stack<TreeNode>();
-		
-		/*assert(t.getRoot()!=null)*/ //TODO use assert keyword
-		if(t.getRoot()!=null){
-			stack.push(t.getRoot());
-			while(!stack.isEmpty()){ //WARNING non stoppable
-				TreeNode top = stack.pop();
-				for(TreeNode child : top.getChildren()){
-					stack.push(child);
-				} // do something with top
-			}
-		}
-	}
-
 	public boolean hasChild() {
 		if(children==null){
 			return false;
 		}else{
 			return true;
 		}
+	}
+
+	/**
+	 * getter
+	 * @return
+	 */
+	public TreeNode getParent() {
+		
+		return parent;
 	}
 	
 	

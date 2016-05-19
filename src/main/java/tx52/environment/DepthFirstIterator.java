@@ -17,6 +17,12 @@ public class DepthFirstIterator {
 		}
 	}
 	
+	public DepthFirstIterator(TreeNode node){
+		if(node!=null){
+			stack.push(node);
+		}
+	}
+	
 	public boolean hasNext(){
 		return !stack.isEmpty();
 	}

@@ -20,10 +20,11 @@ public class Environment {
 	 * creation of the environment. Setup the Jbox2DWorld and create the EnvMap
 	 * @param objects
 	 */
-	public Environment () {
+	public Environment (float width, float height) {
 		Vec2 gravity = new Vec2(0.0f, 0.0f);
 		this.jBoxWorld = new World(gravity);
 		jBoxWorld.setAllowSleep(true);
+		this.world = new EnvMap(width,height);
 	}
 
 	/**
@@ -100,4 +101,5 @@ public class Environment {
 		    System.out.printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
 	    }System.out.println("***END OF JBOX WORLD***\n");
 	}
+
 }
