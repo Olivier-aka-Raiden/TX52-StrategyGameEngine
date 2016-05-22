@@ -1,0 +1,38 @@
+/**
+ * 
+ */
+package fr.utbm.info.vi51.labwork2.^behavior
+
+import fr.utbm.info.vi51.framework.^agent.BehaviourOutput
+import fr.utbm.info.vi51.framework.environment.DynamicType
+import fr.utbm.info.vi51.framework.math.Point2f
+import fr.utbm.info.vi51.framework.math.Vector2f
+import java.util.Random
+/**
+ * @author Dudul
+ *
+ */
+class KinematicWanderBehaviour implements WanderBehaviour{	
+	
+	val generator = new Random
+	
+	def random : double {
+		return Math::random - Math::random
+		//
+		//
+	}
+	
+	override runWander(position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float) : BehaviourOutput {
+
+		val l = orientation.clone
+		l.length = maxLinear
+		val a = random * maxAngular
+	
+		return new BehaviourOutput(DynamicType::KINEMATIC) => [
+			linear = l
+			angular = a as float
+		]
+	
+	}
+	
+}

@@ -1,0 +1,27 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+
+%opening
+\title{\textbf{TX52 - scientific project report }\\
+  Create a Real-Time Strategy Game Engine with SARL, an agent oriented language
+\author{~\\
+  \textbf{Olivier Villequey, Romain Dulieu} }
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Project Definition}
+
+\section {Introduction}
+~
+
+The subject of our project is to create a Real-Time Strategy (RTS) game engine using SARL language, an agent oriented language based on java. 
+
+
+\end{document}

@@ -1,0 +1,49 @@
+package ^agent
+
+import java.util.List
+import java.util.UUID
+import org.arakhne.afc.math.continous.object2d.Point2f
+import org.arakhne.afc.math.continous.object2d.Vector2f
+import tx52.environment.EnvironmentObject
+import tx52.environment.Perceivable
+import java.util.ArrayList
+import tx52.environment.AgentBody
+
+/**
+ * @author Olivier
+ *
+ */
+event Perception {
+	val time : float
+	val objects : ArrayList<Perceivable>
+	val pos : Point2f
+	val bodyId : UUID
+	val body : AgentBody
+	new (time : float, bodyID : UUID, objects : ArrayList<Perceivable>, pos : Point2f,body : AgentBody){
+		this.time = time
+		this.bodyId = bodyID
+		this.objects = objects
+		this.pos = pos
+		this.body = body
+	}
+}
+
+//Action of an agent -> not needed
+
+/**
+ * Agent emit an influence
+ */
+event Influence {
+	val time : float
+	val vector : Vector2f
+	new (time : float, vector : Vector2f){
+		this.time = time
+		this.vector = vector
+	}
+}
+
+event RunEndOfStep
+
+event RunBeginingOfStep
+
+event EndOfGame
