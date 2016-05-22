@@ -15,7 +15,6 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	
 	private final UUID agentId;
 	private final float perceptionDistance;
-	//private final enum agentType; semantic
 	
 	public AgentBody (float x, float y,float radius,UUID agentId,World w,EnvMap map, float perceptionDistance) {
 		super (x,y,radius,agentId,w,map);
@@ -32,8 +31,8 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	}
 	
 	/**
-	 * return all the percepted objects
-	 * 
+	 * only for agent body
+	 * should we return the body of the agent in perception ?
 	 * @return ArrayList<Perceivable>
 	 */
 	public ArrayList<Perceivable> computePerception(){
@@ -56,7 +55,7 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 			TreeNode currentNode = it.next();
 			if(currentNode.getBox().intersects(range)){
 				for(EnvironmentObject o:currentNode.getObjects()){
-					if(o.box.intersects(range) && o!=this){
+					if(o.box.intersects(range)){
 						percept.add(new Perceivable(o));
 					}
 				}
@@ -73,7 +72,6 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	 * usable for recursivity  -> we may use the depthFirstIterator
 	 * @return ArrayList<Perceivable>
 	 */
-	@Deprecated
 	public ArrayList<Perceivable> computePerception1N(TreeNode topNode,Circle2f range){
 		
 		ArrayList<Perceivable> perception = new ArrayList<Perceivable>();

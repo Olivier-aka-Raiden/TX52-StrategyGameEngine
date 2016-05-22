@@ -4,11 +4,7 @@ import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
 import io.sarl.core.Logging
-import io.sarl.util.Scopes
 import tx52.environment.EnvironmentListener
-import tx52.environment.EnvironmentChangeQuery
-import tx52.environment.AgentBody
-import java.util.List
 
 /**
  * @author Olivier
@@ -21,30 +17,22 @@ agent EnvironmentAgent {
 	
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
-	var Dt = 1.0f //DeltaT
-	val actions = <EnvironmentChangeQuery>newLinkedList
+//	val actions = <environmentChangeQuery>newLinkedList
 	
 	on Initialize{
 		
 		//we create the environment *in the skill*
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(170,180))
-		//we create the objects -> need to link the agents
-		for (var i=0;i<10;i++) {
-			var body = createUnit(10)
-			var agentParameters : List<Object> = newArrayList(defaultSpace.getID/*, environmentId, behaviorType*/)
-			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
-			spawnInContextWithID(
-				agentType,
-				body.getAgentId,
-				defaultContext,
-				agentParameters.toArray)
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,300))
+
+		//we create the objects
+		for (var i=0;i<60;i++) {
+			var u = createUnit(10)
 		}
 		/*we create the agent and they will create their body ?
 		* I'm not sure about this because an agent cannot access the world. In this case they should ask for the creation of they body
 		* maybe it's easier to create the body and the agent separately and then, link them.
 		*/
 		
-		updateWindow //mis a jour de la vue utilisateur
 		fireEnvironmentChange
 		
 		
@@ -64,17 +52,17 @@ agent EnvironmentAgent {
 		}*/
 	}
 	
+/* 
 	on Influence [occurrence.time >= time] {
 		synchronized(this) {
 			this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector)
 			
 			if (this.actions.size >= bodyCount - 1) {
-				var adr=defaultSpace.getAddress(this.ID)
-				emit(new RunEndOfStep,Scopes::addresses(adr))
+				emit(new RunEndOfStep, Scopes.addresses(defaultAddress))
 			}
 		}
 	}
-
+*/
 	/** 
 	* initialize the turn (update world state, give perceptions to AI, fire all the agents, *increase time) *or in endOfStep 
 	*/
@@ -83,11 +71,12 @@ agent EnvironmentAgent {
 		//TODO write RunBeginingOfStep
 
 		synchronized(this){
-			
-				sendPerceptions(this.time) // Perception computation
-				//execution de tous les agents
-				//récupération des influences -> processus parallele
-			
+				RunJbox //1 step of simulation
+				updateWindow
+				printTree
+				sendPerceptions(this.time)
+				
+
 		}
 	}
 	
@@ -98,19 +87,11 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-
-			//envoie des influences vers Jbox
-			resolveInfluences(actions)
-				//update Tree
-			updateWindow //mis a jour de la vue utilisateur -> ça fait clignoter
-			printTree //debug
 			
-			time+=Dt
-			emit(new RunBeginingOfStep)
 		}
 	}
 	
-		
+	
 	def fireGameOver {
 		for (listener : this.listeners) {
 			listener.gameOver()

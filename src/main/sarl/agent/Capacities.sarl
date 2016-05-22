@@ -13,8 +13,6 @@ import tx52.gui.Window
 import tx52.environment.Perceivable
 import java.util.ArrayList
 import io.sarl.core.DefaultContextInteractions
-import tx52.environment.EnvironmentChangeQuery
-import java.util.TreeMap
 
 /**
  * @author Olivier
@@ -28,7 +26,7 @@ capacity MapManager {
 	
 	/** execute the list of influences 
 	 * 	@return true if game is over? *TBD* */
-	def resolveInfluences (actions : List<EnvironmentChangeQuery>) : boolean
+	def resolveInfluences (influences : List<Influence>) : boolean
 	
 	/** replies the perceptions */
 	def sendPerceptions (time : float)
@@ -92,13 +90,34 @@ skill DefaultMapManagerSkill implements MapManager {
 		0
 	}
 	
-	override resolveInfluences(actions : List<EnvironmentChangeQuery>) : boolean {
-		
-		RunJbox // 1 step of simulation	
-		
+	override resolveInfluences(influences : List<Influence>) : boolean {
+		/**var expectedMotions = new TreeMap
+		for (i : influences) {
+			var body = this.map.getAgentBody(i.emitter)
+			var newPosition : Point2f
+			if(i.change != null) {
+				newPosition = body.position + i.change.toVector
+			} else {
+				newPosition = body.position.clone
+			}
+			if (newPosition == body.position || this.map.canMoveInside(newPosition.x,newPosition.y)) {
+				var l = expectedMotions.get(newPosition)
+				if (l == null){
+					l = newArrayList
+					expectedMotions.put(newPosition, l)
+				}
+				l+=body
+			}
+			
+		}
+		/**A partir de là je ne comprends pas */
+		/** var resolvedMotions = new TreeMap
+		for (change : expectedMotions.entrySet) {
+			
+		}*/
 		false
 	}
-
+	
 	/**
 	 * calcul de toutes les perceptions -> utile seulement pour le général
 	 */
@@ -111,7 +130,7 @@ skill DefaultMapManagerSkill implements MapManager {
 			percevaibles = body.computePerception
 			var pos = body.position
 			
-			var perceptionEvent = new Perception(time,body.getAgentId,percevaibles,pos,body)
+			var perceptionEvent = new Perception(time,body.getAgentId,percevaibles,pos)
 			System.out.printf("\nPerception de l'UUID : "+body.getAgentId()+"\ntime: "+time+" position: " +pos);
 			System.out.printf("\nPercevaibles :\n");
 			for(per : percevaibles){
@@ -167,8 +186,7 @@ skill DefaultMapManagerSkill implements MapManager {
 /** Skill for being the front-end of a maze.
  * 
  */
-
-/*skill DefaultEndOfTurnSkill implements EndOfTurn{
+skill DefaultEndOfTurnSkill implements EndOfTurn{
 	
 	uses DefaultContextInteractions
 	
@@ -178,4 +196,4 @@ skill DefaultMapManagerSkill implements MapManager {
 		
 	}
 	
-}*/
+}
