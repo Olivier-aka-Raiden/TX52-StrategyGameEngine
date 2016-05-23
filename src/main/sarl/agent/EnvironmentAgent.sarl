@@ -22,7 +22,7 @@ agent EnvironmentAgent {
 	on Initialize{
 		
 		//we create the environment *in the skill*
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,300))
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,200))
 
 		//we create the objects
 		for (var i=0;i<60;i++) {
