@@ -15,6 +15,8 @@ import java.util.ArrayList
 import io.sarl.core.DefaultContextInteractions
 import tx52.environment.EnvironmentChangeQuery
 import java.util.TreeMap
+import org.arakhne.afc.math.continous.object2d.Vector2f
+import io.sarl.util.Scopes
 
 /**
  * @author Olivier
@@ -73,7 +75,6 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	var environment : Environment
 	var GUI : Window
-	//var agentList : Map<UUID,agent>
 	
 	new (width : float, height : float) {
 			this.width = width
@@ -117,8 +118,8 @@ skill DefaultMapManagerSkill implements MapManager {
 			for(per : percevaibles){
 				System.out.printf("object : "+per+"\n")
 			}
-			
-			//emit(perceptionEvent/* ,agentList.get  body.getAgentId*/)
+			var adr=defaultSpace.getAddress(body.getAgentId)
+			emit(perceptionEvent ,Scopes::addresses(adr))
 
 		}
 		
@@ -179,3 +180,14 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 }*/
+
+capacity PhysicEnvironment {
+	
+	/** Invoked to send the influence to the environment.
+	 * 
+	 * @param linearInfluence is the linear influence to apply on the object.
+	 * @param angularInfluence is the angular influence to apply on the object.
+	 */
+	def influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f)
+	
+}

@@ -2,6 +2,7 @@
 
 import java.util.UUID;
 
+import org.arakhne.afc.math.continous.object2d.Vector2f;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.ShapeType;
@@ -14,8 +15,8 @@ import org.jbox2d.dynamics.World;
 
 public class DynamicObject extends EnvironmentObject{
 	
-	float perceptionDistance; //for agent body
-	
+	private float maxLinearSpeed;
+	private float maxAngularSpeed;
 
 	//Agent créé son corps : on appellera ce constructeur lors de la création de l'agent
 	// P.S : la position x,y sera surement donné par l'agent également
@@ -37,6 +38,8 @@ public class DynamicObject extends EnvironmentObject{
 		PolygonShape ps = new PolygonShape();
 		ps.set(vertices, vertices.length);
 
+		this.maxLinearSpeed=10;
+		this.maxAngularSpeed=10;
 		
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
@@ -99,6 +102,23 @@ public class DynamicObject extends EnvironmentObject{
 		box.inflate(radius, radius,radius,radius);
 	}
 	
+	
+	public float getAngle() {
+		return body.getAngle();
+	}
+	public float getMaxLinearSpeed() {
+		return maxLinearSpeed;
+	}
+	public Vector2f getCurrentLinearMotion() {
+		return new Vector2f(body.getLinearVelocity().x,body.getLinearVelocity().y);
+	}
+	public float getMaxAngularSpeed() {
+		return maxAngularSpeed;
+	}
+	public float getCurrentAngularSpeed() {
+		return body.getAngularVelocity();
+	}
+
 	
 
 }

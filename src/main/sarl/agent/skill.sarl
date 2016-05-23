@@ -1,0 +1,48 @@
+package ^agent
+
+import org.arakhne.afc.math.continous.object2d.Vector2f
+import tx52.util.AddressUUIDScope
+import io.sarl.core.Behaviors
+import io.sarl.core.DefaultContextInteractions
+import io.sarl.lang.core.Address
+import io.sarl.util.OpenEventSpace
+import java.util.UUID
+
+skill StandardPhysicEnvironment implements PhysicEnvironment {
+
+	uses DefaultContextInteractions, Behaviors
+
+	val spaceID : UUID
+	val environmentID : UUID
+	var physicSpace : OpenEventSpace
+	var myAdr : Address
+	
+	new (spaceID : UUID, environmentID : UUID) {
+		this.environmentID = environmentID
+		this.spaceID = spaceID
+	}
+
+	override install {
+		do {
+			this.physicSpace = defaultContext.getSpace(this.spaceID) //TODO : Créer un espace correctement et ça sera bien 
+			Thread::yield
+		} while (this.physicSpace === null)
+		this.physicSpace.register(asEventListener)
+		this.myAdr = this.physicSpace.getAddress(owner.ID)
+	}
+	
+/*	override uninstall() {  
+		var ^event = new InfluenceEvent(new KillInfluence)
+		^event.source = this.myAdr
+		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
+		this.physicSpace = null
+	}*/
+	
+	override influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f) {
+		
+		var ^event = new Influence(angularInfluence,linearInfluence)
+		^event.source = this.myAdr
+		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
+	}
+	
+}

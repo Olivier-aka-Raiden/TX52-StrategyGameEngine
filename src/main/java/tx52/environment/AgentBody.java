@@ -14,7 +14,7 @@ import io.sarl.lang.core.Scope;
 public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	
 	private final UUID agentId;
-	private final float perceptionDistance;
+	private float perceptionDistance; 
 	//private final enum agentType; semantic
 	
 	public AgentBody (float x, float y,float radius,UUID agentId,World w,EnvMap map, float perceptionDistance) {

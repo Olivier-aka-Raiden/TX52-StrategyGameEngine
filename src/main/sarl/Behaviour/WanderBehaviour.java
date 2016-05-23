@@ -18,9 +18,8 @@
  */
 package Behaviour;
 
-import fr.utbm.info.vi51.framework.agent.BehaviourOutput;
-import fr.utbm.info.vi51.framework.math.Point2f;
-import fr.utbm.info.vi51.framework.math.Vector2f;
+import org.arakhne.afc.math.continous.object2d.Point2f;
+import org.arakhne.afc.math.continous.object2d.Vector2f;
 
 /**
  * Wander Behaviour.
@@ -29,7 +28,7 @@ import fr.utbm.info.vi51.framework.math.Vector2f;
  * @author St&eacute;phane GALLAND &lt;stephane.galland@utbm.fr&gt;
  * @version $Name$ $Revision$ $Date$
  */
-public interface WanderBehaviour {
+public interface WanderBehaviour { 
 
 	/**
 	 * @param position is the current position of the entity.

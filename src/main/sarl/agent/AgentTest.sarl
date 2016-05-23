@@ -9,12 +9,14 @@ import io.sarl.core.Initialize
 import io.sarl.core.Logging
 import Behaviour.SeekBehaviour
 import Behaviour.WanderBehaviour
+import Behaviour.KinematicSeekBehaviour
+import Behaviour.KinematicWanderBehaviour
 
 /**
  * @author Dudul
  *
  */
-agent AgentTest {
+agent AgentTest extends AbstractAnimat {
 	
 	uses  Lifecycle, DefaultContextInteractions,Logging
 	
@@ -22,16 +24,37 @@ agent AgentTest {
 	var wanderBehaviour : WanderBehaviour 
 	
 	on Initialize{
-		print("Agent Spawn")
+		super._handle_Initialize_0(occurrence)
+		print("Agent Spawn\n")
+		
 	}
 	
 	on Perception{
 		var body = occurrence.body
 		
-		if(occurrence.objects!=null){
+		if(occurrence.objects.size()>0){
 			var target = occurrence.objects.get(0)
+			this.seekBehaviour = new KinematicSeekBehaviour
 			
-			//movements should be done with behaviour
+			var o = this.seekBehaviour.runSeek(
+			body.position,
+			body.currentLinearMotion.length,
+			body.maxLinearSpeed,
+			target.position
+			)o.emitInfluence
+			
+		}else{
+			this.wanderBehaviour = new KinematicWanderBehaviour
+			//position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float
+			var o = this.wanderBehaviour.runWander(
+			body.position,
+			body.currentLinearMotion,
+			body.currentLinearMotion.length,
+			body.maxLinearSpeed,
+			body.currentAngularSpeed,
+			body.maxAngularSpeed
+			)o.emitInfluence
+			
 		}
 		
 		

@@ -9,6 +9,7 @@ import tx52.environment.EnvironmentListener
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.AgentBody
 import java.util.List
+import java.util.UUID
 
 /**
  * @author Olivier
@@ -26,12 +27,14 @@ agent EnvironmentAgent {
 	
 	on Initialize{
 		
+		var spaceID = UUID.randomUUID() //only for testing
+		
 		//we create the environment *in the skill*
 		setSkill(typeof(MapManager), new DefaultMapManagerSkill(170,180))
 		//we create the objects -> need to link the agents
-		for (var i=0;i<10;i++) {
+		for (var i=0;i<1;i++) {
 			var body = createUnit(10)
-			var agentParameters : List<Object> = newArrayList(defaultSpace.getID/*, environmentId, behaviorType*/)
+			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 			spawnInContextWithID(
 				agentType,
@@ -87,6 +90,7 @@ agent EnvironmentAgent {
 				sendPerceptions(this.time) // Perception computation
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
+				//resolveInfluences(actions)
 			
 		}
 	}

@@ -18,8 +18,7 @@
  */
 package Behaviour;
 
-import fr.utbm.info.vi51.framework.agent.BehaviourOutput;
-import fr.utbm.info.vi51.framework.math.Point2f;
+import org.arakhne.afc.math.continous.object2d.Point2f;;
 
 /**
  * Seek Behavior.
