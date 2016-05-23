@@ -1,9 +1,11 @@
 package tx52.gui;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -14,7 +16,7 @@ import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 
 import tx52.environment.AgentBody;
 
-public class Unit extends JPanel{
+public class Unit {
 
 	/**
 	 * 
@@ -31,22 +33,21 @@ public class Unit extends JPanel{
 		
 	}
 	
-	public void paintComponent(Graphics g)
+	public void paint(Graphics g, JPanel container)
 	{
+		Graphics2D g2d = (Graphics2D) g;
 		try
 		{
-
-			Image img = ImageIO.read(new File("src\\main\\resources\\images\\unit.png"));
-			g.drawImage(img, 0, 0, this);
+			// Resources dans AFC vmutils
+			URL url = getClass().getClassLoader().getResource("images/unit.png");
+	    	assert (url != null);
+			Image img = ImageIO.read(url);
+			g2d.drawImage(img, (int) position.getX() * 5, (int) position.getY() * 5, container);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-	}
-	public void move()
-	{
-		this.setBounds(position.x()*5,position.y()*5, 48,48);
 	}
 	
 }

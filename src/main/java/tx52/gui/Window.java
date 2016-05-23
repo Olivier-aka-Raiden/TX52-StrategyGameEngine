@@ -2,6 +2,7 @@ package tx52.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import tx52.environment.AgentBody;
@@ -34,30 +36,40 @@ public class Window extends JFrame implements  Runnable {
 		env = environment;
 		// Creation of the JPanel and his
 
-		// background image
-		bg = new Background();
-		bg.setSize(new Dimension(1033,867));
-		//JLayeredPane : permet de représenter nos objets sur différentes couches
-		jlp = new JLayeredPane();
-		jlp.setOpaque(false);
-		jlp.setPreferredSize(new Dimension(bg.getWidth(),bg.getHeight()));
-
-
 		// Create the HUB
 		displayer = new Hub(environment);
 
 		//Create the log area
 		log = new EventLog (environment);
 
+		// sizes
+		Dimension bgSize = new Dimension(1033,867);
+		Dimension viewportSize = new Dimension(800,600);
+		
+		// background image
+		bg = new Background();
+		bg.setSize(bgSize);
+		bg.setOpaque(false);
+		bg.setPreferredSize(bgSize);
+		
+		UnitPanel unitPanel = new UnitPanel();
+		unitPanel.setSize(bgSize);
+		unitPanel.setOpaque(false);
+		unitPanel.setPreferredSize(bgSize);
+
+		//JLayeredPane : permet de représenter nos objets sur différentes couches
+		jlp = new JLayeredPane();
+		jlp.setPreferredSize(bgSize);
+		jlp.setOpaque(false);
 		// Add the images to the JLayeredPane with a different deep level
 		jlp.add(bg, new Integer(1));//plus integer est grand grand, plus c'est avancé
-
+		jlp.add(unitPanel, new Integer(2));
+		
 		//JscrollPane
 		JScrollPane scrollPane = new JScrollPane(jlp);
-		scrollPane.setSize(new Dimension(800,600));
+		scrollPane.setPreferredSize(viewportSize);
 		this.setTitle("RTS Game Engine");
-		this.setSize(new Dimension(scrollPane.getWidth()+displayer.getWidth(),scrollPane.getHeight()+log.getHeight()));
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setLocationRelativeTo(null); // JFrame in the center of the window
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -65,33 +77,25 @@ public class Window extends JFrame implements  Runnable {
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(displayer, BorderLayout.EAST);
 		this.add(log, BorderLayout.SOUTH);
-		this.setVisible(true);
 		for (AgentBody body : env.getWorld().getAgentBodies())
 		{
 			if (body != null)
 				units.put(body.getAgentId(),new Unit(body));
 		}
-		for (Unit u : Collections.unmodifiableMap(units).values())
-		{
-			u.move();
-			u.setVisible(true);
-			jlp.add(u, new Integer(2));
-		}
 
+		pack();
+		this.setVisible(true);
 	}
 	
 	public void updateWindow(){
-		for (AgentBody body : env.getWorld().getAgentBodies())
-		{
-			if (body != null)
+		synchronized(getTreeLock()) {
+			for (AgentBody body : env.getWorld().getAgentBodies())
+			{
+				assert (body != null);
 				units.put(body.getAgentId(),new Unit(body));
+			}
 		}
-		for (Unit u : Collections.unmodifiableMap(units).values())
-		{
-			u.move();
-			u.setVisible(true);
-			jlp.add(u, new Integer(2));
-		}
+		repaint();
 	}
 	@Override
 	public void run() {
@@ -113,5 +117,21 @@ public class Window extends JFrame implements  Runnable {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
+	}
+
+	private class UnitPanel extends JPanel {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void paint(Graphics g) {
+			for (Unit unit : Window.this.units.values()) {
+				unit.paint(g, this);
+			}
+		}
+		
 	}
 }

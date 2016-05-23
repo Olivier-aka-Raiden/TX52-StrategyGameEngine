@@ -14,8 +14,6 @@ public class Environment {
 	//int velocityIterations;
 	//int positionIterations;
 	
-	//ArrayList<EnvironmentObject> objectsList; //not the good choice for data structure
-	
 	/**
 	 * creation of the environment. Setup the Jbox2DWorld and create the EnvMap
 	 * @param objects

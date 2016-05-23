@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -13,12 +14,15 @@ public class Background extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	public void paintComponent(Graphics g)
+	public void paint(Graphics g)
 	{
 		try
 		{
-			Image img = ImageIO.read(new File("src\\main\\resources\\images\\Terrain.png"));
-			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+			// Resources dans AFC vmutils
+			URL url = getClass().getClassLoader().getResource("images/Terrain.png");
+			assert (url != null);
+			Image img = ImageIO.read(url);
+			g.drawImage(img, 0, 0, this);
 		}
 		catch (IOException e)
 		{
