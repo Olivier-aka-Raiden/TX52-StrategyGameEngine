@@ -34,8 +34,7 @@ public class EventLog extends JPanel{
 			this.setBackground(Color.getHSBColor(60, 50, 50));
 			this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
-			this.setSize(new Dimension(800,115));
-			this.setVisible(true);
+			this.setPreferredSize(new Dimension(800,115));
 		}
 		
 		public void updateLog (String lastLog) {

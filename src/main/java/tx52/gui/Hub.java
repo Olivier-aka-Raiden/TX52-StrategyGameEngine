@@ -30,8 +30,7 @@ public class Hub extends JPanel{
 		this.setLayout(new GridLayout(6,1));
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-		this.setSize(new Dimension(150,600));
-		this.setVisible(true);
+		this.setPreferredSize(new Dimension(150,600));
 	}
 	
 	//This method permit to update the informations displayed in the hub

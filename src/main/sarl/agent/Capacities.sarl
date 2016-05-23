@@ -168,7 +168,6 @@ skill DefaultMapManagerSkill implements MapManager {
 /** Skill for being the front-end of a maze.
  * 
  */
-
 /*skill DefaultEndOfTurnSkill implements EndOfTurn{
 	
 	uses DefaultContextInteractions
