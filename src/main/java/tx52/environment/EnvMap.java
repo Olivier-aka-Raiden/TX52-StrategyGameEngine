@@ -128,7 +128,7 @@ public class EnvMap {
 
 	private boolean canMoveInside(int x, int y) {
 		
-		return (x>=10 && y>=10 && x<width-50 && y<height-150);
+		return (x>=10 && y>=10 && x<width-50 && y<height-50);
 	}
 
 	public float getHeight() {
