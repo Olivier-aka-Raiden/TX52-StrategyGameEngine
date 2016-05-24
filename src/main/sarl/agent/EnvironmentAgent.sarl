@@ -83,7 +83,7 @@ agent EnvironmentAgent {
 		synchronized(this) {
 			this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector)
 			
-			if (this.actions.size >= bodyCount - 1) {
+			if (this.actions.size >= bodyCount) {
 				emit(new RunEndOfStep,Scopes::addresses(adr))
 			}
 		}
@@ -97,8 +97,7 @@ agent EnvironmentAgent {
 		//TODO write RunBeginingOfStep
 
 		synchronized(this){
-				if (this.actions.size() > agentNumber)
-					this.actions.clear()
+				this.actions.clear()
 				sendPerceptions(this.time) // Perception computation
 				//execution de tous les agents
 				//récupération des influences -> processus parallele

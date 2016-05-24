@@ -94,8 +94,7 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	override getBodyCount : int {
 		/** create a method to get size of the objectlist */
-		/** this.map.getObjectList().size()*/
-		0
+		 return this.environment.world.getBodyCount()
 	}
 	
 	override resolveInfluences(actions : List<EnvironmentChangeQuery>) : boolean {
@@ -103,7 +102,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		for( change : actions){
 			var body = getAgentBody(change.getEmitter).getBody()
 			var velocity = change.getVelocity
-			var force = new Vec2(/*velocity.getX(),velocity.getY()*/15,10)
+			var force = new Vec2(/*velocity.getX(),velocity.getY()*/35,25)
 			body.setLinearVelocity(force)
 			System.out.println("test")
 		}
