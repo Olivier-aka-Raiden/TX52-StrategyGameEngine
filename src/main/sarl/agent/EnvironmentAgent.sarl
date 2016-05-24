@@ -36,7 +36,8 @@ agent EnvironmentAgent {
 		adr=defaultSpace.getAddress(this.ID)
 		
 		//we create the environment *in the skill*
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(170,180))
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,200))
+		createMapSurroundings
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
 			var body = createUnit(10)
