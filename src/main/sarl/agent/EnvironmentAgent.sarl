@@ -16,6 +16,7 @@ import io.sarl.lang.core.Address
  * @author Olivier
  * 
  */
+ 
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
@@ -28,7 +29,7 @@ agent EnvironmentAgent {
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = 1
+	val agentNumber = 4
 	
 	on Initialize{
 		

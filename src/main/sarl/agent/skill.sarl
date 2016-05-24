@@ -8,7 +8,7 @@ import io.sarl.lang.core.Address
 import io.sarl.util.OpenEventSpace
 import java.util.UUID
 
-skill StandardPhysicEnvironment implements PhysicEnvironment {
+skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
 	uses DefaultContextInteractions, Behaviors
 
@@ -22,7 +22,7 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 		this.spaceID = spaceID
 	}
 
-	override install {
+	override install { 
 		do {
 			this.physicSpace = defaultContext.getSpace(this.spaceID) 
 			Thread::yield

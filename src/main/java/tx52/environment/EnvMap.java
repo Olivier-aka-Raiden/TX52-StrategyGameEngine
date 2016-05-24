@@ -106,8 +106,8 @@ public class EnvMap {
 	 * @throws Exception if it is impossible to retrieve the body constructor or to create the instance. 
 	 */
 	public <T extends AgentBody> T createBody(Class<T> bodyType, UUID agentId,World w, float perceptionDistance) throws Exception {
-		int x = this.random.nextInt((int)width);
-		int y = this.random.nextInt((int)height);
+		int x = this.random.nextInt((int)50);
+		int y = this.random.nextInt((int)50);
 		while (!canMoveInside(x, y)) {
 			x = this.random.nextInt((int)width);
 			y = this.random.nextInt((int)height);

@@ -18,6 +18,7 @@ import java.util.TreeMap
 import org.arakhne.afc.math.continous.object2d.Vector2f
 import io.sarl.util.Scopes
 import org.jbox2d.common.Vec2
+import tx52.environment.StaticObject
 
 /**
  * @author Olivier
@@ -165,11 +166,11 @@ skill DefaultMapManagerSkill implements MapManager {
 	override createMapSurroundings {
 		var id : UUID
 		id = UUID.randomUUID()
-		var objects = <EnvironmentObject>newArrayList(new StaticObject(5,100,10,200,id,environment.getjBoxWorld,environment.getWorld()))
+		var objects = <EnvironmentObject>newArrayList(new StaticObject(10,100,20,200,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(100,5,200,10,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(175,100,50,200,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(190,100,40,200,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(100,180,200,40,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
@@ -179,7 +180,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(30,105,60,20,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(102,170,20,60,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(115,170,20,60,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(92,90,10,10,id,environment.getjBoxWorld,environment.getWorld()))
 		this.environment.addObjectToWorld(objects)

@@ -3,6 +3,7 @@ package tx52.environment;
 import java.util.UUID;
 
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
@@ -23,15 +24,15 @@ public class StaticObject extends EnvironmentObject {
 		bd.type = BodyType.STATIC;
 		
 		//test with circle shape
-		CircleShape cs = new CircleShape();
-		cs.m_radius = 0.5f;
+		PolygonShape ps = new PolygonShape();
+		ps.setAsBox(width,height);
 		
 		//fixture test
 		FixtureDef fd = new FixtureDef();
-		fd.shape = cs;
-		fd.density = 0.5f;
+		fd.shape = ps;
+		fd.density = 1f;
 		fd.friction = 0.3f;        
-		fd.restitution = 0.5f;
+		fd.restitution = 1f;
 		
 		body =  w.createBody(bd);
 		body.createFixture(fd);

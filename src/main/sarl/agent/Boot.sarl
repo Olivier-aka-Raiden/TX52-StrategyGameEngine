@@ -10,7 +10,6 @@ import io.sarl.core.Lifecycle
  */
  
 agent Boot {
-	
 	uses DefaultContextInteractions, Lifecycle
 	
 	on Initialize{
