@@ -50,6 +50,9 @@ capacity MapManager {
 	/** Create basic Unit */
 	def createUnit(perceptionDistance : float) : AgentBody
 	
+	/** Create the map surroundings walls */
+	def createMapSurroundings
+	
 	def RunJbox
 	
 	def updateWindow
@@ -147,6 +150,29 @@ skill DefaultMapManagerSkill implements MapManager {
 		// TODO Auto-generated action.
 		this.environment.world.createBody(typeof(AgentBody),null,this.environment.getjBoxWorld(),perceptionDistance)
 	
+	}
+	
+	override createMapSurroundings {
+		var id : UUID
+		id = UUID.randomUUID()
+		var objects = <EnvironmentObject>newArrayList(new StaticObject(5,100,10,200,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(100,5,200,10,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(175,100,50,200,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(100,180,200,40,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(30,86,60,20,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(80,10,10,20,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(30,105,60,20,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(102,170,20,60,id,environment.getjBoxWorld,environment.getWorld()))
+		id = UUID.randomUUID()
+		objects.add(new StaticObject(92,90,10,10,id,environment.getjBoxWorld,environment.getWorld()))
+		this.environment.addObjectToWorld(objects)
 	}
 	
 	override RunJbox {
