@@ -13,6 +13,10 @@ import tx52.gui.Window
 import tx52.environment.Perceivable
 import java.util.ArrayList
 import io.sarl.core.DefaultContextInteractions
+import tx52.environment.EnvironmentChangeQuery
+import java.util.TreeMap
+import org.arakhne.afc.math.continous.object2d.Vector2f
+import io.sarl.util.Scopes
 
 /**
  * @author Olivier
@@ -26,7 +30,7 @@ capacity MapManager {
 	
 	/** execute the list of influences 
 	 * 	@return true if game is over? *TBD* */
-	def resolveInfluences (influences : List<Influence>) : boolean
+	def resolveInfluences (actions : List<EnvironmentChangeQuery>) : boolean
 	
 	/** replies the perceptions */
 	def sendPerceptions (time : float)
@@ -71,7 +75,6 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	var environment : Environment
 	var GUI : Window
-	//var agentList : Map<UUID,agent>
 	
 	new (width : float, height : float) {
 			this.width = width
@@ -90,34 +93,13 @@ skill DefaultMapManagerSkill implements MapManager {
 		0
 	}
 	
-	override resolveInfluences(influences : List<Influence>) : boolean {
-		/**var expectedMotions = new TreeMap
-		for (i : influences) {
-			var body = this.map.getAgentBody(i.emitter)
-			var newPosition : Point2f
-			if(i.change != null) {
-				newPosition = body.position + i.change.toVector
-			} else {
-				newPosition = body.position.clone
-			}
-			if (newPosition == body.position || this.map.canMoveInside(newPosition.x,newPosition.y)) {
-				var l = expectedMotions.get(newPosition)
-				if (l == null){
-					l = newArrayList
-					expectedMotions.put(newPosition, l)
-				}
-				l+=body
-			}
-			
-		}
-		/**A partir de là je ne comprends pas */
-		/** var resolvedMotions = new TreeMap
-		for (change : expectedMotions.entrySet) {
-			
-		}*/
+	override resolveInfluences(actions : List<EnvironmentChangeQuery>) : boolean {
+		
+		RunJbox // 1 step of simulation	
+		
 		false
 	}
-	
+
 	/**
 	 * calcul de toutes les perceptions -> utile seulement pour le général
 	 */
@@ -130,14 +112,14 @@ skill DefaultMapManagerSkill implements MapManager {
 			percevaibles = body.computePerception
 			var pos = body.position
 			
-			var perceptionEvent = new Perception(time,body.getAgentId,percevaibles,pos)
+			var perceptionEvent = new Perception(time,body.getAgentId,percevaibles,pos,body)
 			System.out.printf("\nPerception de l'UUID : "+body.getAgentId()+"\ntime: "+time+" position: " +pos);
 			System.out.printf("\nPercevaibles :\n");
 			for(per : percevaibles){
 				System.out.printf("object : "+per+"\n")
 			}
-			
-			//emit(perceptionEvent/* ,agentList.get  body.getAgentId*/)
+			var adr=defaultSpace.getAddress(body.getAgentId)
+			emit(perceptionEvent ,Scopes::addresses(adr))
 
 		}
 		
@@ -186,7 +168,7 @@ skill DefaultMapManagerSkill implements MapManager {
 /** Skill for being the front-end of a maze.
  * 
  */
-skill DefaultEndOfTurnSkill implements EndOfTurn{
+/*skill DefaultEndOfTurnSkill implements EndOfTurn{
 	
 	uses DefaultContextInteractions
 	
@@ -195,5 +177,16 @@ skill DefaultEndOfTurnSkill implements EndOfTurn{
 		var p = new Perception(time, bodyID, objects, position)
 		
 	}
+	
+}*/
+
+capacity PhysicEnvironment {
+	
+	/** Invoked to send the influence to the environment.
+	 * 
+	 * @param linearInfluence is the linear influence to apply on the object.
+	 * @param angularInfluence is the angular influence to apply on the object.
+	 */
+	def influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f)
 	
 }

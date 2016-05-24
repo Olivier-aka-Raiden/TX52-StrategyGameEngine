@@ -7,6 +7,7 @@ import org.arakhne.afc.math.continous.object2d.Vector2f
 import tx52.environment.EnvironmentObject
 import tx52.environment.Perceivable
 import java.util.ArrayList
+import tx52.environment.AgentBody
 
 /**
  * @author Olivier
@@ -17,13 +18,14 @@ event Perception {
 	val objects : ArrayList<Perceivable>
 	val pos : Point2f
 	val bodyId : UUID
-	new (time : float, bodyID : UUID, objects : ArrayList<Perceivable>, pos : Point2f){
+	val body : AgentBody
+	new (time : float, bodyID : UUID, objects : ArrayList<Perceivable>, pos : Point2f,body : AgentBody){
 		this.time = time
 		this.bodyId = bodyID
 		this.objects = objects
 		this.pos = pos
+		this.body = body
 	}
-	
 }
 
 //Action of an agent -> not needed
@@ -39,6 +41,8 @@ event Influence {
 		this.vector = vector
 	}
 }
+
+event agentReady
 
 event RunEndOfStep
 

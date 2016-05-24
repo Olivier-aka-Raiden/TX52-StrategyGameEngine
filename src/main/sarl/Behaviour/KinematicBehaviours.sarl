@@ -1,0 +1,160 @@
+/**
+ * 
+ */
+package Behaviour
+
+import org.arakhne.afc.math.continous.object2d.Point2f
+import org.arakhne.afc.math.continous.object2d.Vector2f
+import java.util.Random
+import org.arakhne.afc.math.continous.object2d.Point2f
+import org.arakhne.afc.math.continous.object2d.Vector2f
+import java.util.Random
+import org.arakhne.afc.math.MathUtil
+/**
+ * @author Dudul
+ *
+ */
+class KinematicSeekBehaviour implements SeekBehaviour{
+	
+	override runSeek(position : Point2f, linearSpeed : float, maxLinear : float, target : Point2f) : BehaviourOutput {
+		
+	val v = new Vector2f()
+	v.sub(target,position)
+	v.normalize()
+	v.scale(linearSpeed)
+	// orientation ?
+	
+	return new BehaviourOutput() => [
+		linear = v
+	]
+	
+	}
+	
+}
+
+/*class KinematicSeekBehaviour implements SeekBehaviour {
+
+	override runSeek(position : Point2f, linearSpeed : float, maxLinearSpeed : float, target : Point2f) : BehaviourOutput {
+		val direction = target - position
+		direction.length = maxLinearSpeed
+		return new BehaviourOutput() => [
+			linear = direction;
+		]
+	}
+	
+	def operator_minus(point2f : Point2f,point2f2 : Point2f ) {
+		var r = new Point2f();
+		r.sub(point2f,point2f2)
+		return r
+	}
+	
+}*/
+
+class KinematicFleeBehaviour implements FleeBehaviour {
+
+	override runFlee(position : Point2f, linearSpeed : float, maxLinearSpeed : float, target : Point2f) : BehaviourOutput {
+		val v = new Vector2f()
+		v.sub(position,target)
+		v.normalize()
+		v.scale(linearSpeed)
+		// orientation ?
+		
+		return new BehaviourOutput() => [
+			linear = v
+		]
+	}
+	
+}
+
+/*class KinematicFleeBehaviour implements FleeBehaviour {
+
+	override runFlee(position : Point2f, linearSpeed : float, maxLinearSpeed : float, target : Point2f) : BehaviourOutput {
+		val direction = position - target
+		direction.length = maxLinearSpeed
+		return new BehaviourOutput(DynamicType.KINEMATIC) => [
+			linear = direction;
+		]
+	}
+	
+}*/
+/* 
+class KinematicWanderBehaviour implements WanderBehaviour {
+
+	val random = new Random
+
+	override runWander(position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinearSpeed : float,
+		angularSpeed : float, maxAngularSpeed : float) : BehaviourOutput {
+		val v = orientation.toColinearVector(maxLinearSpeed)
+	
+		val rotation = this.random.nextGaussian() * maxAngularSpeed
+		
+		return new BehaviourOutput(DynamicType.KINEMATIC) => [
+			linear = v;
+			angular = rotation as float
+		]
+	}
+	
+}
+/*
+class KinematicPursueBehaviour implements PursueBehaviour {
+
+	val seek : KinematicSeekBehaviour
+	val predictionDuration : float
+	
+	new(seek : KinematicSeekBehaviour, predictionDuration : float) {
+		this.seek = seek
+		this.predictionDuration = predictionDuration
+	}
+
+	override runPursue(position : Point2f, linearSpeed : float, maxLinearSpeed : float,
+		targetPosition : Point2f, targetLinearMotion : Vector2f) : BehaviourOutput {
+		var seekTarget = targetPosition + targetLinearMotion * predictionDuration
+		return this.seek.runSeek(position, linearSpeed, maxLinearSpeed, seekTarget);
+	}
+	
+}
+/* 
+class KinematicEvadeBehaviour implements EvadeBehaviour {
+
+	val flee : KinematicFleeBehaviour
+	val predictionDuration : float
+	
+	new(flee: KinematicFleeBehaviour, predictionDuration : float) {
+		this.flee = flee
+		this.predictionDuration = predictionDuration
+	}
+
+	override runEvade(position : Point2f, linearSpeed : float, maxLinearSpeed : float,
+		targetPosition : Point2f, targetLinearMotion : Vector2f) : BehaviourOutput {
+		var fleeTarget = targetPosition + targetLinearMotion * predictionDuration
+		return this.flee.runFlee(position, linearSpeed, maxLinearSpeed, fleeTarget);
+	}
+	
+}*/
+
+class KinematicAlignBehaviour implements AlignBehaviour {
+
+	override runAlign(orientation : Vector2f, angularSpeed : float, maxAngularSpeed : float, target : Vector2f) : BehaviourOutput {
+		val angle = orientation.signedAngle(target)
+		return new BehaviourOutput() => [
+			angular = MathUtil.clamp(angle, -maxAngularSpeed, maxAngularSpeed)
+		]
+	}
+	
+}
+/* 
+class KinematicFaceBehaviour implements FaceBehaviour {
+
+	val align : KinematicAlignBehaviour
+	
+	new(align : KinematicAlignBehaviour) {
+		this.align = align
+	}
+
+	override runFace(position : Point2f, orientation : Vector2f, angularSpeed : float, maxAngularSpeed : float, target : Point2f) : BehaviourOutput {
+		var alignTarget = target - position
+		return this.align.runAlign(orientation, angularSpeed, maxAngularSpeed, alignTarget)
+	}
+	
+	
+}*/

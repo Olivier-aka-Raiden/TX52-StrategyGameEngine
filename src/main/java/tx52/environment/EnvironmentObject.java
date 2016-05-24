@@ -12,7 +12,8 @@ public class EnvironmentObject {
 	protected UUID id;
 	protected Body body;
 	protected TreeNode node;
-	protected Point2f position;
+	protected Point2f position; //need to delete this
+	//protected final enum type;
 	
 	/**
 	 * creation of the object with his position (x,y)
