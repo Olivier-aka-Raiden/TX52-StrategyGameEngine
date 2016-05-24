@@ -85,7 +85,7 @@ public class DynamicObject extends EnvironmentObject{
 		super(x,y,agentId);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x, y);
-		bd.type = BodyType.KINEMATIC; //maybe DYNAMIC type is better
+		bd.type = BodyType.DYNAMIC; //maybe DYNAMIC type is better
 		CircleShape cs = new CircleShape();
 		cs.setRadius(radius); // is that all we need for a circle shape ?
 

@@ -89,6 +89,7 @@ public class Window extends JFrame implements  Runnable {
 	
 	public void updateWindow(){
 		synchronized(getTreeLock()) {
+			units = new TreeMap<>();
 			for (AgentBody body : env.getWorld().getAgentBodies())
 			{
 				assert (body != null);

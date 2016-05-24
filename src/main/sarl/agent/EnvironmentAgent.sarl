@@ -28,7 +28,7 @@ agent EnvironmentAgent {
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = 1 
+	val agentNumber = 1
 	
 	on Initialize{
 		

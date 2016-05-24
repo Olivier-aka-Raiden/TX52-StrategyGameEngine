@@ -23,7 +23,7 @@ public final class EnvironmentChangeQuery {
 	
 	/** Replies the change.
 	 */
-	public Vector2f getChange() {
+	public Vector2f getVelocity() {
 		return this.velocity;
 	}
 

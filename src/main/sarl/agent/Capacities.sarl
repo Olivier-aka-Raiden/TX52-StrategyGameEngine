@@ -17,6 +17,7 @@ import tx52.environment.EnvironmentChangeQuery
 import java.util.TreeMap
 import org.arakhne.afc.math.continous.object2d.Vector2f
 import io.sarl.util.Scopes
+import org.jbox2d.common.Vec2
 
 /**
  * @author Olivier
@@ -95,6 +96,15 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	override resolveInfluences(actions : List<EnvironmentChangeQuery>) : boolean {
 		
+		for( change : actions){
+			var body = getAgentBody(change.getEmitter).getBody()
+			var velocity = change.getVelocity
+			var force = new Vec2(/*velocity.getX(),velocity.getY()*/1,1)
+			var point = body.getWorldPoint(body.getWorldCenter())
+			body.applyForce(force ,point)
+			print("test")
+		}
+		
 		RunJbox // 1 step of simulation	
 		
 		false
@@ -150,12 +160,12 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override RunJbox {
-		// TODO Auto-generated action.
+		
 		this.environment.runJBox()
 	}
 	
 	override updateWindow {
-		// TODO Auto-generated action.
+		
 		this.GUI.updateWindow()
 	}
 	

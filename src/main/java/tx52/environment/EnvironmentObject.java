@@ -11,8 +11,8 @@ public class EnvironmentObject {
 	protected Rectangle2f box;
 	protected UUID id;
 	protected Body body;
+	
 	protected TreeNode node;
-	protected Point2f position; //need to delete this
 	//protected final enum type;
 	
 	/**
@@ -24,7 +24,7 @@ public class EnvironmentObject {
 	public EnvironmentObject(float x, float y, UUID id) { 
 		this.id = id;
 		if(id==null)id=UUID.randomUUID();
-		position = new Point2f(x, y);
+		Point2f position = new Point2f(x, y);
 		this.box = new Rectangle2f(position,position); //a modifier
 	}
 	
@@ -60,6 +60,9 @@ public class EnvironmentObject {
 		this.id = id;
 	}
 
+	public Body getBody() {
+		return body;
+	}
 	
 	@Override	
 	public String toString(){
