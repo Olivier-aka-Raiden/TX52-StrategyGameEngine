@@ -29,7 +29,7 @@ agent EnvironmentAgent {
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = 4
+	val agentNumber = 10
 	
 	on Initialize{
 		
@@ -38,7 +38,7 @@ agent EnvironmentAgent {
 		
 		//we create the environment *in the skill*
 		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,200))
-		createMapSurroundings
+		createMapSurroundings 
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
 			var body = createUnit(10)
@@ -96,10 +96,9 @@ agent EnvironmentAgent {
 		//TODO write RunBeginingOfStep
 
 		synchronized(this){
-				sendPerceptions(this.time) // Perception computation
+				sendPerceptions(this.time)
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
-				//resolveInfluences(actions)
 			
 		}
 	}
@@ -111,11 +110,10 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-
-			//envoie des influences vers Jbox
+			
 			resolveInfluences(actions)
-				//update Tree
-			updateWindow //mis a jour de la vue utilisateur -> ça fait clignoter
+			updateTree 
+			updateWindow
 			printTree //debug
 			
 			time+=Dt

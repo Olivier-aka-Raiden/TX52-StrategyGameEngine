@@ -54,6 +54,10 @@ public class TreeNode {
 	public void setObjects(ArrayList<EnvironmentObject> objects) {
 		this.objects = objects;
 	}
+	
+	public void removeObject(EnvironmentObject objectToRemove){
+		this.objects.remove(objectToRemove);
+	}
 
 	/**
 	 * should be use only if a child was created
