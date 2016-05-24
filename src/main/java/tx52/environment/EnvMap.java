@@ -109,8 +109,8 @@ public class EnvMap {
 		int x = this.random.nextInt((int)50);
 		int y = this.random.nextInt((int)50);
 		while (!canMoveInside(x, y)) {
-			x = this.random.nextInt((int)width);
-			y = this.random.nextInt((int)height);
+			x = this.random.nextInt((int)50);
+			y = this.random.nextInt((int)50);
 		}
 
 		UUID id = agentId;

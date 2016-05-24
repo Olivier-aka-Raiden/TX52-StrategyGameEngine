@@ -29,7 +29,7 @@ agent EnvironmentAgent {
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = 4
+	val agentNumber = 12
 	
 	on Initialize{
 		
@@ -75,6 +75,7 @@ agent EnvironmentAgent {
 			if(countInit==agentNumber){
 				emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			}
+			
 		}
 	}
 	
@@ -96,6 +97,8 @@ agent EnvironmentAgent {
 		//TODO write RunBeginingOfStep
 
 		synchronized(this){
+				if (this.actions.size() > agentNumber)
+					this.actions.clear()
 				sendPerceptions(this.time) // Perception computation
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
@@ -114,6 +117,7 @@ agent EnvironmentAgent {
 
 			//envoie des influences vers Jbox
 			resolveInfluences(actions)
+			
 				//update Tree
 			updateWindow //mis a jour de la vue utilisateur -> ça fait clignoter
 			printTree //debug

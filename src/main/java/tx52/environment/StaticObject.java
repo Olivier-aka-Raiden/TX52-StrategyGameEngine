@@ -30,9 +30,9 @@ public class StaticObject extends EnvironmentObject {
 		//fixture test
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
-		fd.density = 1f;
+		fd.density = 0.5f;
 		fd.friction = 0.3f;        
-		fd.restitution = 1f;
+		fd.restitution = 0.5f;
 		
 		body =  w.createBody(bd);
 		body.createFixture(fd);
