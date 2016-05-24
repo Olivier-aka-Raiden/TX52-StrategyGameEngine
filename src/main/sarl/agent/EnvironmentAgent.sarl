@@ -29,7 +29,7 @@ agent EnvironmentAgent {
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = 10
+	val agentNumber = 12
 	
 	on Initialize{
 		
@@ -75,6 +75,7 @@ agent EnvironmentAgent {
 			if(countInit==agentNumber){
 				emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			}
+			
 		}
 	}
 	
@@ -82,7 +83,7 @@ agent EnvironmentAgent {
 		synchronized(this) {
 			this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector)
 			
-			if (this.actions.size >= bodyCount - 1) {
+			if (this.actions.size >= bodyCount) {
 				emit(new RunEndOfStep,Scopes::addresses(adr))
 			}
 		}
@@ -96,7 +97,8 @@ agent EnvironmentAgent {
 		//TODO write RunBeginingOfStep
 
 		synchronized(this){
-				sendPerceptions(this.time)
+				this.actions.clear()
+				sendPerceptions(this.time) // Perception computation
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
 			

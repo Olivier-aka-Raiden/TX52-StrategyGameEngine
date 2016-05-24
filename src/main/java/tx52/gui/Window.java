@@ -70,7 +70,8 @@ public class Window extends JFrame implements  Runnable {
 		scrollPane.setPreferredSize(viewportSize);
 		this.setTitle("RTS Game Engine");
 		this.setResizable(true);
-		this.setLocationRelativeTo(null); // JFrame in the center of the window
+		//this.setLocation
+		//this.setLocationRelativeTo(null); // JFrame in the center of the window
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Add the JLayeredPane to the frame

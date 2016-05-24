@@ -96,8 +96,7 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	override getBodyCount : int {
 		/** create a method to get size of the objectlist */
-		/** this.map.getObjectList().size()*/
-		0
+		 return this.environment.world.getBodyCount()
 	}
 	
 	override resolveInfluences(actions : List<EnvironmentChangeQuery>) : boolean {
@@ -105,7 +104,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		for( change : actions){
 			var body = getAgentBody(change.getEmitter).getBody()
 			var velocity = change.getVelocity
-			var force = new Vec2(/*velocity.getX(),velocity.getY()*/50,25)
+			var force = new Vec2(/*velocity.getX(),velocity.getY()*/35,25)
 			body.setLinearVelocity(force)
 			//print("test")
 		}
@@ -175,15 +174,15 @@ skill DefaultMapManagerSkill implements MapManager {
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(100,180,200,40,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(30,86,60,20,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(20,86,40,20,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(80,10,10,20,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(80,10,10,30,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(30,105,60,20,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(170,90,50,10,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(115,170,20,60,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(95,170,10,60,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(92,90,10,10,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(93,73,6,6,id,environment.getjBoxWorld,environment.getWorld()))
 		this.environment.addObjectToWorld(objects)
 	}
 	
