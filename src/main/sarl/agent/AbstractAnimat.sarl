@@ -16,7 +16,7 @@ agent AbstractAnimat {
 		var physicSkill = new StandardPhysicEnvironment(
 			occurrence.parameters.get(0) as UUID,
 			occurrence.parameters.get(1) as UUID)
-		setSkill(PhysicEnvironment, physicSkill)
+		setSkill(PhysicEnvironment, physicSkill)   
 	}
 	
 	def getMaxLinear(p : Perceivable) : float {

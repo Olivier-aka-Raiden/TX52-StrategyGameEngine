@@ -10,6 +10,7 @@ import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.AgentBody
 import java.util.List
 import java.util.UUID
+import io.sarl.lang.core.Address
 
 /**
  * @author Olivier
@@ -24,15 +25,20 @@ agent EnvironmentAgent {
 	var time = 0.0f
 	var Dt = 1.0f //DeltaT
 	val actions = <EnvironmentChangeQuery>newLinkedList
+	var adr : Address
+	var spaceID : UUID
+	var countInit = 0
+	val agentNumber = 1 
 	
 	on Initialize{
 		
-		var spaceID = UUID.randomUUID() //only for testing
+		spaceID = defaultSpace.getID.getID
+		adr=defaultSpace.getAddress(this.ID)
 		
 		//we create the environment *in the skill*
 		setSkill(typeof(MapManager), new DefaultMapManagerSkill(170,180))
 		//we create the objects -> need to link the agents
-		for (var i=0;i<1;i++) {
+		for (var i=0;i<agentNumber;i++) {
 			var body = createUnit(10)
 			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
@@ -42,16 +48,10 @@ agent EnvironmentAgent {
 				defaultContext,
 				agentParameters.toArray)
 		}
-		/*we create the agent and they will create their body ?
-		* I'm not sure about this because an agent cannot access the world. In this case they should ask for the creation of they body
-		* maybe it's easier to create the body and the agent separately and then, link them.
-		*/
 		
 		updateWindow //mis a jour de la vue utilisateur
-		fireEnvironmentChange
+		fireEnvironmentChange //utile ?
 		
-		
-		emit(new RunBeginingOfStep)
 	}
 	/**
 	 * make a copy of the environment and send it to the GUI + wake up all listeners
@@ -67,12 +67,20 @@ agent EnvironmentAgent {
 		}*/
 	}
 	
+	on agentReady {
+		synchronized(this) {
+			countInit++
+			if(countInit==agentNumber){
+				emit(new RunBeginingOfStep,Scopes::addresses(adr))
+			}
+		}
+	}
+	
 	on Influence [occurrence.time >= time] {
 		synchronized(this) {
 			this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector)
 			
 			if (this.actions.size >= bodyCount - 1) {
-				var adr=defaultSpace.getAddress(this.ID)
 				emit(new RunEndOfStep,Scopes::addresses(adr))
 			}
 		}
@@ -86,7 +94,6 @@ agent EnvironmentAgent {
 		//TODO write RunBeginingOfStep
 
 		synchronized(this){
-			
 				sendPerceptions(this.time) // Perception computation
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
@@ -110,7 +117,7 @@ agent EnvironmentAgent {
 			printTree //debug
 			
 			time+=Dt
-			emit(new RunBeginingOfStep)
+			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 		}
 	}
 	

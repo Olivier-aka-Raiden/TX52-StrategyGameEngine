@@ -24,11 +24,11 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 
 	override install {
 		do {
-			this.physicSpace = defaultContext.getSpace(this.spaceID) //TODO : Créer un espace correctement et ça sera bien 
+			this.physicSpace = defaultContext.getSpace(this.spaceID) 
 			Thread::yield
 		} while (this.physicSpace === null)
 		this.physicSpace.register(asEventListener)
-		this.myAdr = this.physicSpace.getAddress(owner.ID)
+		this.myAdr = this.physicSpace.getAddress(owner.ID)  
 	}
 	
 /*	override uninstall() {  

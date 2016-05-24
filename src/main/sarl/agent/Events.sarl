@@ -42,6 +42,8 @@ event Influence {
 	}
 }
 
+event agentReady
+
 event RunEndOfStep
 
 event RunBeginingOfStep
