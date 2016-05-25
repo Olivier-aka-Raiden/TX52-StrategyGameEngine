@@ -6,9 +6,10 @@ import org.arakhne.afc.math.continous.object2d.Point2f;
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.dynamics.Body;
 
-public class EnvironmentObject {
+public abstract class EnvironmentObject {
 	
-	protected Rectangle2f box;
+	protected float width;
+	protected float height;
 	protected UUID id;
 	protected Body body;
 	
@@ -16,16 +17,12 @@ public class EnvironmentObject {
 	//protected final enum type;
 	
 	/**
-	 * creation of the object with his position (x,y)
-	 * @param x
-	 * @param y
+	 * creation of the object with his ID
 	 * @param id
 	 */
-	public EnvironmentObject(float x, float y, UUID id) { 
+	public EnvironmentObject(UUID id) { 
 		this.id = id;
 		if(id==null)id=UUID.randomUUID();
-		Point2f position = new Point2f(x, y);
-		this.box = new Rectangle2f(position,position); //a modifier
 	}
 	
 	/**
@@ -35,19 +32,28 @@ public class EnvironmentObject {
 	 * @param width
 	 * @param height
 	 */
-	public EnvironmentObject(float x, float y,float width,float height,UUID id) {
+	public EnvironmentObject(float width,float height,UUID id) {
 		this.id = id;
 		if(id==null)id=UUID.randomUUID();
-		box = new Rectangle2f(x,y,width,height);
-		box.setFromCenter(x,y,x+width/2,y+height/2);
+		this.width=width;
+		this.height=height;
 	}
 	
+	/**
+	 * generate the box from the position
+	 * @return
+	 */
 	public Rectangle2f getBox() {
+		Point2f position = this.getPosition();
+		Rectangle2f box = new Rectangle2f(position.x(),position.y(),width,height);
+		box.setFromCenter(position.x(),position.y(),position.x()+width/2,position.y()+height/2);
 		return box;
 	}
-	public void setBox(Rectangle2f box) {
-		this.box = box;
-	}
+
+	/**
+	 * get the position from jbox2d
+	 * @return
+	 */
 	public Point2f getPosition() {
 		Point2f position = new Point2f(body.m_xf.p.x,body.m_xf.p.y);
 		return position;

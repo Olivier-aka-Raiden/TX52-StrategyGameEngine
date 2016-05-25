@@ -18,10 +18,8 @@ public class DynamicObject extends EnvironmentObject{
 	private float maxLinearSpeed;
 	private float maxAngularSpeed;
 
-	//Agent créé son corps : on appellera ce constructeur lors de la création de l'agent
-	// P.S : la position x,y sera surement donné par l'agent également
 	/**
-	 * 
+	 * Creation with a polygon (rectangle) shape
 	 * @param x
 	 * @param y
 	 * @param width -> we may delete it
@@ -29,8 +27,9 @@ public class DynamicObject extends EnvironmentObject{
 	 * @param agentId
 	 * @param w
 	 */
-	public DynamicObject(float x, float y,float width,float height,UUID agentId,World w,EnvMap map){
-		super(x,y,width,height,agentId);
+	
+	/*public DynamicObject(float x, float y,float width,float height,UUID agentId,World w,EnvMap map){
+		super(width,height,agentId);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x, y);
 		bd.type = BodyType.KINEMATIC; //maybe DYNAMIC type is better
@@ -38,8 +37,7 @@ public class DynamicObject extends EnvironmentObject{
 		PolygonShape ps = new PolygonShape();
 		ps.set(vertices, vertices.length);
 
-		this.maxLinearSpeed=10;
-		this.maxAngularSpeed=10;
+
 		
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
@@ -72,9 +70,10 @@ public class DynamicObject extends EnvironmentObject{
 					    }   	
 					}
 				}
-	}
+	}*/
+	
 	/**
-	 * New creation of object
+	 * creation of object with a circle shape
 	 * @param x
 	 * @param y
 	 * @param radius
@@ -82,12 +81,15 @@ public class DynamicObject extends EnvironmentObject{
 	 * @param w
 	 */
 	public DynamicObject(float x, float y,float radius,UUID agentId,World w,EnvMap map){
-		super(x,y,agentId);
+		super(agentId);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x, y);
-		bd.type = BodyType.DYNAMIC; //maybe DYNAMIC type is better
+		bd.type = BodyType.DYNAMIC; 
 		CircleShape cs = new CircleShape();
-		cs.setRadius(radius); // is that all we need for a circle shape ?
+		cs.setRadius(radius); 
+		
+		this.maxLinearSpeed=10;
+		this.maxAngularSpeed=10;
 
 		FixtureDef fd = new FixtureDef();
 		fd.shape = cs;
@@ -99,7 +101,8 @@ public class DynamicObject extends EnvironmentObject{
 		body = w.createBody(bd);
 		body.createFixture(fd);
 
-		box.inflate(radius, radius,radius,radius);
+		this.width=radius*2;
+		this.height=radius*2;
 	}
 	
 	

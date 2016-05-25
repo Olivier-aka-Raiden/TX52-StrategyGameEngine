@@ -56,7 +56,7 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 			TreeNode currentNode = it.next();
 			if(currentNode.getBox().intersects(range)){
 				for(EnvironmentObject o:currentNode.getObjects()){
-					if(o.box.intersects(range) && o!=this){
+					if(o.getBox().intersects(range) && o!=this){
 						percept.add(new Perceivable(o));
 					}
 				}
@@ -79,7 +79,7 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 		ArrayList<Perceivable> perception = new ArrayList<Perceivable>();
 		
 		for(EnvironmentObject o:topNode.getObjects()){
-			if(o.box.intersects(range)){
+			if(o.getBox().intersects(range)){
 				perception.add(new Perceivable(o));
 			}
 		}

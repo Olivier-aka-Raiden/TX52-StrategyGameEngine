@@ -23,7 +23,7 @@ public class TreeNode {
 	 * @param o
 	 */
 	public void add(EnvironmentObject o) {
-		if(objects.size()<10 && getChildren()== null){  //15 is an arbitrary max number of object
+		if(objects.size()<10 && getChildren()== null){  
 			objects.add(o);
 			o.node=this;
 		}else{

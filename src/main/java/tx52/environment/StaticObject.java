@@ -11,14 +11,14 @@ import org.jbox2d.dynamics.World;
 
 public class StaticObject extends EnvironmentObject {
 	
-	//Do we need an UUID for static objects ?
+	
 
-	public StaticObject(float x, float y,UUID id){
-		super(x,y,id);
+	public StaticObject(UUID id){
+		super(id);
 	}
 
 	public StaticObject(float x, float y,float width,float height,UUID id,World w,EnvMap map){
-		super(x,y,width,height,id);
+		super(width,height,id);
 		BodyDef bd = new BodyDef();
 		bd.position.set(x,y);  
 		bd.type = BodyType.STATIC;
