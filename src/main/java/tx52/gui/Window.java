@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 
 import tx52.environment.AgentBody;
 import tx52.environment.Environment;
+import tx52.environment.EnvironmentEvent;
 
 public class Window extends JFrame implements  Runnable {
 
@@ -81,7 +82,7 @@ public class Window extends JFrame implements  Runnable {
 		for (AgentBody body : env.getWorld().getAgentBodies())
 		{
 			if (body != null)
-				units.put(body.getAgentId(),new Unit(body));
+				units.put(body.getId(),new Unit(body));
 		}
 
 		pack();
@@ -94,7 +95,11 @@ public class Window extends JFrame implements  Runnable {
 			for (AgentBody body : env.getWorld().getAgentBodies())
 			{
 				assert (body != null);
-				units.put(body.getAgentId(),new Unit(body));
+				units.put(body.getId(),new Unit(body));
+			}
+			displayer.updateLabels();
+			for (EnvironmentEvent events : env.getEventFire()){
+				this.log.updateLog("New spawn event.");
 			}
 		}
 		repaint();

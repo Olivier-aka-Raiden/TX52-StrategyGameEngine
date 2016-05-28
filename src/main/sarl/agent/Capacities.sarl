@@ -63,6 +63,7 @@ capacity MapManager {
 	
 	def printTree
 
+	def SpawnButtonRequest : boolean
 	
 }
 
@@ -104,7 +105,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		for( change : actions){
 			var body = getAgentBody(change.getEmitter).getBody()
 			var velocity = change.getVelocity
-			var force = new Vec2(/*velocity.getX(),velocity.getY()*/35,25)
+			var force = new Vec2(/*velocity.getX(),velocity.getY()*/2,1)
 			body.setLinearVelocity(force)
 			//print("test")
 		}
@@ -126,13 +127,13 @@ skill DefaultMapManagerSkill implements MapManager {
 			percevaibles = body.computePerception
 			var pos = body.position
 			
-			var perceptionEvent = new Perception(time,body.getAgentId,percevaibles,pos,body)
+			var perceptionEvent = new Perception(time,body.getId,percevaibles,pos,body)
 //			System.out.printf("\nPerception de l'UUID : "+body.getAgentId()+"\ntime: "+time+" position: " +pos);
 //			System.out.printf("\nPercevaibles :\n");
 //			for(per : percevaibles){
 //				System.out.printf("object : "+per+"\n")
 //			}
-			var adr=defaultSpace.getAddress(body.getAgentId)
+			var adr=defaultSpace.getAddress(body.getId)
 			emit(perceptionEvent ,Scopes::addresses(adr))
 
 		}
@@ -197,11 +198,19 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override printTree {
-		this.environment.printMap()
+		//this.environment.printMap()
 	}
 	 
 	override updateTree {
 		this.environment.updateTree()
+	}
+	
+	override SpawnButtonRequest : boolean {
+			if (!this.environment.getEventFire().isEmpty()){
+				this.environment.getEventFire().poll()
+				return true;
+			}
+			return false;	
 	}
 	
 }

@@ -10,7 +10,7 @@ import Behaviour.BehaviourOutput
 agent AbstractAnimat {
 	
 	uses PhysicEnvironment, Lifecycle
-	
+
 	on Initialize {
 		var physicSkill = new StandardPhysicEnvironment(
 			occurrence.parameters.get(0) as UUID,

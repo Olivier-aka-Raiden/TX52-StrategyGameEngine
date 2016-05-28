@@ -2,6 +2,7 @@ package tx52.environment;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.common.Vec2;
@@ -11,6 +12,7 @@ import org.jbox2d.dynamics.World;
 public class Environment {
 	World jBoxWorld;
 	EnvMap world;
+	LinkedBlockingDeque<EnvironmentEvent> eventFire = new LinkedBlockingDeque<EnvironmentEvent>();
 	//float timeStep;  // c'est plutot l'agent qui contient cette variable 
 	//int velocityIterations;
 	//int positionIterations;
@@ -56,7 +58,7 @@ public class Environment {
 	/**
 	 * this function print in console the world
 	 */
-	public void printMap(){
+	/*public void printMap(){
 		
 		System.out.printf("Map size : Width=%f Height=%f\n\n",world.getWidth(),world.getHeight());
 		System.out.println("Status of the RTree :");
@@ -81,13 +83,13 @@ public class Environment {
 		}System.out.println("***END OF TREE***\n");
 		
 		
-	}
+	}*/
 
 	/**
 	 * 1 iteration of simulation
 	 */
 	public void runJBox() {
-		float timeStep = 1.0f / 60.f;
+		float timeStep = 1.0f / 4.f;
 		int velocityIterations = 6;
 		int positionIterations = 2;
 		 
@@ -124,6 +126,14 @@ public class Environment {
 		}
 		addObjectToWorld(objectToAdd);
 		
+	}
+
+	public void fireEnvironmentChanged(EnvironmentEvent event) {
+		this.eventFire.addLast(event);
+	}
+
+	public LinkedBlockingDeque<EnvironmentEvent> getEventFire() {
+		return eventFire;
 	}
 
 }

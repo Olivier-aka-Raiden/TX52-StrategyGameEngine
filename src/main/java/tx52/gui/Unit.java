@@ -29,7 +29,7 @@ public class Unit {
 	public Unit(AgentBody a){
 		position = a.getPosition();
 		box = a.getBox();
-		id = a.getAgentId();
+		id = a.getId();
 		
 	}
 	

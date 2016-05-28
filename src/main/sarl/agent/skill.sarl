@@ -16,7 +16,7 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 	val environmentID : UUID
 	var physicSpace : OpenEventSpace
 	var myAdr : Address
-	
+
 	new (spaceID : UUID, environmentID : UUID) {
 		this.environmentID = environmentID
 		this.spaceID = spaceID
@@ -26,7 +26,7 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 		do {
 			this.physicSpace = defaultContext.getSpace(this.spaceID) 
 			Thread::yield
-		} while (this.physicSpace === null)
+		} while (this.physicSpace == null)
 		this.physicSpace.register(asEventListener)
 		this.myAdr = this.physicSpace.getAddress(owner.ID)  
 	}

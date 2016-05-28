@@ -24,7 +24,7 @@ agent EnvironmentAgent {
 	
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
-	var Dt = 1.0f //DeltaT
+	var Dt = 1.0f / 4.0f //DeltaT
 	val actions = <EnvironmentChangeQuery>newLinkedList
 	var adr : Address
 	var spaceID : UUID
@@ -46,7 +46,7 @@ agent EnvironmentAgent {
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 			spawnInContextWithID(
 				agentType,
-				body.getAgentId,
+				body.getId,
 				defaultContext,
 				agentParameters.toArray)
 		}
@@ -98,6 +98,16 @@ agent EnvironmentAgent {
 
 		synchronized(this){
 				this.actions.clear()
+				while (SpawnButtonRequest){
+					var body = createUnit(10)
+					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
+					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+					spawnInContextWithID(
+					agentType,
+					body.getId,
+					defaultContext,
+					agentParameters.toArray)
+				}
 				sendPerceptions(this.time) // Perception computation
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
@@ -112,7 +122,7 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-			
+			 
 			resolveInfluences(actions)
 			updateTree 
 			updateWindow
