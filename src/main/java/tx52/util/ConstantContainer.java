@@ -7,8 +7,8 @@ public class ConstantContainer {
 	public static final int NB_AGENTS = 25;
 	
 	public static final float BASIC_PERCEPTION_DISTANCE=10f;
-	public static final float BASIC_MAX_LINEAR_SPEED=10f;
-	public static final float BASIC_MAX_ANGULAR_SPEED=10f;
+	public static final float BASIC_MAX_LINEAR_SPEED=1f;
+	public static final float BASIC_MAX_ANGULAR_SPEED=1f;
 	public static final float BASIC_RADIUS=2;
 	
 	//JBOX2D related
@@ -20,7 +20,7 @@ public class ConstantContainer {
 	public static final int POSITION_ITERATIONS = 2;
 	
 	//Time Related
-	public static final float DELTA_T = 1.0f / 4.0f;
+	public static final float DELTA_T = 1.0f / 2.0f;
 	
 	//MAP Related
 	public static final float MAP_WIDTH = 200;
@@ -28,8 +28,8 @@ public class ConstantContainer {
 	
 	public static final float MAP_LIMIT_MIN_X = 20;
 	public static final float MAP_LIMIT_MIN_Y = 20;
-	public static final float MAP_LIMIT_MAX_X = 50;
-	public static final float MAP_LIMIT_MAX_Y = 50;
+	public static final float MAP_LIMIT_MAX_X = 40;
+	public static final float MAP_LIMIT_MAX_Y = 40;
 	
 	public static final float RANDOM_SPAWN_X = 30;
 	public static final float RANDOM_SPAWN_Y = 30;

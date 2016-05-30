@@ -105,7 +105,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		for( change : actions){
 			var body = getAgentBody(change.getEmitter).getBody()
 			var velocity = change.getVelocity
-			var force = new Vec2(/*velocity.getX(),velocity.getY()*/0.5f,0.8f)
+			var force = new Vec2(/*velocity.getX(),velocity.getY()*/1f,1f)
 			body.setLinearVelocity(force)
 			//print("test")
 		}

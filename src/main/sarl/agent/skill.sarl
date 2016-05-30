@@ -181,7 +181,7 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override printTree {
-		this.environment.printMap()
+		//this.environment.printMap()
 	}
 	 
 	override updateTree {
