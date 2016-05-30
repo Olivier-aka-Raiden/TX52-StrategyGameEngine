@@ -2,12 +2,13 @@ package tx52.environment;
 
 import java.util.UUID;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+
+import tx52.util.ConstantContainer;
 
 public class StaticObject extends EnvironmentObject {
 	
@@ -30,9 +31,9 @@ public class StaticObject extends EnvironmentObject {
 		//fixture test
 		FixtureDef fd = new FixtureDef();
 		fd.shape = ps;
-		fd.density = 0.5f;
-		fd.friction = 0.3f;        
-		fd.restitution = 0.5f;
+		fd.density = ConstantContainer.BASIC_DENSITY;
+		fd.friction = ConstantContainer.BASIC_FRICTION;        
+		fd.restitution = ConstantContainer.BASIC_RESTITUTION;
 		
 		body =  w.createBody(bd);
 		body.createFixture(fd);

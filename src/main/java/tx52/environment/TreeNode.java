@@ -1,9 +1,10 @@
 package tx52.environment;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
+
+import tx52.util.ConstantContainer;
 
 public class TreeNode {
 
@@ -23,13 +24,13 @@ public class TreeNode {
 	 * @param o
 	 */
 	public void add(EnvironmentObject o) {
-		if(objects.size()<10 && getChildren()== null){  
+		if(objects.size()<ConstantContainer.NB_MAX_OBJECT_IN_NODE && getChildren()== null){  
 			objects.add(o);
 			o.node=this;
 		}else{
 			if(getChildren()==null){
-				setChildren(new TreeNode[4]); //4 is an arbitrary number of child
-				for(int i=0;i<4;i++){
+				setChildren(new TreeNode[ConstantContainer.NB_CHILDREN]);
+				for(int i=0;i<ConstantContainer.NB_CHILDREN;i++){
 					getChildren()[i]=new TreeNode(createChildBox(i));
 					getChildren()[i].parent = this;
 				}
@@ -67,7 +68,7 @@ public class TreeNode {
 		int index=0;
 		int n=0;
 		
-		for(int i=0;i<4;i++){  //4 is a parameter
+		for(int i=0;i<ConstantContainer.NB_CHILDREN;i++){
 			if(getChildren()[i].getBox().intersects(e.getBox())){
 				n++;
 				index=i;

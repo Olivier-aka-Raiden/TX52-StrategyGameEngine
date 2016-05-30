@@ -25,7 +25,7 @@ agent AgentTest extends AbstractAnimat {
 	 
 	on Initialize{
 		super._handle_Initialize_0(occurrence) 
-		print("Agent Spawn\n")
+		//print("Agent Spawn\n")
 		emit(new agentReady)
 		
 	}

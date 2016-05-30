@@ -1,7 +1,6 @@
 package tx52.environment;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -11,6 +10,8 @@ import java.util.UUID;
 
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.dynamics.World;
+
+import tx52.util.ConstantContainer;
 
 /**
  * the world map
@@ -106,11 +107,11 @@ public class EnvMap {
 	 * @throws Exception if it is impossible to retrieve the body constructor or to create the instance. 
 	 */
 	public <T extends AgentBody> T createBody(Class<T> bodyType, UUID agentId,World w, float perceptionDistance) throws Exception {
-		int x = this.random.nextInt((int)30);
-		int y = this.random.nextInt((int)30);
+		int x = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_X);
+		int y = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_Y);
 		while (!canMoveInside(x, y)) {
-			x = this.random.nextInt((int)30);
-			y = this.random.nextInt((int)30);
+			x = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_X);
+			y = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_Y);
 		}
 
 		UUID id = agentId;
@@ -119,7 +120,7 @@ public class EnvMap {
 		}
 
 		Constructor<T> cons = bodyType.getDeclaredConstructor(float.class, float.class, float.class, UUID.class,World.class,EnvMap.class, float.class);
-		T body = cons.newInstance(x, y, 2, id,w, this, perceptionDistance);
+		T body = cons.newInstance(x, y,ConstantContainer.BASIC_RADIUS, id,w, this, perceptionDistance);
 		this.bodies.put(id, body);
 		addObjects(body);
 
@@ -128,7 +129,7 @@ public class EnvMap {
 
 	private boolean canMoveInside(int x, int y) {
 		
-		return (x>=20 && y>=20 && x<width-50 && y<height-50);
+		return (x>=ConstantContainer.MAP_LIMIT_MIN_X && y>=ConstantContainer.MAP_LIMIT_MIN_Y && x<width-ConstantContainer.MAP_LIMIT_MAX_X && y<height-ConstantContainer.MAP_LIMIT_MAX_Y);
 	}
 
 	public float getHeight() {

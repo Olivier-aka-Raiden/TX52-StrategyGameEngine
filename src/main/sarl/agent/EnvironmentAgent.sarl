@@ -3,11 +3,10 @@ package ^agent
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
-import io.sarl.core.Logging
 import io.sarl.util.Scopes
 import tx52.environment.EnvironmentListener
 import tx52.environment.EnvironmentChangeQuery
-import tx52.environment.AgentBody
+import tx52.util.ConstantContainer
 import java.util.List
 import java.util.UUID
 import io.sarl.lang.core.Address
@@ -20,16 +19,16 @@ import io.sarl.lang.core.Address
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
-	uses MapManager, EndOfTurn, Logging
+	uses MapManager
 	
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
-	var Dt = 1.0f / 4.0f //DeltaT
+	var Dt = ConstantContainer.DELTA_T
 	val actions = <EnvironmentChangeQuery>newLinkedList
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = 12
+	val agentNumber = ConstantContainer.NB_AGENTS
 	
 	on Initialize{
 		
@@ -37,11 +36,11 @@ agent EnvironmentAgent {
 		adr=defaultSpace.getAddress(this.ID)
 		
 		//we create the environment *in the skill*
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,200))
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(ConstantContainer.MAP_WIDTH,ConstantContainer.MAP_HEIGHT))
 		createMapSurroundings 
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
-			var body = createUnit(10)
+			var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
 			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 			spawnInContextWithID(
@@ -99,7 +98,7 @@ agent EnvironmentAgent {
 		synchronized(this){
 				this.actions.clear()
 				while (SpawnButtonRequest){
-					var body = createUnit(10)
+					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
 					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 					spawnInContextWithID(
@@ -125,8 +124,8 @@ agent EnvironmentAgent {
 			 
 			resolveInfluences(actions)
 			updateTree 
-			updateWindow
-			printTree //debug
+			updateWindow 
+			//printTree //debug 
 			
 			time+=Dt
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))

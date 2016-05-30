@@ -4,14 +4,12 @@ import java.util.UUID;
 
 import org.arakhne.afc.math.continous.object2d.Vector2f;
 import org.jbox2d.collision.shapes.CircleShape;
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.collision.shapes.ShapeType;
-import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+
+import tx52.util.ConstantContainer;
 
 public class DynamicObject extends EnvironmentObject{
 	
@@ -88,14 +86,14 @@ public class DynamicObject extends EnvironmentObject{
 		CircleShape cs = new CircleShape();
 		cs.setRadius(radius); 
 		
-		this.maxLinearSpeed=10;
-		this.maxAngularSpeed=10;
+		this.maxLinearSpeed=ConstantContainer.BASIC_MAX_LINEAR_SPEED;
+		this.maxAngularSpeed=ConstantContainer.BASIC_MAX_ANGULAR_SPEED;
 
 		FixtureDef fd = new FixtureDef();
 		fd.shape = cs;
-		fd.density = 0.5f;
-		fd.friction = 0.3f;
-		fd.restitution = 0.5f;
+		fd.density = ConstantContainer.BASIC_DENSITY;
+		fd.friction = ConstantContainer.BASIC_FRICTION;
+		fd.restitution = ConstantContainer.BASIC_RESTITUTION;
 		fd.userData = this; // we store a reference to the object there
 
 		body = w.createBody(bd);

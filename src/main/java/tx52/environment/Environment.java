@@ -9,6 +9,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
+import tx52.util.ConstantContainer;
+
 public class Environment {
 	World jBoxWorld;
 	EnvMap world;
@@ -58,7 +60,7 @@ public class Environment {
 	/**
 	 * this function print in console the world
 	 */
-	/*public void printMap(){
+	public void printMap(){
 		
 		System.out.printf("Map size : Width=%f Height=%f\n\n",world.getWidth(),world.getHeight());
 		System.out.println("Status of the RTree :");
@@ -83,15 +85,15 @@ public class Environment {
 		}System.out.println("***END OF TREE***\n");
 		
 		
-	}*/
+	}
 
 	/**
 	 * 1 iteration of simulation
 	 */
 	public void runJBox() {
-		float timeStep = 1.0f / 4.f;
-		int velocityIterations = 6;
-		int positionIterations = 2;
+		float timeStep = ConstantContainer.DELTA_T;
+		int velocityIterations = ConstantContainer.VELOCITY_ITERATIONS;
+		int positionIterations = ConstantContainer.POSITION_ITERATIONS;
 		 
 		//System.out.println("--Jbox2D Status--");
 		jBoxWorld.step(timeStep, velocityIterations, positionIterations);
