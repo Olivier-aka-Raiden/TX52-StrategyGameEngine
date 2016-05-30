@@ -8,4 +8,8 @@ public class EnvironmentEvent {
 		this.classNameOfUpdater = className;
 		this.updateAction = action;
 	}
+
+	public String getUpdateAction() {
+		return updateAction;
+	}
 }

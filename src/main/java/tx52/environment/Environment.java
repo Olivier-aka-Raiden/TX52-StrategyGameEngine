@@ -8,7 +8,6 @@ import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
-
 import tx52.util.ConstantContainer;
 
 public class Environment {
@@ -60,7 +59,7 @@ public class Environment {
 	/**
 	 * this function print in console the world
 	 */
-	public void printMap(){
+	/*public void printMap(){
 		
 		System.out.printf("Map size : Width=%f Height=%f\n\n",world.getWidth(),world.getHeight());
 		System.out.println("Status of the RTree :");
@@ -85,7 +84,7 @@ public class Environment {
 		}System.out.println("***END OF TREE***\n");
 		
 		
-	}
+	}*/
 
 	/**
 	 * 1 iteration of simulation

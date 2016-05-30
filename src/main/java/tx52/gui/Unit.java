@@ -3,6 +3,7 @@ package tx52.gui;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.UUID;
@@ -32,6 +33,10 @@ public class Unit {
 		
 	}
 	
+	public void setPosition(Point2f position) {
+		this.position = position;
+	}
+
 	public void paint(Graphics g, JPanel container)
 	{
 		Graphics2D g2d = (Graphics2D) g;

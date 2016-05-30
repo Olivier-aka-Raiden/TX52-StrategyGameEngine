@@ -3,6 +3,8 @@ package tx52.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -16,7 +18,7 @@ import tx52.environment.AgentBody;
 import tx52.environment.Environment;
 import tx52.environment.EnvironmentEvent;
 
-public class Window extends JFrame implements  Runnable {
+public class Window extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
@@ -93,7 +95,10 @@ public class Window extends JFrame implements  Runnable {
 			for (AgentBody body : env.getWorld().getAgentBodies())
 			{
 				assert (body != null);
-				units.put(body.getId(),new Unit(body));
+				if (!units.containsKey(body.getId()))
+					units.put(body.getId(),new Unit(body));
+				else
+					units.get(body.getId()).setPosition(body.getPosition());
 			}
 			displayer.updateLabels();
 			for (EnvironmentEvent events : env.getEventFire()){
@@ -102,28 +107,6 @@ public class Window extends JFrame implements  Runnable {
 		}
 		repaint();
 	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		//Boucle infine du thread affichage
-		while(true)
-		{
-			displayer.updateLabels();
-			this.sleep(99999);
-
-		}
-	}
-
-	private void sleep(int second)
-	{
-		try {
-			Thread.sleep(second*1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}
-	}
-
 	private class UnitPanel extends JPanel {
 		
 		/**

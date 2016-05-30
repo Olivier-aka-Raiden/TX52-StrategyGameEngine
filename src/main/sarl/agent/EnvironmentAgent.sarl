@@ -3,10 +3,11 @@ package ^agent
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
+import io.sarl.core.Logging
 import io.sarl.util.Scopes
 import tx52.environment.EnvironmentListener
 import tx52.environment.EnvironmentChangeQuery
-import tx52.util.ConstantContainer
+import tx52.environment.AgentBody
 import java.util.List
 import java.util.UUID
 import io.sarl.lang.core.Address
@@ -19,16 +20,16 @@ import io.sarl.lang.core.Address
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
-	uses MapManager
+	uses MapManager, EndOfTurn, Logging
 	
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
-	var Dt = ConstantContainer.DELTA_T
+	var Dt = 1.0f//DeltaT
 	val actions = <EnvironmentChangeQuery>newLinkedList
 	var adr : Address
 	var spaceID : UUID
 	var countInit = 0
-	val agentNumber = ConstantContainer.NB_AGENTS
+	val agentNumber = 12
 	
 	on Initialize{
 		
@@ -36,11 +37,11 @@ agent EnvironmentAgent {
 		adr=defaultSpace.getAddress(this.ID)
 		
 		//we create the environment *in the skill*
-		setSkill(typeof(MapManager), new DefaultMapManagerSkill(ConstantContainer.MAP_WIDTH,ConstantContainer.MAP_HEIGHT))
+		setSkill(typeof(MapManager), new DefaultMapManagerSkill(200,200))
 		createMapSurroundings 
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
-			var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
+			var body = createUnit(10)
 			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 			spawnInContextWithID(
@@ -51,7 +52,7 @@ agent EnvironmentAgent {
 		}
 		
 		updateWindow //mis a jour de la vue utilisateur
-		fireEnvironmentChange //utile ?
+		//fireEnvironmentChange //utile ?
 		
 	}
 	/**
@@ -97,17 +98,9 @@ agent EnvironmentAgent {
 
 		synchronized(this){
 				this.actions.clear()
-				while (SpawnButtonRequest){
-					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
-					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
-					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
-					spawnInContextWithID(
-					agentType,
-					body.getId,
-					defaultContext,
-					agentParameters.toArray)
-				}
+				
 				sendPerceptions(this.time) // Perception computation
+				
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
 			
@@ -121,14 +114,29 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-			 
-			resolveInfluences(actions)
-			updateTree 
-			updateWindow 
-			//printTree //debug 
 			
+			if(SpawnButtonRequest){
+					var body = createUnit(10)
+					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
+					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+					spawnInContextWithID(
+					agentType,
+					body.getId,
+					defaultContext,
+					agentParameters.toArray)
+			}
+//			var t1 = System.nanoTime()
+			resolveInfluences(actions)
+//			var t2 = System.nanoTime()
+//			var result = t2-t1;
+//			System.out.println("Time to resolve influences : " + result)
+			
+			updateTree
+			updateWindow
+			printTree //debug
 			time+=Dt
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
+			//var t2 = System.nanoTime()
 		}
 	}
 	

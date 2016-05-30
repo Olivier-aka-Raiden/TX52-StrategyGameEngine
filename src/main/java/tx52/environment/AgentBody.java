@@ -6,6 +6,9 @@ import java.util.UUID;
 import org.arakhne.afc.math.continous.object2d.Circle2f;
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.dynamics.World;
+import io.sarl.lang.core.Address;
+import io.sarl.lang.core.Agent;
+import io.sarl.lang.core.Scope;
 
 // A mettre abstract une fois différentes unités créées et passer ces unités en constructeur de createBody()
 public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
