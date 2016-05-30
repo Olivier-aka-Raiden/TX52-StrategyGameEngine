@@ -3,7 +3,6 @@ package tx52.gui;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.UUID;
@@ -18,10 +17,6 @@ import tx52.environment.AgentBody;
 
 public class Unit {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	protected Rectangle2f box;
 	protected UUID id;
 	protected Point2f position;

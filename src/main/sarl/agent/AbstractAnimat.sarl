@@ -8,7 +8,7 @@ import org.arakhne.afc.math.continous.object2d.Vector2f
 import Behaviour.BehaviourOutput
 
 agent AbstractAnimat {
-	
+
 	uses PhysicEnvironment, Lifecycle 
 
 	on Initialize {

@@ -19,6 +19,7 @@
 package Behaviour;
 
 import java.io.Serializable;
+
 import org.arakhne.afc.math.continous.object2d.Vector2f;
 
 

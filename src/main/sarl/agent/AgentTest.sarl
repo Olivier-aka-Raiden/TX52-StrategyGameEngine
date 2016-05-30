@@ -3,14 +3,12 @@
  */
 package ^agent
 
-import io.sarl.core.Lifecycle
-import io.sarl.core.DefaultContextInteractions
-import io.sarl.core.Initialize
-import io.sarl.core.Logging
+import Behaviour.KinematicWanderBehaviour
 import Behaviour.SeekBehaviour
 import Behaviour.WanderBehaviour
-import Behaviour.KinematicSeekBehaviour
-import Behaviour.KinematicWanderBehaviour
+import io.sarl.core.DefaultContextInteractions
+import io.sarl.core.Initialize
+import io.sarl.core.Lifecycle
 
 /**
  * @author Dudul
@@ -18,7 +16,7 @@ import Behaviour.KinematicWanderBehaviour
  */
 agent AgentTest extends AbstractAnimat {
 	
-	uses  Lifecycle, DefaultContextInteractions,Logging
+	uses  Lifecycle, DefaultContextInteractions
 	
 	var seekBehaviour : SeekBehaviour
 	var wanderBehaviour : WanderBehaviour 

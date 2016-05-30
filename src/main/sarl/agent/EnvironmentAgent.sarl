@@ -3,26 +3,23 @@ package ^agent
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
-import io.sarl.core.Logging
+import io.sarl.lang.core.Address
 import io.sarl.util.Scopes
-import tx52.environment.EnvironmentListener
-import tx52.environment.EnvironmentChangeQuery
-import tx52.environment.AgentBody
 import java.util.List
 import java.util.UUID
-import io.sarl.lang.core.Address
-
-import tx52.util.ConstantContainer;
+import tx52.environment.EnvironmentChangeQuery
+import tx52.environment.EnvironmentListener
+import tx52.util.ConstantContainer
 
 /**
  * @author Olivier
  * 
  */
- 
+
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
-	uses MapManager, EndOfTurn, Logging
+	uses MapManager
 	
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
@@ -82,6 +79,7 @@ agent EnvironmentAgent {
 	}
 	
 	on Influence [occurrence.time >= time] {  
+		
 		synchronized(this) {
 			
 			if(occurrence instanceof MotionInfluence){
@@ -132,7 +130,7 @@ agent EnvironmentAgent {
 					defaultContext,
 					agentParameters.toArray)
 			}
-//			var t1 = System.nanoTime()
+//			vr t1 = System.nanoTime()
 			resolveInfluences(actions)
 //			var t2 = System.nanoTime()
 //			var result = t2-t1;
@@ -140,7 +138,7 @@ agent EnvironmentAgent {
 			
 			updateTree
 			updateWindow
-			printTree //debug
+			//printTree //debug
 			time+=Dt
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			//var t2 = System.nanoTime()
