@@ -20,7 +20,12 @@ class KinematicWanderBehaviour implements WanderBehaviour{
 	override runWander(position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float) : BehaviourOutput {
 
 		val l = orientation.clone
-		l.normalize()
+		if(l.equals(new Vector2f(0,0))){
+			l.add(new Vector2f(maxLinear,maxLinear))
+		}else{
+			l.normalize()	
+		}
+		
 		l.scale(maxLinear)
 		val a = random * maxAngular
 	

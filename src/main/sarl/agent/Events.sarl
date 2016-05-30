@@ -1,13 +1,11 @@
 package ^agent
 
-import java.util.List
+import java.util.ArrayList
 import java.util.UUID
 import org.arakhne.afc.math.continous.object2d.Point2f
 import org.arakhne.afc.math.continous.object2d.Vector2f
-import tx52.environment.EnvironmentObject
-import tx52.environment.Perceivable
-import java.util.ArrayList
 import tx52.environment.AgentBody
+import tx52.environment.Perceivable
 
 /**
  * @author Olivier
@@ -28,17 +26,30 @@ event Perception {
 	}
 }
 
-//Action of an agent -> not needed
-
 /**
- * Agent emit an influence
+ * Agent emit an influence (2 kinds of influence)
  */
 event Influence {
 	val time : float
 	val vector : Vector2f
+	
 	new (time : float, vector : Vector2f){
 		this.time = time
 		this.vector = vector
+	}
+}
+
+event MotionInfluence extends Influence{ 
+	
+	new (time : float, vector : Vector2f){
+		super(time,vector)
+	}
+}
+
+event ShootInfluence extends Influence{
+	
+	new (time : float, vector : Vector2f){
+		super(time,vector)
 	}
 }
 

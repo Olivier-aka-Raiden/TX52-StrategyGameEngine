@@ -81,9 +81,14 @@ agent EnvironmentAgent {
 		}
 	}
 	
-	on Influence [occurrence.time >= time] {
+	on Influence [occurrence.time >= time] {  
 		synchronized(this) {
-			this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector)
+			
+			if(occurrence instanceof MotionInfluence){
+				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,"Motion")
+			}else{
+				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,"Shoot")
+			}
 			
 			if (this.actions.size >= bodyCount) {
 				emit(new RunEndOfStep,Scopes::addresses(adr))

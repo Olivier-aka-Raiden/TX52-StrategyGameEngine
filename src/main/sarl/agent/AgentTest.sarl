@@ -22,7 +22,7 @@ agent AgentTest extends AbstractAnimat {
 	
 	var seekBehaviour : SeekBehaviour
 	var wanderBehaviour : WanderBehaviour 
-	 
+	  
 	on Initialize{
 		super._handle_Initialize_0(occurrence) 
 		print("Agent Spawn\n")
@@ -33,18 +33,18 @@ agent AgentTest extends AbstractAnimat {
 	on Perception{
 		var body = occurrence.body
 		
-		if(occurrence.objects.size()>0){
-			var target = occurrence.objects.get(0)
-			this.seekBehaviour = new KinematicSeekBehaviour
-			
-			var o = this.seekBehaviour.runSeek(
-			body.position,
-			body.currentLinearMotion.length,
-			body.maxLinearSpeed,
-			target.position
-			)o.emitInfluence
-			
-		}else{
+//		if(occurrence.objects.size()>0){
+//			var target = occurrence.objects.get(0)
+//			this.seekBehaviour = new KinematicSeekBehaviour
+//			
+//			var o = this.seekBehaviour.runSeek(
+//			body.position,
+//			body.currentLinearMotion.length,
+//			body.maxLinearSpeed,
+//			target.position
+//			)o.emitInfluence
+//			
+//		}else{
 			this.wanderBehaviour = new KinematicWanderBehaviour
 			//position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float
 			var o = this.wanderBehaviour.runWander(
@@ -56,7 +56,7 @@ agent AgentTest extends AbstractAnimat {
 			body.maxAngularSpeed
 			)o.emitInfluence
 			
-		}
+//		}
 		
 		
 	}

@@ -9,7 +9,7 @@ import Behaviour.BehaviourOutput
 
 agent AbstractAnimat {
 	
-	uses PhysicEnvironment, Lifecycle
+	uses PhysicEnvironment, Lifecycle 
 
 	on Initialize {
 		var physicSkill = new StandardPhysicEnvironment(
