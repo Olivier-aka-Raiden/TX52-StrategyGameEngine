@@ -19,10 +19,10 @@
  */
 package tx52.util;
 
+import java.util.UUID;
+
 import io.sarl.lang.core.Address;
 import io.sarl.lang.core.Scope;
-
-import java.util.UUID;
 
 /** This scope is accepting the addresses that has the agent with the given identifier.
  * 

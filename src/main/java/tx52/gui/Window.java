@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 
 import tx52.environment.AgentBody;
 import tx52.environment.Environment;
-import tx52.environment.EnvironmentEvent;
 
 public class Window extends JFrame {
 
@@ -99,9 +98,9 @@ public class Window extends JFrame {
 					units.get(body.getId()).setPosition(body.getPosition());
 			}
 			displayer.updateLabels();
-			for (EnvironmentEvent events : env.getEventFire()){
-				this.log.updateLog("New spawn event.");
-			}
+//			for (EnvironmentEvent events : env.getEventFire()){
+//				this.log.updateLog("New spawn event.");
+//			}
 		}
 		repaint();
 	}

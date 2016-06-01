@@ -21,10 +21,10 @@
 
 package agent;
 
+import java.util.UUID;
+
 import io.sarl.lang.core.Event;
 import io.sarl.lang.core.EventListener;
-
-import java.util.UUID;
 
 /** Object that may be used to link a skill to a MazeSpace.
  *

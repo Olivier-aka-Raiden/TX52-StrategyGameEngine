@@ -16,8 +16,8 @@ import Behaviour.KinematicSeekBehaviour
  *
  */
 agent AgentTest extends AbstractAnimat {
-	
-	uses  Lifecycle, DefaultContextInteractions 
+
+	uses  Lifecycle, DefaultContextInteractions
 	
 	var seekBehaviour : SeekBehaviour
 	var wanderBehaviour : WanderBehaviour 

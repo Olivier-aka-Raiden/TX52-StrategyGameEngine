@@ -15,7 +15,7 @@ import tx52.util.ConstantContainer
  * @author Olivier
  * 
  */
- 
+
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
@@ -79,6 +79,7 @@ agent EnvironmentAgent {
 	}
 	
 	on Influence [occurrence.time >= time] {  
+		
 		synchronized(this) {
 			
 			if(occurrence instanceof MotionInfluence){
@@ -129,7 +130,7 @@ agent EnvironmentAgent {
 					defaultContext,
 					agentParameters.toArray)
 			}
-//			var t1 = System.nanoTime()
+//			vr t1 = System.nanoTime()
 			resolveInfluences(actions)
 //			var t2 = System.nanoTime()
 //			var result = t2-t1;

@@ -8,7 +8,7 @@ import org.arakhne.afc.math.continous.object2d.Vector2f
 import tx52.environment.Perceivable
 
 agent AbstractAnimat {
-	
+
 	uses PhysicEnvironment, Lifecycle 
 
 	on Initialize {

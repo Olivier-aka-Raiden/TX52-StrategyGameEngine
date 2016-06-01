@@ -10,7 +10,7 @@ import org.arakhne.afc.math.continous.object2d.Vector2f
  */
 class KinematicWanderBehaviour implements WanderBehaviour{	
 	
-	val generator = new Random
+	//val generator = new Random
 	
 	def random : double {
 		return Math::random - Math::random

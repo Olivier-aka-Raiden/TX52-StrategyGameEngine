@@ -17,10 +17,6 @@ import tx52.environment.AgentBody;
 
 public class Unit {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	protected Rectangle2f box;
 	protected UUID id;
 	protected Point2f position;
