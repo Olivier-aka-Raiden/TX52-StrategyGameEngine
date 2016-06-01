@@ -17,6 +17,7 @@ event Perception {
 	val pos : Point2f
 	val bodyId : UUID
 	val body : AgentBody
+	
 	new (time : float, bodyID : UUID, objects : ArrayList<Perceivable>, pos : Point2f,body : AgentBody){
 		this.time = time
 		this.bodyId = bodyID
@@ -36,13 +37,15 @@ event Influence {
 	new (time : float, vector : Vector2f){
 		this.time = time
 		this.vector = vector
-	}
+	} 
 }
 
 event MotionInfluence extends Influence{ 
+	val angular : float
 	
-	new (time : float, vector : Vector2f){
+	new (time : float, vector : Vector2f,angular : float){
 		super(time,vector)
+		this.angular = angular
 	}
 }
 

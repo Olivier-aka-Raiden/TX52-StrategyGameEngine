@@ -1,11 +1,11 @@
 package ^agent
 
-import tx52.environment.Perceivable
+import Behaviour.BehaviourOutput
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
 import java.util.UUID
 import org.arakhne.afc.math.continous.object2d.Vector2f
-import Behaviour.BehaviourOutput
+import tx52.environment.Perceivable
 
 agent AbstractAnimat {
 	
@@ -15,7 +15,7 @@ agent AbstractAnimat {
 		var physicSkill = new StandardPhysicEnvironment(
 			occurrence.parameters.get(0) as UUID,
 			occurrence.parameters.get(1) as UUID)
-		setSkill(PhysicEnvironment, physicSkill)   
+		setSkill(PhysicEnvironment, physicSkill)    
 	}
 	
 	def getMaxLinear(p : Perceivable) : float {
@@ -26,9 +26,9 @@ agent AbstractAnimat {
 		p.maxAngularSpeed
 	}
 
-	def emitInfluence(output : BehaviourOutput) {
+	def emitInfluence(output : BehaviourOutput,time : float) {
 		if (output !== null) {
-				influenceKinematic(output.linear, output.angular);
+				influenceKinematic(output.linear, output.angular,time);
 		}
 	}
 	

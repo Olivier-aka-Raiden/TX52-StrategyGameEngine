@@ -3,16 +3,13 @@ package ^agent
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
-import io.sarl.core.Logging
+import io.sarl.lang.core.Address
 import io.sarl.util.Scopes
-import tx52.environment.EnvironmentListener
-import tx52.environment.EnvironmentChangeQuery
-import tx52.environment.AgentBody
 import java.util.List
 import java.util.UUID
-import io.sarl.lang.core.Address
-
-import tx52.util.ConstantContainer;
+import tx52.environment.EnvironmentChangeQuery
+import tx52.environment.EnvironmentListener
+import tx52.util.ConstantContainer
 
 /**
  * @author Olivier
@@ -22,7 +19,7 @@ import tx52.util.ConstantContainer;
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
-	uses MapManager, EndOfTurn, Logging
+	uses MapManager
 	
 	var listeners = <EnvironmentListener>newArrayList
 	var time = 0.0f
@@ -101,7 +98,7 @@ agent EnvironmentAgent {
 	*/
 	on RunBeginingOfStep {
 		
-		//TODO write RunBeginingOfStep
+		
 
 		synchronized(this){
 				this.actions.clear()
@@ -140,7 +137,7 @@ agent EnvironmentAgent {
 			
 			updateTree
 			updateWindow
-			printTree //debug
+			//printTree //debug
 			time+=Dt
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			//var t2 = System.nanoTime()

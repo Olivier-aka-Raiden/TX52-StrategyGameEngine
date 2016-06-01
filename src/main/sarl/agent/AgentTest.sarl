@@ -3,14 +3,13 @@
  */
 package ^agent
 
-import io.sarl.core.Lifecycle
-import io.sarl.core.DefaultContextInteractions
-import io.sarl.core.Initialize
-import io.sarl.core.Logging
+import Behaviour.KinematicWanderBehaviour
 import Behaviour.SeekBehaviour
 import Behaviour.WanderBehaviour
+import io.sarl.core.DefaultContextInteractions
+import io.sarl.core.Initialize
+import io.sarl.core.Lifecycle
 import Behaviour.KinematicSeekBehaviour
-import Behaviour.KinematicWanderBehaviour
 
 /**
  * @author Dudul
@@ -18,14 +17,14 @@ import Behaviour.KinematicWanderBehaviour
  */
 agent AgentTest extends AbstractAnimat {
 	
-	uses  Lifecycle, DefaultContextInteractions,Logging
+	uses  Lifecycle, DefaultContextInteractions 
 	
 	var seekBehaviour : SeekBehaviour
 	var wanderBehaviour : WanderBehaviour 
 	  
 	on Initialize{
 		super._handle_Initialize_0(occurrence) 
-		print("Agent Spawn\n")
+		//print("Agent Spawn\n")
 		emit(new agentReady)
 		
 	}
@@ -42,7 +41,7 @@ agent AgentTest extends AbstractAnimat {
 //			body.currentLinearMotion.length,
 //			body.maxLinearSpeed,
 //			target.position
-//			)o.emitInfluence
+//			)o.emitInfluence(occurrence.time)
 //			
 //		}else{
 			this.wanderBehaviour = new KinematicWanderBehaviour
@@ -54,9 +53,9 @@ agent AgentTest extends AbstractAnimat {
 			body.maxLinearSpeed,
 			body.currentAngularSpeed,
 			body.maxAngularSpeed
-			)o.emitInfluence
+			)o.emitInfluence(occurrence.time)
 			
-//		}
+	//	}
 		
 		
 	}

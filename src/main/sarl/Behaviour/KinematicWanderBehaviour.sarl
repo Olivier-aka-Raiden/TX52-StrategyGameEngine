@@ -1,8 +1,9 @@
 package Behaviour
 
+import java.util.Random
 import org.arakhne.afc.math.continous.object2d.Point2f
 import org.arakhne.afc.math.continous.object2d.Vector2f
-import java.util.Random
+
 /**
  * @author Dudul
  *
@@ -21,7 +22,7 @@ class KinematicWanderBehaviour implements WanderBehaviour{
 
 		val l = orientation.clone
 		if(l.equals(new Vector2f(0,0))){
-			l.add(new Vector2f(maxLinear,maxLinear))
+			l.add(new Vector2f(1,1))
 		}else{
 			l.normalize()	
 		}

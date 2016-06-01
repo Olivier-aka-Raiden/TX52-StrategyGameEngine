@@ -38,7 +38,7 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 			Thread::yield
 		} while (this.physicSpace == null)
 		this.physicSpace.register(asEventListener)
-		this.myAdr = this.physicSpace.getAddress(owner.ID)  
+		this.myAdr = this.physicSpace.getAddress(owner.ID)   
 	}
 	
 /*	override uninstall() {  
@@ -48,9 +48,9 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 		this.physicSpace = null
 	}*/
 	
-	override influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f) {
+	override influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f,time : float = 0f) {
 		
-		var ^event = new Influence(angularInfluence,linearInfluence)
+		var ^event = new MotionInfluence(time,linearInfluence,angularInfluence)
 		^event.source = this.myAdr
 		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
 	}
@@ -181,7 +181,7 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override printTree {
-		//this.environment.printMap()
+		this.environment.printMap()
 	}
 	 
 	override updateTree {

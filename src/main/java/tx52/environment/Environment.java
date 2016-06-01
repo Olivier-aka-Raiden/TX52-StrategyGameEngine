@@ -6,8 +6,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+
 import tx52.util.ConstantContainer;
 
 public class Environment {
@@ -37,7 +37,7 @@ public class Environment {
 		if(this.world.getObjectList()!=null){
 			this.world.addObjects(objects);
 		}else{
-			this.world.setObjectList(new RTree(objects,new Rectangle2f(0,0,1,1)));
+			this.world.setObjectList(new RTree(objects,new Rectangle2f(0,0,ConstantContainer.MAP_WIDTH,ConstantContainer.MAP_HEIGHT)));
 		}
 	}
 	public World getjBoxWorld() {
@@ -59,7 +59,7 @@ public class Environment {
 	/**
 	 * this function print in console the world
 	 */
-	/*public void printMap(){
+	public void printMap(){
 		
 		System.out.printf("Map size : Width=%f Height=%f\n\n",world.getWidth(),world.getHeight());
 		System.out.println("Status of the RTree :");
@@ -84,7 +84,7 @@ public class Environment {
 		}System.out.println("***END OF TREE***\n");
 		
 		
-	}*/
+	}
 
 	/**
 	 * 1 iteration of simulation
@@ -94,14 +94,14 @@ public class Environment {
 		int velocityIterations = ConstantContainer.VELOCITY_ITERATIONS;
 		int positionIterations = ConstantContainer.POSITION_ITERATIONS;
 		 
-		//System.out.println("--Jbox2D Status--");
+//		System.out.println("--Jbox2D Status--");
 		jBoxWorld.step(timeStep, velocityIterations, positionIterations);
-	    Body templist = jBoxWorld.getBodyList();
-	    for (Body body = templist; body != null; body = body.m_next) {
-		    Vec2 position = body.getPosition();
-		    float angle = body.getAngle();
-		    //System.out.printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
-	    }//System.out.println("***END OF JBOX WORLD***\n");
+//	    Body templist = jBoxWorld.getBodyList();
+//	    for (Body body = templist; body != null; body = body.m_next) {
+//		    Vec2 position = body.getPosition();
+//		    float angle = body.getAngle();
+//		    System.out.printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
+//	    }System.out.println("***END OF JBOX WORLD***\n");
 	}
 
 	/**
