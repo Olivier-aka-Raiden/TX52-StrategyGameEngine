@@ -97,18 +97,21 @@ skill DefaultMapManagerSkill implements MapManager {
 		
 		for( change : actions){
 			if(change.influenceType.equals(ConstantContainer.MOTION_TYPE)){
-				var body = getAgentBody(change.getEmitter).getBody()
-				var velocity = change.getVelocity
-				var force = new Vec2(velocity.getX(),velocity.getY())
-				body.setLinearVelocity(force)
+				//A changer!
+				if(getAgentBody(change.getEmitter) != null){
+					var body = getAgentBody(change.getEmitter).getBody()
+					var velocity = change.getVelocity
+					var force = new Vec2(velocity.getX(),velocity.getY())
+					body.setLinearVelocity(force)
+				}
 			}else if(change.influenceType.equals(ConstantContainer.SHOOT_TYPE)){
-				var body = getAgentBody(change.getEmitter)
-				var target = getAgentBody(change.getTarget)
-				target.takeDamage(body.getDamagePerStep)
-				body.getBody.setLinearVelocity(new Vec2(0,0))
-			}
-
-			
+				if(getAgentBody(change.getEmitter) != null && getAgentBody(change.getTarget) != null){
+					var body = getAgentBody(change.getEmitter)
+					var target = getAgentBody(change.getTarget)
+					target.takeDamage(ConstantContainer.BASIC_DAMAGE)
+					body.getBody.setLinearVelocity(new Vec2(0,0))
+				}
+			}	
 		}
 		
 		RunJbox // 1 step of simulation	
@@ -230,6 +233,8 @@ skill DefaultMapManagerSkill implements MapManager {
 		for(id : agentToKill){
 			var adr=defaultSpace.getAddress(id)
 			emit(new KillAgent,Scopes::addresses(adr))
+			this.environment.getjBoxWorld.destroyBody(getAgentBody(id).getBody)
+			this.environment.world.removeBody(id)
 		}
 	}
 	

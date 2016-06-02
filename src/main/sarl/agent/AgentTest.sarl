@@ -10,6 +10,7 @@ import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
 import Behaviour.KinematicSeekBehaviour
+import tx52.util.ConstantContainer
 
 /**
  * @author Dudul
@@ -34,7 +35,7 @@ agent AgentTest extends AbstractAnimat {
 		if(occurrence.objects.size()>0){
 			for (object : occurrence.objects){
 				if (object.getTeam() != body.getTeam() && object.getTeam() != 0){
-					influenceAttack(body.getDamagePerStep, object.getBodyId(), occurrence.time)
+					influenceAttack(ConstantContainer.BASIC_DAMAGE, object.getBodyId(), occurrence.time)
 				}else{
 					this.wanderBehaviour = new KinematicWanderBehaviour
 					//position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float

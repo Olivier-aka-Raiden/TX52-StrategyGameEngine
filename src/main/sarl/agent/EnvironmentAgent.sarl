@@ -155,8 +155,6 @@ agent EnvironmentAgent {
 			//printTree //debug
 			TimeStep
 			WaitUntilEndOfStep
-			
-			
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			//var t2 = System.nanoTime()
 		}

@@ -78,6 +78,12 @@ public class EnvMap {
 	public int getBodyCount(){
 		return this.bodies.size();
 	}
+	/** Remove a body from the agentBodies
+	 * @param UUID
+	 */
+	public void removeBody(UUID id){
+		this.bodies.remove(id);
+	}
 	/** Replies the agent bodies
 	 * 
 	 * @return the agent bodies
