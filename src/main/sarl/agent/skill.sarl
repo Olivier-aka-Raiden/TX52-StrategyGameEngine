@@ -20,6 +20,8 @@ import tx52.gui.Window
 import tx52.util.AddressUUIDScope
 import tx52.util.ConstantContainer
 import java.util.Random
+import tx52.environment.Perceivable
+import tx52.environment.Perceivable
 
 skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
@@ -54,6 +56,12 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 	override influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f,time : float = 0f) {
 		
 		var ^event = new MotionInfluence(time,linearInfluence,angularInfluence)
+		^event.source = this.myAdr
+		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
+	}
+	
+	override influenceAttack(attackSpeed : int = 0, target : UUID = null, time : float = 0f) {
+		var ^event = new ShootInfluence (attackSpeed, target, time)
 		^event.source = this.myAdr
 		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
 	}

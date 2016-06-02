@@ -32,26 +32,29 @@ event Perception {
  */
 event Influence {
 	val time : float
-	val vector : Vector2f
 	
-	new (time : float, vector : Vector2f){
+	new (time : float){
 		this.time = time
-		this.vector = vector
 	} 
 }
 
 event MotionInfluence extends Influence{ 
 	val angular : float
+	val vector : Vector2f
 	new (time : float, vector : Vector2f,angular : float){
-		super(time,vector)
+		super(time)
+		this.vector = vector
 		this.angular = angular 
 	}
 }
 
 event ShootInfluence extends Influence{
-	
-	new (time : float, vector : Vector2f){
-		super(time,vector)
+	val target : UUID
+	val attackSpeed : int
+	new (attackSpeed : int,target : UUID, time : float ){
+		super(time)
+		this.target = target
+		this.attackSpeed = attackSpeed
 	}
 }
 
