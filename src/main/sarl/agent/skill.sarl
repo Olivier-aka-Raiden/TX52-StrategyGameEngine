@@ -96,7 +96,9 @@ skill DefaultMapManagerSkill implements MapManager {
 				var force = new Vec2(velocity.getX(),velocity.getY())
 				body.setLinearVelocity(force)
 			}else if(change.influenceType.equals(ConstantContainer.SHOOT_TYPE)){
-				// traitement d'une attaque
+				var body = getAgentBody(change.getEmitter)
+				var target = getAgentBody(change.getTarget)
+				target.takeDamage(body.getDamagePerStep)
 			}
 
 			

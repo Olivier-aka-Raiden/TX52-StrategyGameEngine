@@ -115,9 +115,15 @@ public class Environment {
 			node = it.next();
 			ArrayList<EnvironmentObject> objectsToRemove = new ArrayList<EnvironmentObject>();
 			for(EnvironmentObject object : node.getObjects()){
-				if(object.getLife()<=0){
-					agentToKill.add(object.getId());
-					objectsToRemove.add(object);
+				if(object instanceof AgentBody){
+					AgentBody objectA = (AgentBody) object;
+					if(objectA.getLife()<=0){
+						agentToKill.add(object.getId());
+						objectsToRemove.add(object);
+					}else if(!node.getBox().contains(object.getBox())){
+						objectToAdd.add(object);
+						objectsToRemove.add(object);
+					}
 				}else if(!node.getBox().contains(object.getBox())){
 					objectToAdd.add(object);
 					objectsToRemove.add(object);

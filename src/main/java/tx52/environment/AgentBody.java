@@ -111,4 +111,9 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 		}
 		return getId().compareTo(o.getId());
 	}
+
+
+	public void takeDamage(int damage) {
+		this.life-=damage;
+	}
 }
