@@ -17,21 +17,24 @@ public class Hub extends JPanel{
 	private static final long serialVersionUID = 1L;
 	Environment environment;
 	JLabel nbUnit;//example to know the number of unit on the map
-	JButton newSpawn;
+	JButton newSpawnA;
+	JButton newSpawnB;
 	JPanel container;
 	public Hub (Environment environment) {//World TBD
 		super();
 		this.environment = environment;
 		container = new JPanel();
 		nbUnit = new JLabel ("pop : 0/200");
-		newSpawn = new SpawnButton("Spawn",environment);
+		newSpawnA = new SpawnButtonA("Spawn Team Blue",environment);
+		newSpawnB = new SpawnButtonB("Spawn Team Red",environment);
 		
 		nbUnit.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 		container.setBackground(Color.LIGHT_GRAY);
 		container.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
 		container.setLayout(new FlowLayout());
 		this.add(nbUnit);
-		this.add(newSpawn);
+		this.add(newSpawnA);
+		this.add(newSpawnB);
 		this.add(container);
 		this.setLayout(new GridLayout(6,1));
 		this.setBackground(Color.LIGHT_GRAY);

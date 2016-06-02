@@ -11,11 +11,25 @@ import org.jbox2d.dynamics.World;
 public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	
 	private float perceptionDistance; 
+	private int life;
+	private int team;
 	//private final enum agentType; semantic
 	
-	public AgentBody (float x, float y,float radius,UUID agentId,World w,EnvMap map, float perceptionDistance) {
+	public AgentBody (float x, float y,float radius,int team,UUID agentId,World w,EnvMap map, float perceptionDistance) {
 		super (x,y,radius,agentId,w,map);
 		this.perceptionDistance = perceptionDistance;
+		this.team = team;
+		this.life = 100;
+	}
+
+
+	public int getLife() {
+		return life;
+	}
+
+
+	public int getTeam() {
+		return team;
 	}
 
 

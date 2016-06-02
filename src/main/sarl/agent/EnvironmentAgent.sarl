@@ -29,7 +29,7 @@ agent EnvironmentAgent {
 	var spaceID : UUID
 	var countInit = 0
 	val agentNumber = ConstantContainer.NB_AGENTS
-	
+
 	on Initialize{
 		
 		spaceID = defaultSpace.getID.getID
@@ -40,7 +40,7 @@ agent EnvironmentAgent {
 		createMapSurroundings 
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
-			var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
+			var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE, 1)
 			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 			spawnInContextWithID(
@@ -119,9 +119,19 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-			
-			if(SpawnButtonRequest){
-					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
+	
+			while(SpawnButtonRequestA){
+					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
+					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+					spawnInContextWithID(
+					agentType,
+					body.getId,
+					defaultContext,
+					agentParameters.toArray)
+			}
+			while(SpawnButtonRequestB){
+					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
 					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
 					spawnInContextWithID(

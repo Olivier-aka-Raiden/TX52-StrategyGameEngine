@@ -8,7 +8,7 @@ import io.sarl.core.Lifecycle
  * @author Dudul
  * 
  */
- 
+
 agent Boot {
 	uses DefaultContextInteractions, Lifecycle
 	
