@@ -84,8 +84,8 @@ agent EnvironmentAgent {
 			
 			if(occurrence instanceof MotionInfluence){
 				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,"Motion")
-			}else{
-				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,"Shoot")
+			}else if (occurrence instanceof ShootInfluence){
+				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,occurrence.attackSpeed,"Shoot")
 			}
 			
 			if (this.actions.size >= bodyCount) {
