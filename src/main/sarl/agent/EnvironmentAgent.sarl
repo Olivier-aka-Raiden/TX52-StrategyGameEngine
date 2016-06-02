@@ -19,11 +19,9 @@ import tx52.util.ConstantContainer
 agent EnvironmentAgent { 
 	
 	uses DefaultContextInteractions, Lifecycle
-	uses MapManager
+	uses MapManager, TimeManager
 	
 	var listeners = <EnvironmentListener>newArrayList
-	var time = 0.0f
-	var Dt = ConstantContainer.DELTA_T
 	val actions = <EnvironmentChangeQuery>newLinkedList
 	var adr : Address
 	var spaceID : UUID  
@@ -31,6 +29,8 @@ agent EnvironmentAgent {
 	val agentNumber = ConstantContainer.NB_AGENTS
 
 	on Initialize{
+		
+		setSkill(typeof(TimeManager),new DefaultTimeManager)
 		
 		spaceID = defaultSpace.getID.getID
 		adr=defaultSpace.getAddress(this.ID)
@@ -43,6 +43,7 @@ agent EnvironmentAgent {
 			var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE, 1)
 			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+			
 			spawnInContextWithID(
 				agentType,
 				body.getId,
@@ -102,14 +103,12 @@ agent EnvironmentAgent {
 		
 
 		synchronized(this){
-				if(time>=100){
-					this.actions.clear()
-				}else{
-					this.actions.clear()
-				}
+
+				this.actions.clear()
 				
+				startTimeCount()
 				
-				sendPerceptions(this.time) // Perception computation
+				sendPerceptions(getTime) // Perception computation
 				
 				//execution de tous les agents
 				//récupération des influences -> processus parallele
@@ -154,7 +153,10 @@ agent EnvironmentAgent {
 			updateTree
 			updateWindow 
 			//printTree //debug
-			time+=Dt
+			TimeStep
+			WaitUntilEndOfStep
+			
+			
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			//var t2 = System.nanoTime()
 		}

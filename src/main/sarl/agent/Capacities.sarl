@@ -70,3 +70,17 @@ capacity PhysicEnvironment {
 	
 	def influenceAttack (attackSpeed : int = 0,target : UUID = null, time : float = 0f)
 }
+
+capacity TimeManager{
+	/**
+	 * manage the time
+	 */
+	
+	def startTimeCount
+
+	def TimeStep
+	
+	def WaitUntilEndOfStep
+	
+	def getTime : float
+}

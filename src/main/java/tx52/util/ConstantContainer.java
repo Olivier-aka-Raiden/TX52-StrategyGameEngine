@@ -43,6 +43,8 @@ public class ConstantContainer {
 	//TREE Related
 	public static final int NB_MAX_OBJECT_IN_NODE = 10;
 	public static final int NB_CHILDREN = 4;
+	public static final int MAX_FPS = 50;
+	public static final int FRAME_PERIOD = 1000/MAX_FPS; //a changer !
 	
 	//GUI Related
 	

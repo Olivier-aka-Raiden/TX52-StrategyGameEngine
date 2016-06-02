@@ -253,3 +253,37 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 }
+
+skill DefaultTimeManager implements TimeManager{
+	var time = 0.0f
+	var Dt = ConstantContainer.DELTA_T
+	var beginTime : long		// the time when the cycle begun
+    var timeDiff : long		// the time it took for the cycle to execute
+    var sleepTime : long	// ms to sleep (<0 if we're behind)
+	
+	override startTimeCount{
+		beginTime = System.currentTimeMillis()	
+	}
+	
+	override TimeStep {
+		time+=Dt;
+	}
+	
+	override WaitUntilEndOfStep {
+		timeDiff = System.currentTimeMillis() - beginTime
+            sleepTime = ConstantContainer.FRAME_PERIOD - timeDiff
+
+            if (sleepTime > 0) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (e : InterruptedException ) {}
+            }else{
+            	//retard
+            }
+	}
+	
+	override getTime : float {
+		time
+	}
+	
+}
