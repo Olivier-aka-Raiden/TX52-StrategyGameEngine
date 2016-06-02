@@ -20,8 +20,6 @@ import tx52.gui.Window
 import tx52.util.AddressUUIDScope
 import tx52.util.ConstantContainer
 import java.util.Random
-import tx52.environment.Perceivable
-import tx52.environment.Perceivable
 
 skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
@@ -89,7 +87,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		this.environment = new Environment(this.width,this.height)
 		GUI = new Window(this.environment)
 	}
-	
+	 
 	override getBodyCount : int {
 		/** create a method to get size of the objectlist */
 		 return this.environment.world.getBodyCount()

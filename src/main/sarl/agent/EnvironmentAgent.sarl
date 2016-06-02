@@ -83,9 +83,9 @@ agent EnvironmentAgent {
 		synchronized(this) {
 			
 			if(occurrence instanceof MotionInfluence){
-				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,"Motion")
+				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,ConstantContainer.MOTION_TYPE)
 			}else if (occurrence instanceof ShootInfluence){
-				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,occurrence.attackSpeed,"Shoot")
+				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,occurrence.attackSpeed,ConstantContainer.SHOOT_TYPE)
 			}
 			
 			if (this.actions.size >= bodyCount) {
@@ -147,7 +147,7 @@ agent EnvironmentAgent {
 //			System.out.println("Time to resolve influences : " + result)
 			
 			updateTree
-			updateWindow
+			updateWindow 
 			//printTree //debug
 			time+=Dt
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
