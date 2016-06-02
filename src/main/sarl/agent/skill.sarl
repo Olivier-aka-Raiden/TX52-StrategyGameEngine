@@ -19,6 +19,7 @@ import tx52.environment.StaticObject
 import tx52.gui.Window
 import tx52.util.AddressUUIDScope
 import tx52.util.ConstantContainer
+import java.util.Random
 
 skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
@@ -65,6 +66,7 @@ skill DefaultMapManagerSkill implements MapManager {
 	
 	val width : float
 	val height : float
+	val random : Random = new Random()
 	
 	var environment : Environment
 	var GUI : Window
@@ -147,17 +149,39 @@ skill DefaultMapManagerSkill implements MapManager {
 		
 		this.environment.world.getAgentBody(id)
 	}
-	
-	override createUnit(perceptionDistance : float) : AgentBody {
-		
-		this.environment.world.createBody(typeof(AgentBody),null,this.environment.getjBoxWorld(),perceptionDistance)
+
+	override createUnit(perceptionDistance : float, team : int) : AgentBody {
+		// TODO Auto-generated action.
+		var x : int
+		var y : int
+		if (team == 1 ){
+			x = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_X)
+			y = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_Y)
+			while (!environment.world.canMoveInside(x, y)) {
+				x = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_X)
+				y = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_Y)
+			}
+		} else {
+			x = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_X)
+			y = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_Y)
+			x+=110
+			y+=110
+			while (!environment.world.canMoveInside(x, y)) {
+				x = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_X)
+				y = this.random.nextInt(ConstantContainer.RANDOM_SPAWN_Y)
+				x+=110
+				y+=110
+			}
+			
+		}
+		return this.environment.world.createBody(typeof(AgentBody),x,y,null,team,this.environment.getjBoxWorld(),perceptionDistance)
 	
 	}
 	
 	override createMapSurroundings {
 		var id : UUID
 		id = UUID.randomUUID()
-		var objects = <EnvironmentObject>newArrayList(new StaticObject(10,100,20,200,id,environment.getjBoxWorld,environment.getWorld()))
+		var objects = <EnvironmentObject>newArrayList(new StaticObject(10,100,10,200,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(100,5,200,10,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
@@ -165,7 +189,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(100,180,200,40,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(20,86,40,20,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(20,70,40,10,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(80,10,10,30,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
@@ -200,12 +224,23 @@ skill DefaultMapManagerSkill implements MapManager {
 		}
 	}
 	
-	override SpawnButtonRequest : boolean {
-			if (!this.environment.getEventFire().isEmpty()){
-				this.environment.getEventFire().poll()
-				return true;
-			}
-			return false;	
+	override SpawnButtonRequestA : boolean {
+		if (!this.environment.getEventFire().isEmpty()){
+ 			if (this.environment.getEventFire().element().getUpdateAction.equals("SpawnA")){
+ 				this.environment.getEventFire().take()
+ 				return true
+ 			}
+ 		}
+ 		return false
+	}
+	override SpawnButtonRequestB : boolean {
+		if (!this.environment.getEventFire().isEmpty()){
+ 			if (this.environment.getEventFire().element().getUpdateAction.equals("SpawnB")){
+ 				this.environment.getEventFire().take()
+ 				return true
+ 			}
+ 		}
+ 		return false
 	}
 	
 }

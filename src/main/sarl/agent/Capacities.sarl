@@ -40,7 +40,7 @@ capacity MapManager {
 	def getAgentBody(id : UUID) : AgentBody
 	
 	/** Create basic Unit */
-	def createUnit(perceptionDistance : float) : AgentBody
+	def createUnit(perceptionDistance : float, team : int) : AgentBody
 	
 	/** Create the map surroundings walls */
 	def createMapSurroundings
@@ -53,7 +53,9 @@ capacity MapManager {
 	
 	def printTree
 
-	def SpawnButtonRequest : boolean
+	def SpawnButtonRequestA : boolean
+	
+	def SpawnButtonRequestB : boolean
 	
 }
 

@@ -25,7 +25,7 @@ public class EnvMap {
 	//TODO create a list of RTree that represent the world -> Cohen Sutherland ?
 	private RTree objectList;
 	private Map<UUID,AgentBody> bodies = new TreeMap<>();
-	private final Random random = new Random();
+	
 	
 	//Parameters of the world
 	private final float width; 
@@ -106,28 +106,22 @@ public class EnvMap {
 	 * @return the body.
 	 * @throws Exception if it is impossible to retrieve the body constructor or to create the instance. 
 	 */
-	public <T extends AgentBody> T createBody(Class<T> bodyType, UUID agentId,World w, float perceptionDistance) throws Exception {
-		int x = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_X);
-		int y = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_Y);
-		while (!canMoveInside(x, y)) {
-			x = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_X);
-			y = this.random.nextInt((int)ConstantContainer.RANDOM_SPAWN_Y);
-		}
+	public <T extends AgentBody> T createBody(Class<T> bodyType,float x,float y, UUID agentId,int team,World w, float perceptionDistance) throws Exception {
 
 		UUID id = agentId;
 		if (id == null) {
 			id = UUID.randomUUID();
 		}
 
-		Constructor<T> cons = bodyType.getDeclaredConstructor(float.class, float.class, float.class, UUID.class,World.class,EnvMap.class, float.class);
-		T body = cons.newInstance(x, y,ConstantContainer.BASIC_RADIUS, id,w, this, perceptionDistance);
+		Constructor<T> cons = bodyType.getDeclaredConstructor(float.class, float.class, float.class,int.class, UUID.class,World.class,EnvMap.class, float.class);
+		T body = cons.newInstance(x, y,ConstantContainer.BASIC_RADIUS,team, id,w, this, perceptionDistance);
 		this.bodies.put(id, body);
 		addObjects(body);
 
 		return body;
 	}
 
-	private boolean canMoveInside(int x, int y) {
+	public boolean canMoveInside(int x, int y) {
 		
 		return (x>=ConstantContainer.MAP_LIMIT_MIN_X && y>=ConstantContainer.MAP_LIMIT_MIN_Y && x<width-ConstantContainer.MAP_LIMIT_MAX_X && y<height-ConstantContainer.MAP_LIMIT_MAX_Y);
 	}

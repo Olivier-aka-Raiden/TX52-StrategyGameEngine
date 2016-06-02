@@ -35,8 +35,8 @@ public class ConstantContainer {
 	public static final float MAP_LIMIT_MAX_X = 40;
 	public static final float MAP_LIMIT_MAX_Y = 40;
 	
-	public static final float RANDOM_SPAWN_X = 30;
-	public static final float RANDOM_SPAWN_Y = 30;
+	public static final int RANDOM_SPAWN_X = 30;
+	public static final int RANDOM_SPAWN_Y = 30;
 	
 	//TREE Related
 	public static final int NB_MAX_OBJECT_IN_NODE = 10;

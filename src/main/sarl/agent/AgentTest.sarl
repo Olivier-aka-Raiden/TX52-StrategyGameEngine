@@ -32,32 +32,30 @@ agent AgentTest extends AbstractAnimat {
 	on Perception{
 		var body = occurrence.body
 		
-		doNothing
-//		if(occurrence.objects.size()>0){
-//			var target = occurrence.objects.get(0)
-//			this.seekBehaviour = new KinematicSeekBehaviour
-//			
-//			var o = this.seekBehaviour.runSeek(
-//			body.position,
-//			body.currentLinearMotion.length,
-//			body.maxLinearSpeed,
-//			target.position
-//			)
-//			o.emitInfluence(occurrence.time)
-//			
-//		}else{
-//			this.wanderBehaviour = new KinematicWanderBehaviour
-//			var o = this.wanderBehaviour.runWander(
-//			body.position,
-//			body.currentLinearMotion,
-//			body.currentLinearMotion.length,
-//			body.maxLinearSpeed,
-//			body.currentAngularSpeed,
-//			body.maxAngularSpeed
-//			)
-//			o.emitInfluence(occurrence.time)
-//			
-//		}
+		if(occurrence.objects.size()>0){
+			var target = occurrence.objects.get(0)
+			this.seekBehaviour = new KinematicSeekBehaviour
+			
+			var o = this.seekBehaviour.runSeek(
+			body.position,
+			body.currentLinearMotion.length,
+			body.maxLinearSpeed,
+			target.position
+			)o.emitInfluence(occurrence.time)
+			
+		}else{
+			this.wanderBehaviour = new KinematicWanderBehaviour
+			//position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float
+			var o = this.wanderBehaviour.runWander(
+			body.position,
+			body.currentLinearMotion,
+			body.currentLinearMotion.length,
+			body.maxLinearSpeed,
+			body.currentAngularSpeed,
+			body.maxAngularSpeed
+			)o.emitInfluence(occurrence.time)
+			
+		}
 		
 		
 	}

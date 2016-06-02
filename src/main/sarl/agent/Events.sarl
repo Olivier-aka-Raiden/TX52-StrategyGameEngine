@@ -42,7 +42,6 @@ event Influence {
 
 event MotionInfluence extends Influence{ 
 	val angular : float
-	
 	new (time : float, vector : Vector2f,angular : float){
 		super(time,vector)
 		this.angular = angular 

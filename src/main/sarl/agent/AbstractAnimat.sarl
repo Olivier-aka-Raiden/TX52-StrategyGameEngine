@@ -43,5 +43,4 @@ agent AbstractAnimat {
 	on KillAgent{
 		killMe
 	}
-
 }
