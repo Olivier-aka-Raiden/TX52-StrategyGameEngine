@@ -36,7 +36,17 @@ agent AgentTest extends AbstractAnimat {
 				if (object.getTeam() != body.getTeam() && object.getTeam() != 0){
 					influenceAttack(body.getDamagePerStep, object.getBodyId(), occurrence.time)
 				}else{
-					doNothing
+					this.wanderBehaviour = new KinematicWanderBehaviour
+					//position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float
+					var o = this.wanderBehaviour.runWander(
+					body.position,
+					body.currentLinearMotion,
+					body.currentLinearMotion.length,
+					body.maxLinearSpeed,
+					body.currentAngularSpeed,
+					body.maxAngularSpeed
+					)
+					o.emitInfluence(occurrence.time)
 				}
 			}
 		}else{
@@ -49,8 +59,8 @@ agent AgentTest extends AbstractAnimat {
 			body.maxLinearSpeed,
 			body.currentAngularSpeed,
 			body.maxAngularSpeed
-			)o.emitInfluence(occurrence.time)
-			
+			)
+			o.emitInfluence(occurrence.time)
 		}
 		
 		

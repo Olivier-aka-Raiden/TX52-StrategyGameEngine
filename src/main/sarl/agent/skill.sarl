@@ -105,6 +105,7 @@ skill DefaultMapManagerSkill implements MapManager {
 				var body = getAgentBody(change.getEmitter)
 				var target = getAgentBody(change.getTarget)
 				target.takeDamage(body.getDamagePerStep)
+				body.getBody.setLinearVelocity(new Vec2(0,0))
 			}
 
 			

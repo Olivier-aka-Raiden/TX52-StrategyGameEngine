@@ -6,10 +6,12 @@ public class ConstantContainer {
 	//Agent or Body Related
 	public static final int NB_AGENTS = 1;
 	
-	public static final float BASIC_PERCEPTION_DISTANCE=10f;
+	public static final float BASIC_PERCEPTION_DISTANCE=100f;
 	public static final float BASIC_MAX_LINEAR_SPEED=1f;
 	public static final float BASIC_MAX_ANGULAR_SPEED=1f;
 	public static final float BASIC_RADIUS=2;
+	public static final int BASIC_LIFE = 100;
+	public static final int BASIC_DAMAGE= 10;
 	
 	//Influence related
 	public static final String MOTION_TYPE="MOTION";

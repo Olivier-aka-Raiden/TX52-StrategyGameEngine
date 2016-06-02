@@ -7,6 +7,8 @@ import org.arakhne.afc.math.continous.object2d.Circle2f;
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.dynamics.World;
 
+import tx52.util.ConstantContainer;
+
 // A mettre abstract une fois différentes unités créées et passer ces unités en constructeur de createBody()
 public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	
@@ -25,7 +27,8 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 		super (x,y,radius,agentId,w,map);
 		this.perceptionDistance = perceptionDistance;
 		this.team = team;
-		this.life = 100;
+		this.life = ConstantContainer.BASIC_LIFE;
+		this.damagePerStep = ConstantContainer.BASIC_DAMAGE;
 	}
 
 
@@ -56,9 +59,8 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 		r.setFromCorners(range.getX()-range.getRadius(),range.getY()-range.getRadius(),range.getX()+range.getRadius(),range.getY()+range.getRadius());
 		
 		//determine the biggest node that is in range
-		while(!topNode.getBox().contains(r)){
+		while(topNode.getParent()!=null && !topNode.getBox().contains(r)){
 			topNode = topNode.getParent();
-			assert(topNode!=null); //test
 		}
 		
 		ArrayList<Perceivable> percept = new ArrayList<Perceivable>();

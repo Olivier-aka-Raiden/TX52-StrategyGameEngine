@@ -102,7 +102,12 @@ agent EnvironmentAgent {
 		
 
 		synchronized(this){
-				this.actions.clear()
+				if(time>=100){
+					this.actions.clear()
+				}else{
+					this.actions.clear()
+				}
+				
 				
 				sendPerceptions(this.time) // Perception computation
 				
