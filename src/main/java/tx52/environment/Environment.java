@@ -2,6 +2,7 @@ package tx52.environment;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
@@ -14,9 +15,7 @@ public class Environment {
 	World jBoxWorld;
 	EnvMap world;
 	LinkedBlockingDeque<EnvironmentEvent> eventFire = new LinkedBlockingDeque<EnvironmentEvent>();
-	//float timeStep;  // c'est plutot l'agent qui contient cette variable 
-	//int velocityIterations;
-	//int positionIterations;
+
 	
 	/**
 	 * creation of the environment. Setup the Jbox2DWorld and create the EnvMap
@@ -107,7 +106,7 @@ public class Environment {
 	/**
 	 * change the tree in fucntion of the movements of all objects
 	 */
-	public void updateTree() {
+	public void updateTree(ArrayList<UUID> agentToKill) {
 		DepthFirstIterator it = new DepthFirstIterator(world.getObjectList());
 		TreeNode node = null;
 		ArrayList<EnvironmentObject> objectToAdd = new ArrayList<EnvironmentObject>();
@@ -116,7 +115,10 @@ public class Environment {
 			node = it.next();
 			ArrayList<EnvironmentObject> objectsToRemove = new ArrayList<EnvironmentObject>();
 			for(EnvironmentObject object : node.getObjects()){
-				if(!node.getBox().contains(object.getBox())){
+				if(object.getLife()<=0){
+					agentToKill.add(object.getId());
+					objectsToRemove.add(object);
+				}else if(!node.getBox().contains(object.getBox())){
 					objectToAdd.add(object);
 					objectsToRemove.add(object);
 				}

@@ -26,7 +26,7 @@ agent EnvironmentAgent {
 	var Dt = ConstantContainer.DELTA_T
 	val actions = <EnvironmentChangeQuery>newLinkedList
 	var adr : Address
-	var spaceID : UUID
+	var spaceID : UUID  
 	var countInit = 0
 	val agentNumber = ConstantContainer.NB_AGENTS
 	
@@ -120,7 +120,7 @@ agent EnvironmentAgent {
 		
 		synchronized(this) {
 			
-			if(SpawnButtonRequest){
+			if(SpawnButtonRequest){ 
 					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE)
 					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
 					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent

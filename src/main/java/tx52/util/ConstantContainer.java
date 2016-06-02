@@ -11,6 +11,10 @@ public class ConstantContainer {
 	public static final float BASIC_MAX_ANGULAR_SPEED=1f;
 	public static final float BASIC_RADIUS=2;
 	
+	//Influence related
+	public static final String MOTION_TYPE="MOTION";
+	public static final String SHOOT_TYPE="SHOOT";
+	
 	//JBOX2D related
 	public static final float BASIC_DENSITY = 0.5f;
 	public static final float BASIC_FRICTION = 0.3f;

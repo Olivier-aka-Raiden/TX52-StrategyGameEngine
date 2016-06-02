@@ -5,6 +5,7 @@ import io.sarl.core.DefaultContextInteractions
 import io.sarl.lang.core.Address
 import io.sarl.util.OpenEventSpace
 import io.sarl.util.Scopes
+import java.util.ArrayList
 import java.util.List
 import java.util.UUID
 import org.arakhne.afc.math.continous.object2d.Vector2f
@@ -17,6 +18,7 @@ import tx52.environment.RTree
 import tx52.environment.StaticObject
 import tx52.gui.Window
 import tx52.util.AddressUUIDScope
+import tx52.util.ConstantContainer
 
 skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
@@ -86,11 +88,16 @@ skill DefaultMapManagerSkill implements MapManager {
 	override resolveInfluences(actions : List<EnvironmentChangeQuery>) : boolean {
 		
 		for( change : actions){
-			var body = getAgentBody(change.getEmitter).getBody()
-			var velocity = change.getVelocity
-			var force = new Vec2(velocity.getX(),velocity.getY())
-			body.setLinearVelocity(force)
-			//print("test")
+			if(change.influenceType.equals(ConstantContainer.MOTION_TYPE)){
+				var body = getAgentBody(change.getEmitter).getBody()
+				var velocity = change.getVelocity
+				var force = new Vec2(velocity.getX(),velocity.getY())
+				body.setLinearVelocity(force)
+			}else if(change.influenceType.equals(ConstantContainer.SHOOT_TYPE)){
+				// traitement d'une attaque
+			}
+
+			
 		}
 		
 		RunJbox // 1 step of simulation	
@@ -137,12 +144,12 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override getAgentBody(id : UUID) : AgentBody {
-		// TODO Auto-generated action.
+		
 		this.environment.world.getAgentBody(id)
 	}
 	
 	override createUnit(perceptionDistance : float) : AgentBody {
-		// TODO Auto-generated action.
+		
 		this.environment.world.createBody(typeof(AgentBody),null,this.environment.getjBoxWorld(),perceptionDistance)
 	
 	}
@@ -185,7 +192,12 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	 
 	override updateTree {
-		this.environment.updateTree()
+		var agentToKill : ArrayList<UUID> = new ArrayList<UUID>()
+		this.environment.updateTree(agentToKill)
+		for(id : agentToKill){
+			var adr=defaultSpace.getAddress(id)
+			emit(new KillAgent,Scopes::addresses(adr))
+		}
 	}
 	
 	override SpawnButtonRequest : boolean {

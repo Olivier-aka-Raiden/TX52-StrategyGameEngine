@@ -39,5 +39,9 @@ agent AbstractAnimat {
 	on EndOfGame {
 		killMe
 	}
+	
+	on KillAgent{
+		killMe
+	}
 
 }

@@ -57,12 +57,6 @@ capacity MapManager {
 	
 }
 
-
-capacity EndOfTurn {
-	def sendPerception(time : float, bodyID : UUID, objects : ArrayList<Perceivable>,position : Point2f)
-	
-}
-
 capacity PhysicEnvironment {
 	
 	/** Invoked to send the influence to the environment.

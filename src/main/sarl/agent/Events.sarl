@@ -45,7 +45,7 @@ event MotionInfluence extends Influence{
 	
 	new (time : float, vector : Vector2f,angular : float){
 		super(time,vector)
-		this.angular = angular
+		this.angular = angular 
 	}
 }
 
@@ -57,6 +57,8 @@ event ShootInfluence extends Influence{
 }
 
 event agentReady
+
+event KillAgent
 
 event RunEndOfStep
 
