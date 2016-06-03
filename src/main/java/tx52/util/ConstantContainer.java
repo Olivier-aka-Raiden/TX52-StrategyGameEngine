@@ -49,8 +49,8 @@ public class ConstantContainer {
 	public static final int FRAME_PERIOD = 1000/MAX_FPS; //a changer !
 	
 	//GUI Related
-	public static final Dimension BG_SIZE = new Dimension (800,600);
-	public static final Dimension VIEWPORT_SIZE = new Dimension (1033,867);
+	public static final Dimension BG_SIZE = new Dimension (1033,867);
+	public static final Dimension VIEWPORT_SIZE = new Dimension (800,600);
 	
 	
 	//ETC

@@ -208,7 +208,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(170,90,50,10,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
-		objects.add(new StaticObject(95,170,15,60,id,environment.getjBoxWorld,environment.getWorld()))
+		objects.add(new StaticObject(105,170,12,60,id,environment.getjBoxWorld,environment.getWorld()))
 		id = UUID.randomUUID()
 		objects.add(new StaticObject(93,73,6,6,id,environment.getjBoxWorld,environment.getWorld()))
 		this.environment.addObjectToWorld(objects)

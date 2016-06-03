@@ -55,7 +55,7 @@ public class Window extends JFrame {
 
 		//JLayeredPane : permet de représenter nos objets sur différentes couches
 		jlp = new JLayeredPane();
-		jlp.getPreferredSize();
+		jlp.setPreferredSize(ConstantContainer.BG_SIZE);
 		jlp.setOpaque(false);
 		// Add the images to the JLayeredPane with a different deep level
 		jlp.add(bg, new Integer(1));//plus integer est grand grand, plus c'est avancé
