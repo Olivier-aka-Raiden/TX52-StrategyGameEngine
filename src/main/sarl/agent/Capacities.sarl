@@ -9,6 +9,7 @@ import tx52.environment.AgentBody
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.Perceivable
 import tx52.environment.RTree
+import java.util.concurrent.LinkedBlockingDeque
 
 /**
  * @author Olivier
@@ -22,7 +23,7 @@ capacity MapManager {
 	
 	/** execute the list of influences 
 	 * 	@return true if game is over? *TBD* */
-	def resolveInfluences (actions : List<EnvironmentChangeQuery>) : boolean
+	def resolveInfluences (actions : LinkedBlockingDeque<EnvironmentChangeQuery>) : boolean
 	
 	/** replies the perceptions */
 	def sendPerceptions (time : float)

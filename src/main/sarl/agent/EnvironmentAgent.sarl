@@ -10,6 +10,7 @@ import java.util.UUID
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.EnvironmentListener
 import tx52.util.ConstantContainer
+import java.util.concurrent.LinkedBlockingDeque
 
 /**
  * @author Olivier
@@ -22,7 +23,7 @@ agent EnvironmentAgent {
 	uses MapManager, TimeManager
 	
 	var listeners = <EnvironmentListener>newArrayList
-	val actions = <EnvironmentChangeQuery>newLinkedList
+	val actions = new LinkedBlockingDeque <EnvironmentChangeQuery>
 	var adr : Address
 	var spaceID : UUID  
 	var countInit = 0
@@ -84,9 +85,9 @@ agent EnvironmentAgent {
 		synchronized(this) {
 			
 			if(occurrence instanceof MotionInfluence){
-				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,ConstantContainer.MOTION_TYPE)
+				this.actions.add(new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,ConstantContainer.MOTION_TYPE)) 
 			}else if (occurrence instanceof ShootInfluence){
-				this.actions += new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,occurrence.attackSpeed,ConstantContainer.SHOOT_TYPE)
+				this.actions.add(new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,occurrence.attackSpeed,ConstantContainer.SHOOT_TYPE))
 			}
 			
 			if (this.actions.size >= bodyCount) {
