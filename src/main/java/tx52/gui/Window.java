@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 
 import tx52.environment.AgentBody;
 import tx52.environment.Environment;
+import tx52.util.ConstantContainer;
 
 public class Window extends JFrame {
 
@@ -40,24 +41,21 @@ public class Window extends JFrame {
 		//Create the log area
 		log = new EventLog (environment);
 
-		// sizes
-		Dimension bgSize = new Dimension(1033,867);
-		Dimension viewportSize = new Dimension(800,600);
 		
 		// background image
 		bg = new Background();
-		bg.setSize(bgSize);
+		bg.setSize(ConstantContainer.BG_SIZE);
 		bg.setOpaque(false);
-		bg.setPreferredSize(bgSize);
+		bg.getPreferredSize();
 		
 		UnitPanel unitPanel = new UnitPanel();
-		unitPanel.setSize(bgSize);
+		unitPanel.setSize(ConstantContainer.BG_SIZE);
 		unitPanel.setOpaque(false);
-		unitPanel.setPreferredSize(bgSize);
+		unitPanel.getPreferredSize();
 
 		//JLayeredPane : permet de représenter nos objets sur différentes couches
 		jlp = new JLayeredPane();
-		jlp.setPreferredSize(bgSize);
+		jlp.getPreferredSize();
 		jlp.setOpaque(false);
 		// Add the images to the JLayeredPane with a different deep level
 		jlp.add(bg, new Integer(1));//plus integer est grand grand, plus c'est avancé
@@ -65,7 +63,7 @@ public class Window extends JFrame {
 		
 		//JscrollPane
 		JScrollPane scrollPane = new JScrollPane(jlp);
-		scrollPane.setPreferredSize(viewportSize);
+		scrollPane.setPreferredSize(ConstantContainer.VIEWPORT_SIZE);
 		this.setTitle("RTS Game Engine");
 		this.setResizable(true);
 		//this.setLocation
@@ -87,8 +85,10 @@ public class Window extends JFrame {
 	}
 	
 	public void updateWindow(){
+//		long t1 = System.nanoTime();
 		synchronized(getTreeLock()) {
 			units = new TreeMap<>();
+			
 			for (AgentBody body : env.getWorld().getAgentBodies())
 			{
 				assert (body != null);
@@ -102,6 +102,8 @@ public class Window extends JFrame {
 //				this.log.updateLog("New spawn event.");
 //			}
 		}
+//		long t2 = System.nanoTime();
+//		System.out.println("Time to draw GUI : " + (t2-t1));
 		repaint();
 	}
 	private class UnitPanel extends JPanel {
@@ -118,5 +120,9 @@ public class Window extends JFrame {
 			}
 		}
 		
+	}
+	@Override
+	public Dimension getPreferredSize() {
+	    return new Dimension(800, 600);
 	}
 }

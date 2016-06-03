@@ -39,7 +39,7 @@ public class Hub extends JPanel{
 		this.setLayout(new GridLayout(6,1));
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-		this.setPreferredSize(new Dimension(150,600));
+		this.getPreferredSize();
 	}
 	
 	//This method permit to update the informations displayed in the hub
@@ -52,5 +52,9 @@ public class Hub extends JPanel{
 		nb = environment.getWorld().getBodyCount();
 		
 		return nb;
+	}
+	@Override
+	public Dimension getPreferredSize() {
+	    return new Dimension(150, 600);
 	}
 }

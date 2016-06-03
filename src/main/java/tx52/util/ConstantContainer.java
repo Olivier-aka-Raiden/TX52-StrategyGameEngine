@@ -1,10 +1,12 @@
 package tx52.util;
 
+import java.awt.Dimension;
+
 //This class contains all constants of the engine
 public class ConstantContainer {
 	
 	//Agent or Body Related
-	public static final int NB_AGENTS = 1;
+	public static final int NB_AGENTS = 5;
 	
 	public static final float BASIC_PERCEPTION_DISTANCE=10f;
 	public static final float BASIC_MAX_LINEAR_SPEED=1f;
@@ -47,6 +49,9 @@ public class ConstantContainer {
 	public static final int FRAME_PERIOD = 1000/MAX_FPS; //a changer !
 	
 	//GUI Related
+	public static final Dimension BG_SIZE = new Dimension (800,600);
+	public static final Dimension VIEWPORT_SIZE = new Dimension (1033,867);
+	
 	
 	//ETC
 

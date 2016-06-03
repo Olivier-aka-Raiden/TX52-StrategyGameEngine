@@ -15,6 +15,7 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	private float perceptionDistance; 
 	private int life;
 	private int team;
+	private int damagePerStep;
 	//private final enum agentType; semantic
 	
 
@@ -24,6 +25,7 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 		this.perceptionDistance = perceptionDistance;
 		this.team = team;
 		this.life = ConstantContainer.BASIC_LIFE;
+		this.damagePerStep = ConstantContainer.BASIC_DAMAGE;
 	}
 
 
@@ -116,7 +118,7 @@ public class AgentBody extends DynamicObject implements Comparable<AgentBody>{
 	}
 
 
-	public void takeDamage(int damage) {
-		this.life-=damage;
+	public void takeDamage() {
+		this.life-=damagePerStep;
 	}
 }

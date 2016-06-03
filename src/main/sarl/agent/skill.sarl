@@ -59,8 +59,8 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
 	}
 	
-	override influenceAttack(attackSpeed : int = 0, target : UUID = null, time : float = 0f) {
-		var ^event = new ShootInfluence (attackSpeed, target, time)
+	override influenceAttack(time : float = 0f, target : UUID = null) {
+		var ^event = new ShootInfluence (time, target)
 		^event.source = this.myAdr
 		this.physicSpace.emit(^event, new AddressUUIDScope(this.environmentID))
 	}
@@ -95,11 +95,9 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override resolveInfluences(actions : LinkedBlockingDeque<EnvironmentChangeQuery>) : boolean {
-		System.out.println(actions.size())	
 		while (actions.size() != 0){
 			var change = actions.take()
 			if(change.influenceType.equals(ConstantContainer.MOTION_TYPE)){
-				//A changer!
 				if(getAgentBody(change.getEmitter) != null){
 					var body = getAgentBody(change.getEmitter).getBody()
 					var velocity = change.getVelocity
@@ -110,7 +108,7 @@ skill DefaultMapManagerSkill implements MapManager {
 				if(getAgentBody(change.getEmitter) != null && getAgentBody(change.getTarget) != null){
 					var body = getAgentBody(change.getEmitter)
 					var target = getAgentBody(change.getTarget)
-					target.takeDamage(ConstantContainer.BASIC_DAMAGE)
+					target.takeDamage()
 					body.getBody.setLinearVelocity(new Vec2(0,0))
 				}
 			}	
@@ -130,11 +128,12 @@ skill DefaultMapManagerSkill implements MapManager {
 			
 			
 			var percevaibles = newArrayList
-			percevaibles = body.computePerception
 			var pos = body.position
 			
+			percevaibles = body.computePerception
+			
 			var perceptionEvent = new Perception(time,body.getId,percevaibles,pos,body)
-//			System.out.printf("\nPerception de l'UUID : "+body.getAgentId()+"\ntime: "+time+" position: " +pos);
+//			System.out.printf("\nPerception de l'UUID : "+body.getId()+"\ntime: "+time+" position: " +pos);
 //			System.out.printf("\nPercevaibles :\n");
 //			for(per : percevaibles){
 //				System.out.printf("object : "+per+"\n")

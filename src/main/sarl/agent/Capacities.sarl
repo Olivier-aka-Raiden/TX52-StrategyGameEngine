@@ -69,7 +69,7 @@ capacity PhysicEnvironment {
 	 */
 	def influenceKinematic(linearInfluence : Vector2f = null, angularInfluence : float = 0f,time : float = 0f)
 	
-	def influenceAttack (attackSpeed : int = 0,target : UUID = null, time : float = 0f)
+	def influenceAttack (time : float = 0f,target : UUID = null)
 }
 
 capacity TimeManager{

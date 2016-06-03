@@ -50,11 +50,9 @@ event MotionInfluence extends Influence{
 
 event ShootInfluence extends Influence{
 	val target : UUID
-	val attackSpeed : int
-	new (attackSpeed : int,target : UUID, time : float ){
+	new (time : float,target : UUID){
 		super(time)
 		this.target = target
-		this.attackSpeed = attackSpeed
 	}
 }
 

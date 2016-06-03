@@ -87,7 +87,7 @@ agent EnvironmentAgent {
 			if(occurrence instanceof MotionInfluence){
 				this.actions.add(new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,ConstantContainer.MOTION_TYPE)) 
 			}else if (occurrence instanceof ShootInfluence){
-				this.actions.add(new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,occurrence.attackSpeed,ConstantContainer.SHOOT_TYPE))
+				this.actions.add(new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.target,ConstantContainer.SHOOT_TYPE))
 			}
 			
 			if (this.actions.size >= bodyCount) {
@@ -145,14 +145,17 @@ agent EnvironmentAgent {
 					defaultContext,
 					agentParameters.toArray)
 			}
-//			vr t1 = System.nanoTime()
+//			var t1 = System.nanoTime()
 			resolveInfluences(actions)
 //			var t2 = System.nanoTime()
 //			var result = t2-t1;
 //			System.out.println("Time to resolve influences : " + result)
 			
 			updateTree
+//			var t1 = System.nanoTime()
 			updateWindow 
+//			var t2 = System.nanoTime()
+//			System.out.println("Time to draw GUI : " + (t2-t1))
 			//printTree //debug
 			TimeStep
 			WaitUntilEndOfStep
@@ -161,7 +164,7 @@ agent EnvironmentAgent {
 		}
 	}
 	
-		
+	
 	def fireGameOver {
 		for (listener : this.listeners) {
 			listener.gameOver()
