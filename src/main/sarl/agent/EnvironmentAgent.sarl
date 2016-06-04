@@ -36,15 +36,24 @@ agent EnvironmentAgent {
 		spaceID = defaultSpace.getID.getID
 		adr=defaultSpace.getAddress(this.ID)
 		
+		//we create the environment *in the skill*
 		setSkill(typeof(MapManager), new DefaultMapManagerSkill(ConstantContainer.MAP_WIDTH,ConstantContainer.MAP_HEIGHT))
 		createMapSurroundings 
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
-			spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+			var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE, 1)
+			var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
+			var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+			
+			spawnInContextWithID(
+				agentType,
+				body.getId,
+				defaultContext,
+				agentParameters.toArray)
 		}
 		
 		updateWindow //mis a jour de la vue utilisateur
-		//fireEnvironmentChange
+		//fireEnvironmentChange //utile ?
 		
 	}
 	/**
@@ -117,17 +126,25 @@ agent EnvironmentAgent {
 		synchronized(this) {
 		
 			while(SpawnButtonRequestA){
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
+					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+					spawnInContextWithID(
+					agentType,
+					body.getId,
+					defaultContext,
+					agentParameters.toArray)
 			}
 			while(SpawnButtonRequestB){
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
+					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
+					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
+					var agentType = AgentTest//AgentBody.AgentType //semantique de l'agent
+					spawnInContextWithID(
+					agentType,
+					body.getId,
+					defaultContext,
+					agentParameters.toArray)
 			}
-			if(time%10==0){
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
-			}
-			
-			
 //			var t1 = System.nanoTime()
 			resolveInfluences(actions)
 //			var t2 = System.nanoTime()
