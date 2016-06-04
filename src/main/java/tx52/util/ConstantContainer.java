@@ -6,7 +6,7 @@ import java.awt.Dimension;
 public class ConstantContainer {
 	
 	//Agent or Body Related
-	public static final int NB_AGENTS = 5;
+	public static final int NB_AGENTS = 1;
 	
 	public static final float BASIC_PERCEPTION_DISTANCE=10f;
 	public static final float BASIC_MAX_LINEAR_SPEED=1f;
