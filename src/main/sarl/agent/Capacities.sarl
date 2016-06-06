@@ -58,6 +58,8 @@ capacity MapManager {
 	
 	def SpawnButtonRequestB : boolean
 	
+	def test
+	
 }
 
 capacity PhysicEnvironment {

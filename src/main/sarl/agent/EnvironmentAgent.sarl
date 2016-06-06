@@ -10,6 +10,7 @@ import java.util.UUID
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.EnvironmentListener
 import tx52.util.ConstantContainer
+import tx52.util.GenerateCsv
 import java.util.concurrent.LinkedBlockingDeque
 
 /**
@@ -28,6 +29,8 @@ agent EnvironmentAgent {
 	var spaceID : UUID  
 	var countInit = 0
 	val agentNumber = ConstantContainer.NB_AGENTS
+	var d : long[] = newLongArrayOfSize(1000)
+	var i : int =0
 
 	on Initialize{
 		
@@ -124,7 +127,7 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-		
+			test
 			while(SpawnButtonRequestA){
 					var body = createUnit(ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
 					var agentParameters : List<Object> = newArrayList(spaceID,this.getID/*BehaviorType */)
@@ -150,12 +153,18 @@ agent EnvironmentAgent {
 //			var t2 = System.nanoTime()
 //			var result = t2-t1;
 //			System.out.println("Time to resolve influences : " + result)
-			
+			var t1 = System.nanoTime()			
 			updateTree
-//			var t1 = System.nanoTime()
+			var t2 = System.nanoTime()
+			var result = t2-t1
+			if (i < 500)
+				this.d.set(i,result)
+			i++
+			if (i == 500){
+				GenerateCsv.generateCsvFile(d);
+			}
 			updateWindow 
-//			var t2 = System.nanoTime()
-//			System.out.println("Time to draw GUI : " + (t2-t1))
+
 			//printTree //debug
 			TimeStep
 			WaitUntilEndOfStep
