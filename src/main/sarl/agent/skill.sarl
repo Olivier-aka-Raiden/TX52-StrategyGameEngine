@@ -6,8 +6,9 @@ import io.sarl.lang.core.Address
 import io.sarl.util.OpenEventSpace
 import io.sarl.util.Scopes
 import java.util.ArrayList
-import java.util.List
+import java.util.Random
 import java.util.UUID
+import java.util.concurrent.LinkedBlockingDeque
 import org.arakhne.afc.math.continous.object2d.Vector2f
 import org.jbox2d.common.Vec2
 import tx52.environment.AgentBody
@@ -19,8 +20,9 @@ import tx52.environment.StaticObject
 import tx52.gui.Window
 import tx52.util.AddressUUIDScope
 import tx52.util.ConstantContainer
-import java.util.Random
-import java.util.concurrent.LinkedBlockingDeque
+import java.util.List
+import io.sarl.lang.core.Agent
+import io.sarl.core.Lifecycle
 
 skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
@@ -36,7 +38,7 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 		this.spaceID = spaceID
 	}
 
-	override install { 
+	override install {  
 		do {
 			this.physicSpace = defaultContext.getSpace(this.spaceID) 
 			Thread::yield
@@ -69,7 +71,7 @@ skill StandardPhysicEnvironment implements PhysicEnvironment {
 
 skill DefaultMapManagerSkill implements MapManager {
 	
-	uses DefaultContextInteractions
+	uses DefaultContextInteractions, Lifecycle
 	
 	val width : float
 	val height : float
@@ -164,7 +166,6 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 
 	override createUnit(perceptionDistance : float, team : int) : AgentBody {
-		// TODO Auto-generated action.
 		var x : int
 		var y : int
 		if (team == 1 ){
@@ -215,7 +216,6 @@ skill DefaultMapManagerSkill implements MapManager {
 	}
 	
 	override RunJbox {
-		
 		this.environment.runJBox()
 	}
 	
@@ -238,6 +238,17 @@ skill DefaultMapManagerSkill implements MapManager {
 			this.environment.world.removeBody(id)
 		}
 	}
+	
+	override spawnAgent (spaceID : UUID, environmentID : UUID,agentType : Class<? extends Agent>,perceptionDistance : float,team : int) : UUID {
+			var body = createUnit(perceptionDistance,team)
+			var agentParameters : List<Object> = newArrayList(spaceID,environmentID)
+			spawnInContextWithID(
+			agentType,
+			body.getId,
+			defaultContext,
+			agentParameters.toArray)
+	}
+	
 	
 	override SpawnButtonRequestA : boolean {
 		if (!this.environment.getEventFire().isEmpty()){

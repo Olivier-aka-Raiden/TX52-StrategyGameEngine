@@ -9,8 +9,6 @@ import Behaviour.WanderBehaviour
 import io.sarl.core.DefaultContextInteractions
 import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
-import Behaviour.KinematicSeekBehaviour
-import tx52.util.ConstantContainer
 import java.util.UUID
 
 /**
