@@ -1,15 +1,12 @@
 package ^agent
 
-import java.util.ArrayList
-import java.util.List
 import java.util.UUID
-import org.arakhne.afc.math.continous.object2d.Point2f
+import java.util.concurrent.LinkedBlockingDeque
 import org.arakhne.afc.math.continous.object2d.Vector2f
 import tx52.environment.AgentBody
 import tx52.environment.EnvironmentChangeQuery
-import tx52.environment.Perceivable
 import tx52.environment.RTree
-import java.util.concurrent.LinkedBlockingDeque
+import io.sarl.lang.core.Agent
 
 /**
  * @author Olivier
@@ -43,6 +40,8 @@ capacity MapManager {
 	/** Create basic Unit */
 	def createUnit(perceptionDistance : float, team : int) : AgentBody
 	
+	def spawnAgent (spaceID : UUID, environmentID : UUID,agentType : Class<? extends Agent>,perceptionDistance : float,team : int) : UUID
+	
 	/** Create the map surroundings walls */
 	def createMapSurroundings
 	
@@ -50,10 +49,11 @@ capacity MapManager {
 	
 	def RunJbox
 	
+	def printTree
+	
+	// GUI related
 	def updateWindow
 	
-	def printTree
-
 	def SpawnButtonRequestA : boolean
 	
 	def SpawnButtonRequestB : boolean
@@ -62,6 +62,9 @@ capacity MapManager {
 	
 }
 
+/**
+ * capacity that agent uses to send influence
+ */
 capacity PhysicEnvironment {
 	
 	/** Invoked to send the influence to the environment.
