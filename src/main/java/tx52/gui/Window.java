@@ -3,10 +3,15 @@ package tx52.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -112,11 +117,43 @@ public class Window extends JFrame {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-
+		protected BufferedImage image1;
+		protected BufferedImage image2;
+		
+		public UnitPanel (){
+			super();
+			// Resources dans AFC vmutils
+			URL url;
+			try {
+				url = getClass().getClassLoader().getResource("images/unit.png");
+				assert (url != null);
+				image1 = ImageIO.read(url);
+				BufferedImage newImage = new BufferedImage(image1.getWidth(), image1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		    	Graphics2D g = newImage.createGraphics();
+		    	g.drawImage(image1, 0, 0, image1.getWidth(), image1.getHeight(), null);
+		    	g.dispose();
+		    	image1=newImage;
+				assert (url != null);
+				url = getClass().getClassLoader().getResource("images/unit2.png");
+				image2 = ImageIO.read(url);
+				newImage = new BufferedImage(image2.getWidth(), image2.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		    	g = newImage.createGraphics();
+		    	g.drawImage(image2, 0, 0, image2.getWidth(), image2.getHeight(), null);
+		    	g.dispose();
+		    	image2=newImage;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		@Override
 		public void paint(Graphics g) {
 			for (Unit unit : Window.this.units.values()) {
-				unit.paint(g, this);
+				if (unit.team == 1)
+					unit.paint(g,image1, this);
+				else
+					unit.paint(g,image2, this);
 			}
 		}
 		

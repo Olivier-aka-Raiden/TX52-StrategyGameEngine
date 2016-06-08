@@ -77,7 +77,6 @@ agent EnvironmentAgent {
 	on Influence [occurrence.time >= time] {  
 		
 		synchronized(this) {
-			
 			if(occurrence instanceof MotionInfluence){
 				this.actions.add(new EnvironmentChangeQuery(occurrence.source.getUUID,occurrence.vector,ConstantContainer.MOTION_TYPE)) 
 			}else if (occurrence instanceof ShootInfluence){
@@ -118,38 +117,42 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-			test
+			if(i<100)
+				test
 			while(SpawnButtonRequestA){
 				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
 			}
 			while(SpawnButtonRequestB){
 				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
 			}
-			if(time%10==0){
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
-			}
-			
+//			if(time%10==0){
+//				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+//				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
+//			}		
 			
 //			var t1 = System.nanoTime()
 			resolveInfluences(actions)
 //			var t2 = System.nanoTime()
 //			var result = t2-t1;
 //			System.out.println("Time to resolve influences : " + result)
-			var t1 = System.nanoTime()			
+//			var t1 = System.nanoTime()			
 			updateTree
+//			var t2 = System.nanoTime()
+//			var result = t2-t1
+			
+			var t1 = System.nanoTime()
+			updateWindow 
 			var t2 = System.nanoTime()
-			var result = t2-t1
+			var result = t2 - t1
+			
+			//printTree //debug
+			TimeStep
 			if (i < 500)
 				this.d.set(i,result)
 			i++
 			if (i == 500){
 				GenerateCsv.generateCsvFile(d);
 			}
-			updateWindow 
-
-			//printTree //debug
-			TimeStep
 			WaitUntilEndOfStep
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			//var t2 = System.nanoTime()
