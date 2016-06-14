@@ -7,6 +7,9 @@
 \usepackage{geometry}
 \geometry{margin=3cm}
 
+\newcommand{\quotes}[1]{``#1''}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
 %opening
 \title{\textbf{TX52 - scientific project report }\\
   Create a Real-Time Strategy Game Engine with SARL, an agent oriented language}
@@ -22,6 +25,7 @@
 \chapter{Project Definition}
 
 \section {Introduction}
+
 ~
 
 The subject of our project is to create a Real-Time Strategy (RTS) game engine using SARL language, an agent oriented language based on java.
@@ -41,7 +45,7 @@ Firstly, we have to define what is a RTS game and what are the important specifi
 
 ~
 
-First of all, as the gaming tools and games are developped in private companies it is difficult to get recent public papers about the actual technologies used in RTS games. 
+First of all, as the gaming tools and games are developed in private companies it is difficult to get recent public papers about the actual technologies used in RTS games. 
 That's why our sources may be a little bit old but it is easier to find public sources from a couple of years ago.
 
 ~
@@ -98,7 +102,7 @@ in other video game genres.
 
 ~
 
-RTS games take place on a map, composed of a finit or infinit number of cells with a position organised in a grid. On this basis,
+RTS games take place on a map, composed of a finite or infinite number of cells with a position organized in a grid. On this basis,
 you can choose to create a continue or discontinue environment space. Most of the RTS are still based on a two-dimensional map even 
 in 3D engines. In fact, newer games didn't innovate much on the initial concept but tend to emphasize more on the basic RTS elements
 such as higher unit cap, more unit types, larger maps, etc.
@@ -111,8 +115,21 @@ Environments can implement climate changes, different types of terrain that impa
 
 ~
 
-
-
+Path finding is the ability for the agent to find his way from his position to a destination by taking the shortest path and of course avoiding the obstacles between him and the destination position.
+In most commercial RTSs, the solution for the path finding is using A* over a navigation mesh (commonly referred to as a \quotes{navmesh}). Navmesh is used to create the nodes of our graph by creating polygons	on the surface area where the agents can move. This can be hard coded and so labor intensive or it is possible to create an algorithm that generate the navmesh from a given map.
+When the navmesh is created, you can apply A* algorithm on the graph to determine the shortest path.
+To do so, here is a short explanation of how A* algorithm works:
+\begin{itemize}
+ \item Create two lists : CLOSED for the nodes already evaluated and OPEN for the ones to be evaluated. Add the starting node to the OPEN list.
+ \item A loop : select the lowest cost node in open and move it to the CLOSED list
+ \item \tab if the node is the target then it's over
+ \item \tab for each neighbour of the selected node, if it is in CLOSED skip to the next neighbour
+ \item \tab \tab if the new path to neighbour is shorter or neighbour is not in OPEN then set his new path cost and set the current node as its parent
+ \item \tab \tab if neighbour is not in OPEN add neighbour to OPEN.
+ \item	\tab end of for
+ \item end of loop
+\end{itemize}
+             
 ~
 
 \subsection{AIs in RTS}
@@ -164,10 +181,10 @@ Firstly, the diagram below shows the class diagram of the environment :
 
 ~
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
  \parshape1 -2.5cm 21cm
  \centering
- \includegraphics[scale=0.5]{TX52}
+ \includegraphics[scale=0.5]{TX52UML}
  \caption{Environment UML}
 \end{figure}
 \parshape0
@@ -186,27 +203,33 @@ that we added with a specific perceptionDistance, attack speed, life and also it
 
 ~
 
-Finally, within his perception range, agents have a list of Perceivable which contains the ID of the object and several informations that
+Finally, within his perception range, agents have a list of Perceivable which contains the ID of the object and several information that
 will be used to decide its following influence. Finally, EnvironmentChangeQuery is used to communicate with the environment agent and transmit
 the next influence.
 
 ~
 
+\newpage
+
 The following UML shows the agent part mostly written in SARL :
 
 ~
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
  \parshape1 -2.5cm 21cm
  \centering
- \includegraphics[scale=0.6]{TX52Agent}
+ \includegraphics[scale=0.6]{TX52AgentUML}
  \caption{Agent UML}
 \end{figure}
 \parshape0
 
 ~
 
+\section {Application}
 
+~
+
+\section {Performance}
 
 
 \end{document}
