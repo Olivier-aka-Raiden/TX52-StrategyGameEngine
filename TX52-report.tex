@@ -39,7 +39,7 @@ Firstly, we have to define what is a RTS game and what are the important specifi
   On the other hand, the tactical level or local AI concerns more concrete decisions (handle the actions : moving,attacking,producing etc.) and is responsible for achieving the objectives defined at the strategic level.
 \end{itemize}
 
-~
+\newpage
 
 \section {State of the art}
 
@@ -149,7 +149,7 @@ which are directly in charge of completing the low-level task.
 \textbf{References} 
 \textit{\\Incorporating Search Algorithms into RTS Game Agents},
 David Churchill and Michael Buro
-
+\newpage
 \section {Models}
 
 ~
@@ -172,7 +172,7 @@ Our program is divided in three major parts :
 \end{itemize}
 
 ~
-
+\newpage
 \subsection{UML}
 
 ~
@@ -203,9 +203,8 @@ that we added with a specific perceptionDistance, attack speed, life and also it
 
 ~
 
-Finally, within his perception range, agents have a list of Perceivable which contains the ID of the object and several information that
-will be used to decide its following influence. Finally, EnvironmentChangeQuery is used to communicate with the environment agent and transmit
-the next influence.
+Lastly, within his perception range, agents have a list of Perceivable which contains the ID of the object and several information that
+will be used to decide its following influence. also, EnvironmentChangeQuery is used to communicate with the environment agent and transmit the next influence.
 
 ~
 
@@ -224,12 +223,85 @@ The following UML shows the agent part mostly written in SARL :
 \parshape0
 
 ~
-
+\newpage
 \section {Application}
 
 ~
 
+In this section, we will show the window of our application. Firstly the map :
+
+~
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5]{GUI2}
+ \caption{map}
+\end{figure}
+
+~
+
+Like you can see the color of the unit shows the team and our units randomly walk around the map until they are in range of an enemy unit and stops to start shooting.
+
+~
+
+We added the possibility to spawn new units for each team on the right side with a spawn button :
+
+~
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5]{GUI3}
+ \caption{Screenshot of the application window}
+\end{figure}
+
+\newpage
+
 \section {Performance}
+
+~
+
+In this section, to test the performance of our program we tried to see the evolution of the elapsed time of some key functions. The conditions will always be the same : we spawn 1 agent at every step and we look at the 500 first steps of the execution.
+
+~
+
+The first one is the function that resolves influences :
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.5]{resolveInfluence}
+ \caption{Elapsed time of resolveInfluence()}
+\end{figure}
+
+We can see that the results are satisfying with an average time around $2.5\times10^{-6}$ s.
+
+~
+
+The next one is about the updateTree() function :
+
+\begin{figure}[h]
+ \includegraphics[scale=0.5]{updateTree}
+ \caption{Elapsed time of updateTree()}
+\end{figure}
+Here, the elapsed time is more stable overall but we can notice big spikes occasionally that are 9 times longer than the average value of $1.0\times10^{-5}$ s. We didn't find any explanation on the reason why it happens.
+
+\newpage
+
+For the third test, we are looking at updateWindow(), it is the most time consumming function and we faced some difficulties to improve the performance and manage to display a large number of units without any spikes. At this point, the window can display until 300 units before slowing down the framerate.
+
+~
+
+\begin{figure}[h]
+ \includegraphics[scale=0.5]{updateWindow}
+ \caption{Elapsed time of updateWindow()}
+\end{figure}
+
+~
+
+Problem: the results are unexpected because as much as time goes by and the number of units increase the time computed is shorter, the explanation we assumed is that the window has a seperate thread from the main cycle and so the execution doesn't wait that the window has refreshed before continuing the cycle.
+
+\section {Conclusion}
+
+blabla
 
 
 \end{document}
