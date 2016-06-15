@@ -13,8 +13,8 @@ import tx52.util.ConstantContainer;
 
 public class DynamicObject extends EnvironmentObject{
 	
-	private float maxLinearSpeed;
-	private float maxAngularSpeed;
+	protected float maxLinearSpeed;
+	protected float maxAngularSpeed;
 
 	/**
 	 * Creation with a polygon (rectangle) shape

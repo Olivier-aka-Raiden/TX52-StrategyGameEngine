@@ -26,6 +26,7 @@ import tx52.environment.EnvironmentEvent
 import java.util.List
 import io.sarl.lang.core.Agent
 import io.sarl.core.Lifecycle
+import tx52.util.Semantic
 
 skill StandardPhysicEnvironment implements PhysicEnvironment { 
 
@@ -168,7 +169,7 @@ skill DefaultMapManagerSkill implements MapManager {
 		this.environment.world.getAgentBody(id)
 	}
 
-	override createUnit(perceptionDistance : float, team : int) : AgentBody {
+	override createUnit(perceptionDistance : float, team : int,type : Semantic) : AgentBody {
 		var x : int
 		var y : int
 		if (team == 1 ){
@@ -191,7 +192,7 @@ skill DefaultMapManagerSkill implements MapManager {
 			}
 			
 		}
-		return this.environment.world.createBody(typeof(AgentBody),x,y,null,team,this.environment.getjBoxWorld(),perceptionDistance)
+		return this.environment.world.createBody(typeof(AgentBody),x,y,null,team,this.environment.getjBoxWorld(),perceptionDistance,type)
 	
 	}
 	
@@ -242,8 +243,8 @@ skill DefaultMapManagerSkill implements MapManager {
 		}
 	}
 	
-	override spawnAgent (spaceID : UUID, environmentID : UUID,agentType : Class<? extends Agent>,perceptionDistance : float,team : int) : UUID {
-			var body = createUnit(perceptionDistance,team)
+	override spawnAgent (spaceID : UUID, environmentID : UUID,agentType : Class<? extends Agent>,perceptionDistance : float,team : int,type : Semantic) : UUID {
+			var body = createUnit(perceptionDistance,team,type)
 			var agentParameters : List<Object> = newArrayList(spaceID,environmentID)
 			spawnInContextWithID(
 			agentType,

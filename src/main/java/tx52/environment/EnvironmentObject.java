@@ -6,12 +6,16 @@ import org.arakhne.afc.math.continous.object2d.Point2f;
 import org.arakhne.afc.math.continous.object2d.Rectangle2f;
 import org.jbox2d.dynamics.Body;
 
+import tx52.util.Semantic;
+
 public abstract class EnvironmentObject {
 	
 	protected float width;
 	protected float height;
 	protected UUID id;
 	protected Body body;
+	protected Semantic semantic=Semantic.Unknonw;
+	protected String name="None";
 	
 	protected TreeNode node;
 	//protected final enum type;
@@ -75,6 +79,16 @@ public abstract class EnvironmentObject {
 		
 		return "UUID : " + id + "   Position : (" + getPosition().getX() + "," + getPosition().getY() + ")";
 		
+	}
+
+	public String getName() {
+		
+		return this.name;
+	}
+
+	public Semantic getSemantic() {
+		
+		return this.semantic;
 	}
 	
 }

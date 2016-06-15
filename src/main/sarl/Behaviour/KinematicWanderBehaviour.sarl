@@ -2,6 +2,7 @@ package Behaviour
 
 import org.arakhne.afc.math.continous.object2d.Point2f
 import org.arakhne.afc.math.continous.object2d.Vector2f
+import java.util.Random
 
 /**
  * @author Dudul
@@ -9,29 +10,37 @@ import org.arakhne.afc.math.continous.object2d.Vector2f
  */
 class KinematicWanderBehaviour implements WanderBehaviour{	
 	
-	//val generator = new Random
+	val generator = new Random
 	
-	def random : double {
-		return Math::random - Math::random
-		//
-		//
+	def random : float {
+		return generator.nextFloat - generator.nextFloat
 	}
 	
 	override runWander(position : Point2f, orientation : Vector2f, linearSpeed : float, maxLinear : float, angularSpeed : float, maxAngular : float) : BehaviourOutput {
 
 		val l = orientation.clone
-		if(l.equals(new Vector2f(0,0))){
-			l.add(new Vector2f(1,1))
-		}else{
-			l.normalize()	
+		if(linearSpeed<maxLinear/2){
+			if(position.getX<=100){
+				if(position.getY<=100){
+					l.add(new Vector2f(1,1))
+				}else{
+					l.add(new Vector2f(1,-1))
+				}		
+			}else if(position.getY<=100){
+				l.add(new Vector2f(-1,1))
+			}else{
+				l.add(new Vector2f(-1,-1))
+			}
+			
 		}
-		
+		l.normalize()		
 		l.scale(maxLinear)
 		val a = random * maxAngular
+		l.turnVector(a)
 	
 		return new BehaviourOutput() => [
 			linear = l
-			angular = a as float
+			angular = a
 		]
 	
 	}

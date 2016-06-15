@@ -7,6 +7,7 @@ import tx52.environment.AgentBody
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.RTree
 import io.sarl.lang.core.Agent
+import tx52.util.Semantic
 
 /**
  * @author Olivier
@@ -38,9 +39,9 @@ capacity MapManager {
 	def getAgentBody(id : UUID) : AgentBody
 	
 	/** Create basic Unit */
-	def createUnit(perceptionDistance : float, team : int) : AgentBody
+	def createUnit(perceptionDistance : float, team : int,type : Semantic) : AgentBody
 	
-	def spawnAgent (spaceID : UUID, environmentID : UUID,agentType : Class<? extends Agent>,perceptionDistance : float,team : int) : UUID
+	def spawnAgent (spaceID : UUID, environmentID : UUID,agentType : Class<? extends Agent>,perceptionDistance : float,team : int,type : Semantic) : UUID
 	
 	/** Create the map surroundings walls */
 	def createMapSurroundings

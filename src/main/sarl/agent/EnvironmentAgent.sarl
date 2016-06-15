@@ -5,13 +5,12 @@ import io.sarl.core.Initialize
 import io.sarl.core.Lifecycle
 import io.sarl.lang.core.Address
 import io.sarl.util.Scopes
-import java.util.List
 import java.util.UUID
+import java.util.concurrent.LinkedBlockingDeque
 import tx52.environment.EnvironmentChangeQuery
 import tx52.environment.EnvironmentListener
 import tx52.util.ConstantContainer
-import tx52.util.GenerateCsv
-import java.util.concurrent.LinkedBlockingDeque
+import tx52.util.Semantic
 
 /**
  * @author Olivier
@@ -29,8 +28,8 @@ agent EnvironmentAgent {
 	var spaceID : UUID  
 	var countInit = 0
 	val agentNumber = ConstantContainer.NB_AGENTS
-	var d : long[] = newLongArrayOfSize(1000)
-	var i : int =0
+//	var d : long[] = newLongArrayOfSize(1000)
+//	var i : int =0
 
 	on Initialize{
 		
@@ -43,11 +42,11 @@ agent EnvironmentAgent {
 		createMapSurroundings 
 		//we create the objects -> need to link the agents
 		for (var i=0;i<agentNumber;i++) {
-			spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+			spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1,Semantic.Marine)
+			spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2,Semantic.Marine)
 		}
 		
 		updateWindow //mis a jour de la vue utilisateur
-		//fireEnvironmentChange
 		
 	}
 	/**
@@ -117,18 +116,18 @@ agent EnvironmentAgent {
 	on RunEndOfStep {
 		
 		synchronized(this) {
-			if(i<100)
-				test
+//			if(i<100)
+//				test
 			while(SpawnButtonRequestA){
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
+				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1,Semantic.Marine)
 			}
 			while(SpawnButtonRequestB){
-				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
+				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2,Semantic.Marine)
 			}
-//			if(time%10==0){
-//				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1)
-//				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2)
-//			}		
+			if(time%10==0){
+				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,1,Semantic.Marine)
+				spawnAgent(spaceID,this.getID,AgentTest,ConstantContainer.BASIC_PERCEPTION_DISTANCE,2,Semantic.Marine)
+			}		
 			
 //			var t1 = System.nanoTime()
 			resolveInfluences(actions)
@@ -140,19 +139,19 @@ agent EnvironmentAgent {
 //			var t2 = System.nanoTime()
 //			var result = t2-t1
 			
-			var t1 = System.nanoTime()
+//			var t1 = System.nanoTime()
 			updateWindow 
-			var t2 = System.nanoTime()
-			var result = t2 - t1
+//			var t2 = System.nanoTime()
+//			var result = t2 - t1
 			
 			//printTree //debug
 			TimeStep
-			if (i < 500)
-				this.d.set(i,result)
-			i++
-			if (i == 500){
-				GenerateCsv.generateCsvFile(d);
-			}
+//			if (i < 500)
+//				this.d.set(i,result)
+//			i++
+//			if (i == 500){
+//				GenerateCsv.generateCsvFile(d);
+//			}
 			WaitUntilEndOfStep
 			emit(new RunBeginingOfStep,Scopes::addresses(adr))
 			//var t2 = System.nanoTime()

@@ -23,9 +23,11 @@ agent AgentTest extends AbstractAnimat {
 	var wanderBehaviour : WanderBehaviour  
 	  
 	on Initialize{
-		super._handle_Initialize_0(occurrence) 
-		//print("Agent Spawn\n")
-		emit(new agentReady)
+		synchronized(this){
+			super._handle_Initialize_0(occurrence) 
+			//print("Agent Spawn\n")
+			emit(new agentReady)
+		}
 	}
 	
 	on Perception{
