@@ -6,9 +6,13 @@
 \contentsline {subsection}{\numberline {1.2.2}Environment}{6}
 \contentsline {subsection}{\numberline {1.2.3}Path Finding}{6}
 \contentsline {subsection}{\numberline {1.2.4}AIs in RTS}{7}
-\contentsline {section}{\numberline {1.3}Models}{8}
-\contentsline {subsection}{\numberline {1.3.1}Architecture}{8}
-\contentsline {subsection}{\numberline {1.3.2}UML}{9}
-\contentsline {section}{\numberline {1.4}Application}{11}
-\contentsline {section}{\numberline {1.5}Performance}{12}
-\contentsline {section}{\numberline {1.6}Conclusion}{13}
+\contentsline {subsection}{\numberline {1.2.5}Analysis}{7}
+\contentsline {chapter}{\numberline {2}Models}{9}
+\contentsline {section}{\numberline {2.1}Architecture}{9}
+\contentsline {section}{\numberline {2.2}UML}{10}
+\contentsline {subsection}{\numberline {2.2.1}Environment class diagram}{10}
+\contentsline {subsection}{\numberline {2.2.2}Agents class diagram}{12}
+\contentsline {section}{\numberline {2.3}Installation and Warnings}{13}
+\contentsline {chapter}{\numberline {3}Application}{15}
+\contentsline {chapter}{\numberline {4}Performance}{17}
+\contentsline {chapter}{\numberline {5}Conclusion}{19}

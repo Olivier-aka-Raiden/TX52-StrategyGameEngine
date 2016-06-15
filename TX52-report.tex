@@ -173,7 +173,6 @@ To conclude, because of the oriented agent design that we choose our solution is
 
 ~
 
-\newpage
 \chapter {Models}
 
 ~
@@ -206,9 +205,9 @@ Firstly, the diagram below shows the class diagram of the environment :
 ~
 
 \begin{figure}[!ht]
- \parshape1 -2.5cm 21cm
+ \parshape1 -3cm 21cm
  \centering
- \includegraphics[scale=0.5]{TX52UML}
+ \includegraphics[scale=0.5]{TX52Agent}
  \caption{Environment Class Diagram}
 \end{figure}
 \parshape0
@@ -280,7 +279,7 @@ If you decide to program yourself new agents there are some rules to follow :
 \end{itemize}
 
 ~
-\newpage
+
 \chapter {Application}
 
 ~
@@ -300,16 +299,20 @@ In this section, we will show the window of our application. Firstly the map :
 Like you can see the color of the unit shows the team and our units randomly walk around the map until they are in range of an enemy unit and stops to start shooting. Units are spawn at a constant rate in one corner of the map.
 
 ~
-
+\newpage
 We added the possibility to spawn new units for each team on the right side with a spawn button :
 
 ~
 
 \begin{figure}[h]
+ \parshape1 -2.5cm 21cm
  \centering
  \includegraphics[scale=0.5]{GUI3}
  \caption{Screenshot of the application window}
 \end{figure}
+\parshape0
+
+~
 
 For this example we created a class AbstractAnimat that contains all requirements to communicate with the world. All units are an instance of the agent "AgentTest" that extends this class. A lot of used function are skills and can be found in the file "skill.sarl".
 
@@ -325,7 +328,7 @@ In this section, to test the performance of our program we tried to see the evol
 
 The first one is the function that resolves influences :
 
-\begin{figure}[h]
+\begin{figure}[ht]
  \centering
  \includegraphics[scale=0.5]{resolveInfluence}
  \caption{Elapsed time of resolveInfluence()}
@@ -333,23 +336,33 @@ The first one is the function that resolves influences :
 
 We can see that the results are satisfying with an average time around $2.5\times10^{-6}$ s.
 
-~
+\newpage
 
 The next one is about the updateTree() function :
 
-\begin{figure}[h]
+\begin{figure}[ht]
  \includegraphics[scale=0.5]{updateTree}
  \caption{Elapsed time of updateTree()}
 \end{figure}
+
 Here, the elapsed time is more stable overall but we can notice big spikes occasionally that are 9 times longer than the average value of $1.0\times10^{-5}$ s. We didn't find any explanation on the reason why it happens.
-
-\newpage
-
-For the third test, we are looking at updateWindow(), it is the most time consumming function and we faced some difficulties to improve the performance and manage to display a large number of units without any spikes. At this point, the window can display until 300 units before slowing down the framerate.
 
 ~
 
-\begin{figure}[h]
+The third test is about sendPerception(), in this function we compute the perception of all agents and so we can expect a bigger elapsed time :
+
+\begin{figure}[ht]
+ \includegraphics[scale=0.5]{sendPerception}
+ \caption{Elapsed time of sendPerception()}
+\end{figure}
+
+As we expected, the time spent in this function is increasing as the number of agents increase, the beginning is not relevant because the function to compute time is not precise for really small time difference but after 100 agents we can see that the elapsed time is mostl likely proportional.
+\newpage
+For the next test, we are looking at updateWindow(), it is the most time consumming function and we faced some difficulties to improve the performance and manage to display a large number of units without any spikes. At this point, the window can display until 300 units before slowing down the framerate.
+
+~
+
+\begin{figure}[ht]
  \includegraphics[scale=0.5]{updateWindow}
  \caption{Elapsed time of updateWindow()}
 \end{figure}
@@ -357,6 +370,8 @@ For the third test, we are looking at updateWindow(), it is the most time consum
 ~
 
 Problem: the results are unexpected because as much as time goes by and the number of units increase the time computed is shorter, the explanation we assumed is that the window has a separate thread from the main cycle and so the execution doesn't wait that the window has refreshed before continuing the cycle.
+
+~
 
 \chapter {Conclusion}
 
