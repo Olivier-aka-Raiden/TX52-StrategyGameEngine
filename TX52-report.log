@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.15)  15 JUN 2016 20:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.5.15)  15 JUN 2016 22:40
 entering extended mode
 **./TX52-report.tex
 (TX52-report.tex
@@ -561,19 +561,19 @@ Chapter 2.
 [9] <TX52UML.png, id=38, 1117.17375pt x 690.58pt>
 File: TX52UML.png Graphic file (type png)
  <use TX52UML.png>
-Package pdftex.def Info: TX52UML.png used on input line 211.
+Package pdftex.def Info: TX52UML.png used on input line 210.
 (pdftex.def)             Requested size: 558.58551pt x 345.28915pt.
  [10 <./TX52UML.png>] [11]
 <TX52AgentUML.png, id=47, 806.01125pt x 614.295pt>
 File: TX52AgentUML.png Graphic file (type png)
  <use TX52AgentUML.png>
-Package pdftex.def Info: TX52AgentUML.png used on input line 243.
+Package pdftex.def Info: TX52AgentUML.png used on input line 242.
 (pdftex.def)             Requested size: 483.61047pt x 368.57983pt.
 
 <TX52SeqDiag.png, id=48, 625.33624pt x 384.43625pt>
 File: TX52SeqDiag.png Graphic file (type png)
  <use TX52SeqDiag.png>
-Package pdftex.def Info: TX52SeqDiag.png used on input line 260.
+Package pdftex.def Info: TX52SeqDiag.png used on input line 259.
 (pdftex.def)             Requested size: 375.20464pt x 230.66351pt.
  [12 <./TX52AgentUML.png>] [13 <./TX52SeqDiag.png>] [14
 
@@ -582,82 +582,82 @@ Chapter 3.
 <GUI2.png, id=61, 636.87938pt x 437.38406pt>
 File: GUI2.png Graphic file (type png)
  <use GUI2.png>
-Package pdftex.def Info: GUI2.png used on input line 294.
+Package pdftex.def Info: GUI2.png used on input line 293.
 (pdftex.def)             Requested size: 318.4389pt x 218.69148pt.
- <GUI3.png, id=62, 1026.08344pt x 459.96844pt>
+ [15 <./GUI2.png>]
+<GUI3.png, id=65, 1026.08344pt x 459.96844pt>
 File: GUI3.png Graphic file (type png)
-
-<use GUI3.png>
+ <use GUI3.png>
 Package pdftex.def Info: GUI3.png used on input line 310.
 (pdftex.def)             Requested size: 513.04047pt x 229.98366pt.
-
-Overfull \hbox (86.24911pt too wide) in paragraph at lines 310--311
- [][] 
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[15 <./GUI2.png>] [16 <./GUI3.png>]
+ [16 <./GUI3.png>]
 Chapter 4.
 <resolveInfluence.png, id=69, 929.72343pt x 287.57437pt>
 File: resolveInfluence.png Graphic file (type png)
  <use resolveInfluence.png>
-Package pdftex.def Info: resolveInfluence.png used on input line 330.
+Package pdftex.def Info: resolveInfluence.png used on input line 333.
 (pdftex.def)             Requested size: 464.86058pt x 143.78683pt.
 
-Overfull \hbox (38.06923pt too wide) in paragraph at lines 330--331
+Overfull \hbox (38.06923pt too wide) in paragraph at lines 333--334
  [][] 
  []
 
-<updateTree.png, id=70, 959.83594pt x 333.49594pt>
-File: updateTree.png Graphic file (type png)
- <use updateTree.png>
-Package pdftex.def Info: updateTree.png used on input line 341.
-(pdftex.def)             Requested size: 479.9168pt x 166.74756pt.
-
-Overfull \hbox (53.12544pt too wide) in paragraph at lines 341--342
-[][] 
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [17
 
- <./resolveInfluence.png>] <updateWindow.png, id=77, 922.19531pt x 353.06906pt>
-File: updateWindow.png Graphic file (type png)
- <use updateWindow.png>
-Package pdftex.def Info: updateWindow.png used on input line 353.
-(pdftex.def)             Requested size: 461.09653pt x 176.53409pt.
+ <./resolveInfluence.png>] <updateTree.png, id=76, 959.83594pt x 333.49594pt>
+File: updateTree.png Graphic file (type png)
+ <use updateTree.png>
+Package pdftex.def Info: updateTree.png used on input line 344.
+(pdftex.def)             Requested size: 479.9168pt x 166.74756pt.
 
-Overfull \hbox (34.30518pt too wide) in paragraph at lines 353--354
+Overfull \hbox (53.12544pt too wide) in paragraph at lines 344--345
 [][] 
  []
 
-[18 <./updateTree.png> <./updateWindow.png>]
-Chapter 5.
-[19
+<sendPerception.png, id=77, 864.98157pt x 304.13625pt>
+File: sendPerception.png Graphic file (type png)
+ <use sendPerception.png>
+Package pdftex.def Info: sendPerception.png used on input line 355.
+(pdftex.def)             Requested size: 432.48973pt x 152.06775pt.
 
-] (TX52-report.aux) ) 
+Overfull \hbox (5.69838pt too wide) in paragraph at lines 355--356
+[][] 
+ []
+
+[18 <./updateTree.png> <./sendPerception.png>] <updateWindow.png, id=82, 922.19531pt x 353.06906pt>
+File: updateWindow.png Graphic file (type png)
+
+<use updateWindow.png>
+Package pdftex.def Info: updateWindow.png used on input line 366.
+(pdftex.def)             Requested size: 461.09653pt x 176.53409pt.
+
+Overfull \hbox (34.30518pt too wide) in paragraph at lines 366--367
+[][] 
+ []
+
+[19 <./updateWindow.png>] [20
+
+]
+Chapter 5.
+[21] (TX52-report.aux) ) 
 Here is how much of TeX's memory you used:
- 2838 strings out of 495206
- 38196 string characters out of 3180897
+ 2843 strings out of 495206
+ 38305 string characters out of 3180897
  109677 words of memory out of 3000000
- 6087 multiletter control sequences out of 15000+200000
+ 6091 multiletter control sequences out of 15000+200000
  10113 words of font info for 35 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,6n,29p,429b,226s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Olivier/Desktop
-/Latex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmmi10.p
-fb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/
-public/amsfonts/cm/cmr12.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Olivier/
-Desktop/Latex/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cms
-l10.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Olivier/Desktop/Latex/fonts/
-type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on TX52-report.pdf (19 pages, 1922053 bytes).
+<C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Olivier/Desk
+top/Latex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Olivier/Desktop/Latex/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Olivi
+er/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/
+cmsl10.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Olivier/Desktop/Latex/fon
+ts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Olivier/Desktop/Latex/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on TX52-report.pdf (21 pages, 1943424 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
+ 128 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
